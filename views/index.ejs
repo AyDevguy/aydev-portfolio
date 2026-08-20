@@ -521,6 +521,34 @@
     letter-spacing:.02em;
   }
 
+  /* "view all projects" — a real, clearly-tappable button sitting right
+     under the heading copy, where it's seen before anyone has to scroll
+     through the carousel to find it. */
+  .work .view-all-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:26px;
+    padding:13px 22px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:var(--surface);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    transition:background .3s var(--ease-out-cubic), border-color .3s var(--ease-out-cubic), color .3s var(--ease-out-cubic), gap .3s var(--ease-out-cubic);
+  }
+  .work .view-all-btn svg{ width:14px; height:14px; transition:transform .3s var(--ease-out-cubic); }
+  .work .view-all-btn:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--accent-ink);
+    gap:14px;
+  }
+  .work .view-all-btn:hover svg{ transform:translateX(2px); }
+
   .work .fades{
     transition:opacity .3s var(--ease-out-cubic), transform .3s var(--ease-out-cubic);
   }
@@ -809,7 +837,7 @@
   .work .work-footer{
     grid-area:footer;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
     border-top:1px solid var(--line);
     padding-top:14px;
@@ -821,16 +849,6 @@
     color:var(--ink-soft);
   }
   .work .timecode b{ color:var(--accent); font-weight:500; }
-  .work .work-footer .view-all-link{
-    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-    display:inline-flex; align-items:center; gap:9px;
-    color:var(--ink-soft);
-    border-bottom:1px solid var(--line);
-    padding-bottom:6px;
-    transition:color .25s var(--ease-out-cubic), border-color .25s var(--ease-out-cubic), gap .25s var(--ease-out-cubic);
-  }
-  .work .work-footer .view-all-link:hover{ color:var(--ink); border-color:var(--ink-soft); gap:14px; }
-  .work .work-footer .view-all-link svg{ width:13px; height:13px; }
 
   @media (min-width: 781px) and (max-width: 1100px){
     .work{ padding-top:44px; row-gap:20px; }
@@ -1381,24 +1399,30 @@
 <section class="work" id="work">
 
   <!-- Rendered server-side from data/projects.json on every request —
-       see routes/site.js and utils/projectsStore.js. -->
+       see routes/site.js and utils/projectsStore.js. Capped to the 4
+       most recent projects — the full archive lives at /projects. -->
+  <% var shown = Math.min(projects.length, 4); %>
   <div id="workData" hidden>
-    <% projects.forEach(function(p) { %>
+    <% projects.slice(0, shown).forEach(function(p) { %>
     <div class="work-item"
       data-title="<%= p.title %>"
       data-category="<%= p.category %>"
       data-color-1="<%= p.color1 %>"
       data-color-2="<%= p.color2 %>"
       <% if (p.coverImage) { %>data-image="<%= p.coverImage %>"<% } %>
-      data-url="<%= p.liveUrl || ('/work/' + p.slug) %>"
+      data-url="<%= p.liveUrl || ('/projects/' + p.slug) %>"
       data-slug="<%= p.slug %>"></div>
     <% }); %>
   </div>
 
   <div class="work-heading" data-observe>
     <span class="eyebrow">Selected&nbsp;work</span>
-    <h1>Recent builds</h1>
-    <p class="work-stats line-reveal-text" data-observe>A snapshot of <%= projects.length %> project<%= projects.length === 1 ? '' : 's' %> shipped to date.</p>
+    <h1 class="line-reveal">Featured projects</h1>
+    <p class="work-stats line-reveal-text" data-observe>A closer look at <%= shown %> recent build<%= shown === 1 ? '' : 's' %>, pulled from <%= projects.length %> shipped to date.</p>
+    <a href="/projects" class="view-all-btn">
+      <span>View all projects</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
 
   <div class="work-tabs fades" id="tabs" role="tablist" aria-label="Select project" data-hidden="false"></div>
@@ -1434,11 +1458,7 @@
   </div>
 
   <div class="work-footer">
-    <span class="timecode fades" id="timecode" data-hidden="false">01 / 04</span>
-    <a href="/projects" class="view-all-link">
-      View all projects
-      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+    <span class="timecode fades" id="timecode" data-hidden="false">01 / <%= String(shown).padStart(2,'0') %></span>
   </div>
 
 </section>
@@ -2039,8 +2059,7 @@
               </div>
             </div>`;
           slide.addEventListener("click", () => {
-            if (slot === activeSlot && p.url) window.location.href = p.url;
-            else goToSlot(slot);
+            if (p.url) window.location.href = p.url;
           });
           trackEl.appendChild(slide);
           slides[slot] = slide;
@@ -2158,6 +2177,17 @@
       navGroup.dataset.hidden = hideChrome ? "true" : "false";
       tabsEl.dataset.hidden   = hideChrome ? "true" : "false";
       timecodeEl.dataset.hidden = hideChrome ? "true" : "false";
+
+      // Controls that just got hidden (opacity:0, pointer-events:none) can
+      // still hold real keyboard focus if that's where the user was when
+      // they pressed S/D/T — leaving a focus-visible ring "trapped" on an
+      // invisible control and no visible indicator of what's now active.
+      // Move focus off them immediately so nothing stale is left behind.
+      if (hideChrome && document.activeElement){
+        if (navGroup.contains(document.activeElement) || tabsEl.contains(document.activeElement)){
+          document.activeElement.blur();
+        }
+      }
 
       if (prevView !== "stage" && v !== "stage"){
         gsap.to(gridEl, {
@@ -2566,7 +2596,7 @@
     });
   }
 
-  var revealTargets = document.querySelectorAll('h2.line-reveal, .line-reveal-text, [data-observe]');
+  var revealTargets = document.querySelectorAll('h2.line-reveal, .work-heading h1.line-reveal, .line-reveal-text, [data-observe]');
   function reveal(el){
     if (el.classList.contains('line-reveal') || el.classList.contains('line-reveal-text')){
       (function tryPlay(){
