@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.css">
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
 
   /* ==========================================================
@@ -27,7 +25,7 @@
     --accent:    #B9536E;
     --accent-ink:#FBFAF4;
     --ok:        #8FBF6E;
-    --grid-line: rgba(243,225,200,.13);
+    --grid-line: rgba(243,225,200,.10);
     --frame-white: #FBFAF6;
 
     /* menu palette is always the INVERSE of the current theme */
@@ -58,7 +56,7 @@
     --accent:    #9C3413;
     --accent-ink:#FBFAF4;
     --ok:        #178C4E;
-    --grid-line: rgba(10,11,13,.07);
+    --grid-line: rgba(10,11,13,.05);
 
     --menu-bg:       #18130F;
     --menu-surface:  #221B15;
@@ -476,7 +474,8 @@
       "heading heading  heading"
       ".       tabs     controls"
       "stage   stage    stage"
-      "footer  footer   footer";
+      "footer  footer   footer"
+      "cta     cta      cta";
     row-gap:clamp(18px,3vw,26px);
     column-gap:24px;
     align-items:start;
@@ -494,7 +493,13 @@
   .work .work-controls[data-observe]{ transition-delay:.1s; }
   .work .work-stage-wrap[data-observe]{ transition-delay:.18s; }
 
-  .work .work-heading{ grid-area:heading; text-align:center; }
+  .work .work-heading{
+    grid-area:heading;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
   .work .eyebrow{
     display:block;
     font-family:var(--mono);
@@ -507,47 +512,62 @@
   .work .work-heading h1{
     font-family:var(--display);
     font-weight:400;
-    font-style:italic;
+    font-style:normal;
     font-size:clamp(40px, 6vw, 72px);
     line-height:.95;
     letter-spacing:-.01em;
     max-width:none;
   }
+  .work .work-desc{
+    margin-top:20px;
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:48ch;
+  }
   .work .work-stats{
-    margin-top:14px;
+    margin-top:12px;
     font-family:var(--mono);
     font-size:12px;
-    color:var(--ink-soft);
+    color:var(--ink-faint);
     letter-spacing:.02em;
   }
 
-  /* "view all projects" — a real, clearly-tappable button sitting right
-     under the heading copy, where it's seen before anyone has to scroll
-     through the carousel to find it. */
+  /* "view all projects" — its own full-width row right after the carousel,
+     unmissable rather than tucked into a corner: a solid, high-contrast
+     pill sized well above a normal button, dead-centered under everything
+     the visitor just scrolled through. */
+  .work .work-cta{
+    grid-area:cta;
+    display:flex;
+    justify-content:center;
+    padding-top:8px;
+  }
   .work .view-all-btn{
     display:inline-flex;
     align-items:center;
-    gap:10px;
-    margin-top:26px;
-    padding:13px 22px;
-    border:1px solid var(--line);
-    border-radius:999px;
-    background:var(--surface);
-    color:var(--ink);
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    transition:background .3s var(--ease-out-cubic), border-color .3s var(--ease-out-cubic), color .3s var(--ease-out-cubic), gap .3s var(--ease-out-cubic);
-  }
-  .work .view-all-btn svg{ width:14px; height:14px; transition:transform .3s var(--ease-out-cubic); }
-  .work .view-all-btn:hover{
-    background:var(--accent);
-    border-color:var(--accent);
-    color:var(--accent-ink);
     gap:14px;
+    padding:20px 40px;
+    border:1px solid var(--accent);
+    border-radius:999px;
+    background:var(--accent);
+    color:var(--accent-ink);
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    white-space:nowrap;
+    box-shadow:0 8px 28px -12px var(--accent);
+    transition:transform .3s var(--ease-out-cubic), box-shadow .3s var(--ease-out-cubic), gap .3s var(--ease-out-cubic);
   }
-  .work .view-all-btn:hover svg{ transform:translateX(2px); }
+  .work .view-all-btn svg{ width:16px; height:16px; transition:transform .3s var(--ease-out-cubic); }
+  .work .view-all-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 36px -12px var(--accent);
+    gap:18px;
+  }
+  .work .view-all-btn:hover svg{ transform:translateX(3px); }
 
   .work .fades{
     transition:opacity .3s var(--ease-out-cubic), transform .3s var(--ease-out-cubic);
@@ -870,7 +890,8 @@
         "controls"
         "stage"
         "tabs"
-        "footer";
+        "footer"
+        "cta";
       row-gap:16px;
     }
     .work .work-controls{ justify-self:center; }
@@ -1410,7 +1431,7 @@
       data-color-1="<%= p.color1 %>"
       data-color-2="<%= p.color2 %>"
       <% if (p.coverImage) { %>data-image="<%= p.coverImage %>"<% } %>
-      data-url="<%= p.liveUrl || ('/projects/' + p.slug) %>"
+      data-url="<%= p.liveUrl || ('/work/' + p.slug) %>"
       data-slug="<%= p.slug %>"></div>
     <% }); %>
   </div>
@@ -1418,11 +1439,8 @@
   <div class="work-heading" data-observe>
     <span class="eyebrow">Selected&nbsp;work</span>
     <h1 class="line-reveal">Featured projects</h1>
-    <p class="work-stats line-reveal-text" data-observe>A closer look at <%= shown %> recent build<%= shown === 1 ? '' : 's' %>, pulled from <%= projects.length %> shipped to date.</p>
-    <a href="/projects" class="view-all-btn">
-      <span>View all projects</span>
-      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+    <p class="work-desc line-reveal-text">A hand-picked set of recent builds — real products, for real clients, designed and shipped end to end.</p>
+    <p class="work-stats">Showing <%= shown %> of <%= projects.length %> project<%= projects.length === 1 ? '' : 's' %> shipped to date.</p>
   </div>
 
   <div class="work-tabs fades" id="tabs" role="tablist" aria-label="Select project" data-hidden="false"></div>
@@ -1459,6 +1477,13 @@
 
   <div class="work-footer">
     <span class="timecode fades" id="timecode" data-hidden="false">01 / <%= String(shown).padStart(2,'0') %></span>
+  </div>
+
+  <div class="work-cta">
+    <a href="/projects" class="view-all-btn">
+      <span>View all projects</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
 
 </section>
@@ -1675,14 +1700,22 @@
   </div>
 </footer>
 
+<!-- Moved down from <head>: these were render-blocking the very first
+     paint (browser had to fetch+parse both before it could show any
+     HTML/CSS). Loading them here, right before the code that uses them,
+     lets the page paint immediately and picks up the couple hundred ms
+     of perceived "slow load". -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <script>
 (function(){
   /* ---- smooth scroll: runs on native scroll, so every existing
      window scroll listener below keeps working untouched ---- */
   if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     window.__lenis = new window.Lenis({
-      lerp: 0.09,
-      duration: 1.5,
+      lerp: 0.11,
+      duration: 1.1,
       easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true,
       wheelMultiplier: 1,
@@ -1839,21 +1872,46 @@
     if (!mask || !track) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // The track ships with 2 copies of the testimonial set (needed for the
+    // seamless-loop trick), but 2 copies only actually cover screens
+    // narrower than one set's width. On anything wider — most desktops —
+    // the visible mask window is wider than a single set, so the track
+    // runs out of cards mid-scroll, well before the loop point, and the
+    // marquee visibly gaps/jumps instead of looping forever. Fix: measure
+    // one set's true width, then clone as many extra copies as needed to
+    // always keep a full mask-width of buffer ahead of the wrap — genuinely
+    // infinite at any viewport size.
+    const baseCards = Array.prototype.slice.call(track.children, 0, track.children.length / 2);
     let setWidth = 0;
-    function measure(){
-      const cards = track.children;
-      const half = cards.length / 2;
-      if (half > 0 && cards[half]){
-        setWidth = cards[half].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+
+    function rebuild(){
+      if (!baseCards.length) return;
+      track.innerHTML = '';
+      function addSet(decorative){
+        baseCards.forEach(function(c){
+          const clone = c.cloneNode(true);
+          if (decorative) clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        });
       }
+      addSet(false);
+      addSet(true);
+      const firstOfSet2 = track.children[baseCards.length];
+      setWidth = firstOfSet2.getBoundingClientRect().left - track.children[0].getBoundingClientRect().left;
+      if (setWidth <= 0) return;
+      const maskWidth = mask.getBoundingClientRect().width;
+      const copiesNeeded = Math.max(2, Math.ceil((maskWidth + setWidth) / setWidth) + 1);
+      for (let i = 2; i < copiesNeeded; i++) addSet(true);
     }
-    measure();
-    window.addEventListener('resize', measure);
+
+    rebuild();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(rebuild, 150);
+    });
     if (document.fonts && document.fonts.ready){
-      document.fonts.ready.then(measure);
-    }
-    if ('ResizeObserver' in window){
-      new ResizeObserver(measure).observe(track);
+      document.fonts.ready.then(rebuild);
     }
 
     let paused = false;
@@ -1952,7 +2010,7 @@
         letters.forEach(l => l.classList.remove('lit'));
         letters[i].classList.add('lit');
         i = (i + 1) % letters.length;
-      }, 260);
+      }, 170);
     }
   })();
 
