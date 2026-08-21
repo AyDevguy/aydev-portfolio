@@ -524,14 +524,7 @@
     font-size:15px;
     line-height:1.7;
     color:var(--ink-soft);
-    max-width:48ch;
-  }
-  .work .work-stats{
-    margin-top:12px;
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--ink-faint);
-    letter-spacing:.02em;
+    max-width:68ch;
   }
 
   /* "view all projects" — its own full-width row right after the carousel,
@@ -873,7 +866,6 @@
   @media (min-width: 781px) and (max-width: 1100px){
     .work{ padding-top:44px; row-gap:20px; }
     .work .work-heading h1{ font-size:clamp(34px, 6.5vw, 58px); }
-    .work .work-stats{ font-size:11px; }
     .work .stage{ --slide-w: clamp(230px, 44vw, 420px); --gap: clamp(10px, 2vw, 22px); height:clamp(380px, 56vh, 560px); }
     .work .cap-title{ font-size:clamp(20px, 3vw, 26px); }
     .work .work-grid{ justify-self:center; }
@@ -1431,7 +1423,7 @@
       data-color-1="<%= p.color1 %>"
       data-color-2="<%= p.color2 %>"
       <% if (p.coverImage) { %>data-image="<%= p.coverImage %>"<% } %>
-      data-url="<%= p.liveUrl || ('/work/' + p.slug) %>"
+      data-url="<%= '/work/' + p.slug %>"
       data-slug="<%= p.slug %>"></div>
     <% }); %>
   </div>
@@ -1440,7 +1432,6 @@
     <span class="eyebrow">Selected&nbsp;work</span>
     <h1 class="line-reveal">Featured projects</h1>
     <p class="work-desc line-reveal-text">A hand-picked set of recent builds — real products, for real clients, designed and shipped end to end.</p>
-    <p class="work-stats">Showing <%= shown %> of <%= projects.length %> project<%= projects.length === 1 ? '' : 's' %> shipped to date.</p>
   </div>
 
   <div class="work-tabs fades" id="tabs" role="tablist" aria-label="Select project" data-hidden="false"></div>
