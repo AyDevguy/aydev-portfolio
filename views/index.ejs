@@ -437,6 +437,7 @@
     .hero-grid{ grid-template-columns:1fr; }
     .panel{ order:1; }
     h1{ max-width:none; }
+    h1.line-reveal{ max-width:none; }
     .subhead{ max-width:none; }
     .scroll-cue{ display:none; }
   }
@@ -887,6 +888,11 @@
       row-gap:16px;
     }
     .work .work-controls{ justify-self:center; }
+    /* the container itself is centered, but when the prev/next arrows
+       fade out (grid views) they still occupy their box, which visually
+       shifts the view-switch buttons off-center within it — collapse
+       their layout space too so the switcher is genuinely centered. */
+    .work #navGroup[data-hidden="true"]{ width:0; margin:0; overflow:hidden; }
     .work .work-tabs{ justify-self:center; }
     .work .work-grid{ justify-self:center; }
     .work .stage{ --slide-w: clamp(240px, 78vw, 460px); height:clamp(380px, 62vh, 560px); }
@@ -998,7 +1004,21 @@
   .services-sub{ margin-top:22px; font-family:var(--mono); font-size:15px; line-height:1.7; color:var(--ink-soft); max-width:48ch; }
 
   .manifest{ list-style:none; border-top:1px solid var(--line); }
-  .manifest-item{ border-bottom:1px solid var(--line); }
+  .manifest-item{
+    border-bottom:1px solid var(--line);
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .6s var(--ease-out-cubic), transform .6s var(--ease-out-cubic);
+  }
+  .manifest-item.in-view{ opacity:1; transform:translateY(0); }
+  .manifest-item:nth-child(1){ transition-delay:0s; }
+  .manifest-item:nth-child(2){ transition-delay:.08s; }
+  .manifest-item:nth-child(3){ transition-delay:.16s; }
+  .manifest-item:nth-child(4){ transition-delay:.24s; }
+  .manifest-item:nth-child(5){ transition-delay:.32s; }
+  @media (prefers-reduced-motion:reduce){
+    .manifest-item{ opacity:1; transform:none; transition:none; }
+  }
   .manifest .row{
     position:relative; display:grid; grid-template-columns:minmax(150px,210px) minmax(0,1fr) auto;
     align-items:start; column-gap:clamp(20px,3.5vw,40px);
@@ -1049,7 +1069,6 @@
     position:absolute; left:50%; top:0; width:2px; height:0;
     background:var(--accent); box-shadow:0 0 10px color-mix(in srgb, var(--accent) 55%, transparent);
     transform:translateX(-50%);
-    transition:height .1s linear;
   }
   .timeline-progress::after{
     content:""; position:absolute; left:50%; bottom:0; transform:translate(-50%,50%);
@@ -1490,7 +1509,7 @@
 
     <ul class="manifest">
 
-      <li class="manifest-item">
+      <li class="manifest-item" data-observe>
         <a class="row" href="#contact">
           <span class="row-tag"><span class="idx">01</span> — Website · Build</span>
           <span class="row-main">
@@ -1506,7 +1525,7 @@
         </a>
       </li>
 
-      <li class="manifest-item">
+      <li class="manifest-item" data-observe>
         <a class="row" href="#contact">
           <span class="row-tag"><span class="idx">02</span> — Motion · Interaction</span>
           <span class="row-main">
@@ -1522,7 +1541,7 @@
         </a>
       </li>
 
-      <li class="manifest-item">
+      <li class="manifest-item" data-observe>
         <a class="row" href="#contact">
           <span class="row-tag"><span class="idx">03</span> — API · Integration</span>
           <span class="row-main">
@@ -1538,7 +1557,7 @@
         </a>
       </li>
 
-      <li class="manifest-item">
+      <li class="manifest-item" data-observe>
         <a class="row" href="#contact">
           <span class="row-tag"><span class="idx">04</span> — Support · Maintenance</span>
           <span class="row-main">
@@ -1554,7 +1573,7 @@
         </a>
       </li>
 
-      <li class="manifest-item is-open">
+      <li class="manifest-item is-open" data-observe>
         <a class="row" href="#contact">
           <span class="row-tag"><span class="idx">05</span> — Open · Scope</span>
           <span class="row-main">
@@ -2029,7 +2048,7 @@
       return `background:var(--surface);`;
     }
     function plateInner(p){
-      return p.img ? `<img class="plate-img" src="${p.img}" alt="${p.title} preview" loading="lazy">` : '';
+      return p.img ? `<img class="plate-img" src="${p.img}" alt="${p.title} preview" loading="lazy" onerror="this.style.display='none'">` : '';
     }
     /* tab thumbnails need an actual CSS background-image value (used
        via inline style, not an <img> element) — cover image if there
@@ -2175,6 +2194,29 @@
 
     function next(){ goToSlot(activeSlot + 1); }
     function prev(){ goToSlot(activeSlot - 1); }
+
+    /* ---------- touch swipe (stage view only) ---------- */
+    (function(){
+      let touchStartX = 0, touchStartY = 0, touching = false;
+      stageEl.addEventListener("touchstart", (e) => {
+        if (view !== "stage" || !e.touches.length) return;
+        touching = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      stageEl.addEventListener("touchend", (e) => {
+        if (!touching) return;
+        touching = false;
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+        // require a mostly-horizontal, deliberate swipe so vertical page
+        // scrolling through the section is never hijacked
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5){
+          if (dx < 0) next(); else prev();
+        }
+      }, { passive: true });
+    })();
 
     function syncStagePosition(){
       if (!trackEl) return;
@@ -2539,12 +2581,20 @@
       var first = group[0], last = group[group.length - 1];
       var firstRect = first.getBoundingClientRect();
       var lastRect = last.getBoundingClientRect();
+      // getBoundingClientRect() on an inline word span reflects the font's
+      // content box, which can sit a hair tighter than the full glyph
+      // extent — descenders on letters like "y", "g", "p" can then poke a
+      // pixel or two past the bar before it finishes covering the line.
+      // Pad the bar generously on every side so nothing is ever visible
+      // outside it, regardless of font metrics quirks across browsers.
+      var padY = Math.max(4, firstRect.height * 0.12);
+      var padX = 3;
       var bar = document.createElement('span');
       bar.className = 'line-sweep';
-      bar.style.top = (firstRect.top - elRect.top) + 'px';
-      bar.style.left = (firstRect.left - elRect.left) + 'px';
-      bar.style.width = (lastRect.right - firstRect.left) + 'px';
-      bar.style.height = firstRect.height + 'px';
+      bar.style.top = (firstRect.top - elRect.top - padY) + 'px';
+      bar.style.left = (firstRect.left - elRect.left - padX) + 'px';
+      bar.style.width = (lastRect.right - firstRect.left + padX * 2) + 'px';
+      bar.style.height = (firstRect.height + padY * 2) + 'px';
       el.appendChild(bar);
       return { bar: bar, words: group };
     });
@@ -2595,7 +2645,7 @@
     if (!words.length) return null;
 
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduceMotion) gsap.set(words, { opacity: 0, y: 10, filter: 'blur(6px)' });
+    if (!reduceMotion) gsap.set(words, { opacity: 0, y: 18, filter: 'blur(9px)' });
 
     var played = false;
     return function play(){
@@ -2603,7 +2653,7 @@
       played = true;
       return gsap.to(words, {
         opacity: 1, y: 0, filter: 'blur(0px)',
-        duration: .8, stagger: 0.016, ease: 'power2.out'
+        duration: .9, stagger: 0.032, ease: 'power2.out'
       });
     };
   }
@@ -2688,7 +2738,10 @@
     var firstRect = allBadges[0].getBoundingClientRect();
     var lastRect = allBadges[allBadges.length - 1].getBoundingClientRect();
     var startY = firstRect.top + firstRect.height / 2 - tRect.top;
-    var endY = lastRect.bottom - tRect.top;
+    // anchor the far end on the LAST badge's center too (it was previously
+    // its bottom edge), so the line — and the dot at its tip — finish
+    // precisely inside the final badge instead of overshooting past it
+    var endY = lastRect.top + lastRect.height / 2 - tRect.top;
     if (trackEl){
       trackEl.style.top = startY + 'px';
       trackEl.style.height = Math.max(0, endY - startY) + 'px';
