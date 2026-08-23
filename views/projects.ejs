@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.css">
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
 
   /* ==========================================================
@@ -28,7 +26,7 @@
     --accent:    #2DD4BF;
     --accent-ink:#1A1108;
     --ok:        #8FBF6E;
-    --grid-line: rgba(243,225,200,.13);
+    --grid-line: rgba(243,225,200,.10);
     --frame-white: #FBFAF6;
 
     --menu-bg:       #F3F1EA;
@@ -58,7 +56,7 @@
     --accent:    #9C3413;
     --accent-ink:#FBFAF4;
     --ok:        #178C4E;
-    --grid-line: rgba(10,11,13,.07);
+    --grid-line: rgba(10,11,13,.05);
 
     --menu-bg:       #16110D;
     --menu-surface:  #211A13;
@@ -246,9 +244,10 @@
   .line-reveal em{ font-style:italic; color:var(--accent); }
   .archive-hero h1.line-reveal{ font-size:clamp(42px,6.4vw,80px); max-width:18ch; }
   .line-reveal .word{ display:inline-block; opacity:0; }
+  .line-reveal-text .word{ display:inline-block; opacity:0; }
   .line-sweep{ position:absolute; background:var(--accent); transform:scaleX(0); transform-origin:left center;
     pointer-events:none; z-index:3; border-radius:2px; }
-  @media (prefers-reduced-motion:reduce){ .line-reveal .word{ opacity:1; } .line-sweep{ display:none; } }
+  @media (prefers-reduced-motion:reduce){ .line-reveal .word, .line-reveal-text .word{ opacity:1; } .line-sweep{ display:none; } }
 
   .archive-sub{ margin-top:26px; max-width:56ch; font-family:var(--mono); font-size:clamp(14.5px,1.15vw,15.5px);
     line-height:1.9; color:var(--paragraph); }
@@ -340,6 +339,16 @@
   .card-link svg{ width:14px; height:14px; flex:0 0 auto; transform:rotate(-45deg); transition:transform .25s var(--ease-out-cubic); }
   .card-link:hover{ color:var(--accent); gap:16px; }
   .card-link:hover svg{ transform:rotate(0deg); }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
+    margin-bottom:clamp(24px,3.4vw,36px);
+    transition:color .25s var(--ease-out-cubic), gap .25s var(--ease-out-cubic);
+  }
+  .back-link svg{ width:14px; height:14px; transition:transform .25s var(--ease-out-cubic); }
+  .back-link:hover{ color:var(--ink); gap:14px; }
+  .back-link:hover svg{ transform:translateX(-3px); }
 
   @media (max-width:900px){
     .project-grid{ grid-template-columns:1fr; }
@@ -495,9 +504,13 @@
      ========================================================== -->
 <section class="archive-hero">
   <div class="wrap">
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to home
+    </a>
     <span class="archive-eyebrow"><span class="dot"></span>Full archive</span>
     <h1 class="line-reveal">Every project, <em>shipped and live.</em></h1>
-    <p class="archive-sub">
+    <p class="archive-sub line-reveal-text">
       Not a curated highlight reel — <strong>this is the whole list.</strong>
       Filter by what it was built with, or scroll the lot. Each one shipped
       to a real client, not a portfolio-only concept.
@@ -508,11 +521,47 @@
       <span>Updated as new work ships</span>
     </div>
 
+    <% /* ---- category display helper ----
+       Raw category values sometimes come through as the literal tool or
+       library used to build the site ("webflow", "gsap", "js") rather
+       than an actual project category, and can occasionally duplicate
+       across differently-cased slugs. Normalize known tech names to a
+       proper category label, Title-Case anything unrecognized, and
+       de-duplicate the filter chips by their normalized label so the
+       same category never appears twice. */
+    function categoryLabel(raw){
+      if (!raw) return '';
+      var key = String(raw).trim().toLowerCase();
+      var map = {
+        webflow: 'Website Build', wordpress: 'Website Build', squarespace: 'Website Build',
+        gsap: 'Motion & Interaction', js: 'Custom Development', javascript: 'Custom Development',
+        react: 'Web Application', nextjs: 'Web Application', vue: 'Web Application',
+        api: 'Integration', shopify: 'E-commerce', figma: 'Design'
+      };
+      if (map[key]) return map[key];
+      return key.replace(/[-_]+/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+    }
+    var seenChipLabels = {};
+    var dedupedFilterCats = [];
+    (filterCats || []).forEach(function(f){
+      var norm = categoryLabel(f.label).toLowerCase();
+      if (!norm) return;
+      if (seenChipLabels[norm] !== undefined){
+        dedupedFilterCats[seenChipLabels[norm]].count += (f.count || 0);
+      } else {
+        seenChipLabels[norm] = dedupedFilterCats.length;
+        dedupedFilterCats.push({ label: f.label, count: f.count || 0 });
+      }
+    });
+    %>
+    <% function slugifyCat(label){
+      return String(label || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    } %>
     <!-- Auto-generated from each project's filterCat — see routes/site.js. -->
     <div class="filter-row" id="filterRow" role="group" aria-label="Filter projects by category">
       <button class="filter-chip active" data-filter="all">All <span class="count"><%= String(projects.length).padStart(2,'0') %></span></button>
-      <% filterCats.forEach(function(f) { %>
-      <button class="filter-chip" data-filter="<%= f.slug %>"><%= f.label %> <span class="count"><%= String(f.count).padStart(2,'0') %></span></button>
+      <% dedupedFilterCats.forEach(function(f) { %>
+      <button class="filter-chip" data-filter="<%= slugifyCat(categoryLabel(f.label)) %>"><%= categoryLabel(f.label) %> <span class="count"><%= String(f.count).padStart(2,'0') %></span></button>
       <% }); %>
     </div>
   </div>
@@ -525,10 +574,10 @@
   <div class="wrap">
     <div class="project-grid" id="projectGrid">
       <% projects.forEach(function(p, i) { %>
-      <article class="project-card" data-cat="<%= p.filterCat || '' %>" data-observe>
+      <article class="project-card" data-cat="<%= slugifyCat(categoryLabel(p.category) || 'website-build') %>" data-observe>
         <a class="card-plate" href="/work/<%= p.slug %>"
           <% if (!p.coverImage) { %>style="--c1:<%= p.color1 %>; --c2:<%= p.color2 %>"<% } %>
-          aria-label="View the <%= p.title %> case study">
+          aria-label="View the <%= p.title || 'project' %> case study">
           <% if (p.coverImage) { %>
           <img class="plate-img" src="<%= p.coverImage %>" alt="<%= p.title %> preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <% } %>
@@ -537,9 +586,9 @@
           <span class="plate-mark"><%= monogramFor(p) %></span>
         </a>
         <div class="card-body">
-          <span class="card-cat"><%= p.category %></span>
-          <h3 class="card-title"><a href="/work/<%= p.slug %>"><%= p.title %></a></h3>
-          <% if (p.summary) { %><p class="card-desc"><%= p.summary %></p><% } %>
+          <span class="card-cat"><%= categoryLabel(p.category) || 'Website Build' %></span>
+          <h3 class="card-title"><a href="/work/<%= p.slug %>"><%= p.title || 'Untitled Project' %></a></h3>
+          <p class="card-desc"><%= p.summary || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit — case study summary coming soon.' %></p>
           <% if (p.tags && p.tags.length) { %>
           <div class="card-tags">
             <% p.tags.forEach(function(t) { %><span class="tag"><%= t %></span><% }); %>
@@ -609,12 +658,15 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <script>
 (function(){
   /* ---- smooth scroll ---- */
   if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     window.__lenis = new window.Lenis({
-      lerp: 0.09, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4),
+      lerp: 0.11, duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.2, autoRaf: true, anchors: true
     });
   }
@@ -724,7 +776,6 @@
   }, { passive:true });
 
   gsap.from('.archive-eyebrow', { y:12, opacity:0, duration:.6, ease:'power3.out', delay:.1 });
-  gsap.from('.archive-sub', { y:16, opacity:0, duration:.65, ease:'power3.out', delay:.3 });
   gsap.from('.archive-stats', { y:12, opacity:0, duration:.6, ease:'power3.out', delay:.38 });
   gsap.from('.filter-row', { y:14, opacity:0, duration:.6, ease:'power3.out', delay:.46 });
 
@@ -771,12 +822,15 @@
       var first = group[0], last = group[group.length - 1];
       var firstRect = first.getBoundingClientRect();
       var lastRect = last.getBoundingClientRect();
+      // pad generously so descenders/ascenders never poke past the bar
+      var padY = Math.max(4, firstRect.height * 0.12);
+      var padX = 3;
       var bar = document.createElement('span');
       bar.className = 'line-sweep';
-      bar.style.top = (firstRect.top - elRect.top) + 'px';
-      bar.style.left = (firstRect.left - elRect.left) + 'px';
-      bar.style.width = (lastRect.right - firstRect.left) + 'px';
-      bar.style.height = firstRect.height + 'px';
+      bar.style.top = (firstRect.top - elRect.top - padY) + 'px';
+      bar.style.left = (firstRect.left - elRect.left - padX) + 'px';
+      bar.style.width = (lastRect.right - firstRect.left + padX * 2) + 'px';
+      bar.style.height = (firstRect.height + padY * 2) + 'px';
       el.appendChild(bar);
       return { bar: bar, words: group };
     });
@@ -799,9 +853,52 @@
     };
   }
 
+  /* ---- subhead reveal: staggered word fade/rise/unblur, same as the
+     homepage — used for the archive intro copy. ---- */
+  function prepSubheadReveal(el){
+    function wrapWords(node){
+      if (node.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        var parts = node.textContent.split(/(\s+)/);
+        parts.forEach(function(p){
+          if (p === '') return;
+          if (/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(p)); }
+          else {
+            var span = document.createElement('span');
+            span.className = 'word';
+            span.textContent = p;
+            frag.appendChild(span);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1){
+        Array.prototype.slice.call(node.childNodes).forEach(wrapWords);
+      }
+    }
+    Array.prototype.slice.call(el.childNodes).forEach(wrapWords);
+    var words = Array.prototype.slice.call(el.querySelectorAll('.word'));
+    if (!words.length) return null;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) gsap.set(words, { opacity: 0, y: 18, filter: 'blur(9px)' });
+
+    var played = false;
+    return function play(){
+      if (played) return;
+      played = true;
+      return gsap.to(words, {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: .9, stagger: 0.032, ease: 'power2.out'
+      });
+    };
+  }
+
   function setupLineReveals(){
     document.querySelectorAll('.line-reveal').forEach(function(el){
       el.__playLineReveal = prepLineReveal(el);
+    });
+    document.querySelectorAll('.line-reveal-text').forEach(function(el){
+      el.__playLineReveal = prepSubheadReveal(el);
     });
     var pageH1 = document.querySelector('h1.line-reveal');
     if (pageH1 && pageH1.__playLineReveal) pageH1.__playLineReveal();
@@ -813,19 +910,29 @@
   }
 
   /* ---- staggered card entrance on scroll ---- */
-  var revealTargets = document.querySelectorAll('[data-observe]');
+  var revealTargets = document.querySelectorAll('.line-reveal-text, [data-observe]');
+  function reveal(el){
+    if (el.classList.contains('line-reveal-text')){
+      (function tryPlay(){
+        if (el.__playLineReveal){ el.__playLineReveal(); }
+        else { requestAnimationFrame(tryPlay); }
+      })();
+      return;
+    }
+    el.classList.add('in-view');
+  }
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries, obs){
       entries.forEach(function(entry){
         if (entry.isIntersecting){
-          entry.target.classList.add('in-view');
+          reveal(entry.target);
           obs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15 });
     revealTargets.forEach(function(el){ io.observe(el); });
   } else {
-    revealTargets.forEach(function(el){ el.classList.add('in-view'); });
+    revealTargets.forEach(reveal);
   }
 
   /* ---- category filter ---- */

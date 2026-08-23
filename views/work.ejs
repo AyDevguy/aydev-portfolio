@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.css">
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
 
   /* ==========================================================
@@ -28,7 +26,7 @@
     --accent:    #2DD4BF;
     --accent-ink:#1A1108;
     --ok:        #8FBF6E;
-    --grid-line: rgba(243,225,200,.13);
+    --grid-line: rgba(243,225,200,.10);
     --frame-white: #FBFAF6;
 
     /* menu / footer palette is always the INVERSE of the current theme */
@@ -67,7 +65,7 @@
     --accent:    #9C3413;
     --accent-ink:#FBFAF4;
     --ok:        #178C4E;
-    --grid-line: rgba(10,11,13,.07);
+    --grid-line: rgba(10,11,13,.05);
 
     --menu-bg:       #16110D;
     --menu-surface:  #211A13;
@@ -244,8 +242,9 @@
   .line-reveal{ position:relative; display:block; max-width:100%; font-family:var(--display); font-weight:400; font-size:clamp(38px,5vw,62px); line-height:1.08; letter-spacing:-.01em; color:var(--ink); }
   .line-reveal em{ font-style:italic; color:var(--accent); }
   .line-reveal .word{ display:inline-block; opacity:0; }
+  .line-reveal-text .word{ display:inline-block; opacity:0; }
   .line-sweep{ position:absolute; background:var(--accent); transform:scaleX(0); transform-origin:left center; pointer-events:none; z-index:3; border-radius:2px; }
-  @media (prefers-reduced-motion:reduce){ .line-reveal .word{ opacity:1; } .line-sweep{ display:none; } }
+  @media (prefers-reduced-motion:reduce){ .line-reveal .word, .line-reveal-text .word{ opacity:1; } .line-sweep{ display:none; } }
 
   [data-observe]{ opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease-out-cubic), transform .7s var(--ease-out-cubic); }
   [data-observe].in-view{ opacity:1; transform:translateY(0); }
@@ -309,10 +308,10 @@
       linear-gradient(135deg, var(--proj-1), var(--proj-2));
   }
   .cover-plate::before{ content:""; position:absolute; inset:16px; border:1px solid rgba(255,255,255,.16); pointer-events:none; }
-  .cover-plate::after{
-    content:"IKI RAMEN+SUSHI  ×  AKAMI"; position:absolute; left:26px; bottom:22px;
+  .cover-label{
+    position:absolute; left:26px; bottom:22px; z-index:2;
     font-family:var(--display); font-style:italic; font-size:clamp(18px,2.6vw,32px); color:rgba(255,255,255,.92);
-    letter-spacing:-.01em;
+    letter-spacing:-.01em; pointer-events:none;
   }
   .cover-plate img.plate-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 
@@ -525,16 +524,16 @@
 <section class="case-hero">
   <div class="wrap">
 
-    <a href="/#work" class="back-link">
+    <a href="/projects" class="back-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Back to work
+      Back to project archives
     </a>
 
-    <span class="case-eyebrow" data-observe><span class="idx"><%= String(index+1).padStart(2,'0') %> / <%= String(projects.length).padStart(2,'0') %></span> — <span class="dot"></span><%= project.eyebrowTag || '' %></span>
+    <span class="case-eyebrow" data-observe><span class="idx"><%= String(index+1).padStart(2,'0') %> / <%= String(projects.length).padStart(2,'0') %></span> — <span class="dot"></span><%= project.eyebrowTag || 'Case Study' %></span>
 
-    <h1 class="line-reveal case-title"><%- rich(project.caseTitle || project.title) %></h1>
+    <h1 class="line-reveal case-title"><%- rich(project.caseTitle || project.title || 'Untitled Project') %></h1>
 
-    <p class="case-sub"><%- rich(project.caseSub || '') %></p>
+    <p class="case-sub line-reveal-text"><%- rich(project.caseSub || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. A short summary of this project is coming soon.') %></p>
 
     <div class="case-links">
       <% (project.links || []).forEach(function(l, i) { %>
@@ -555,6 +554,7 @@
     <div class="cover" data-observe>
       <div class="cover-plate" <% if (!project.coverImage) { %>style="background:<%- plateBackground(project.color1, project.color2) %>"<% } %>>
         <% if (project.coverImage) { %><img class="plate-img" src="<%= project.coverImage %>" alt="<%= project.title %>"><% } %>
+        <span class="cover-label"><%= project.coverLabel || project.title || 'Untitled Project' %></span>
       </div>
     </div>
 
@@ -562,9 +562,17 @@
 </section>
 
 <!-- ==========================================================
-     FACTS PANEL — the project's vitals at a glance
+     FACTS PANEL — the project's vitals at a glance. Falls back to a
+     5-field lorem-ipsum skeleton (this panel's grid is built for
+     exactly 5) when the CMS entry is still empty.
      ========================================================== -->
-<% if (project.facts && project.facts.length) { %>
+<% var factItems = (project.facts && project.facts.length) ? project.facts : [
+  { label: 'Client', value: 'Lorem Ipsum Co.' },
+  { label: 'Role', value: 'Lorem, Ipsum' },
+  { label: 'Timeline', value: 'Lorem – Ipsum' },
+  { label: 'Stack', value: 'Lorem, Ipsum' },
+  { label: 'Status', value: 'Live' }
+]; %>
 <section class="facts">
   <div class="wrap">
     <div class="facts-panel" data-observe>
@@ -573,13 +581,13 @@
         <span class="facts-title">project.json<span class="cursor"></span></span>
       </div>
       <div class="facts-body">
-        <% project.facts.forEach(function(f) { %>
+        <% factItems.forEach(function(f) { %>
         <div class="fact">
-          <div class="fact-label"><span class="dot"></span><%= f.label %></div>
+          <div class="fact-label"><span class="dot"></span><%= f.label || 'Lorem' %></div>
           <% if (/^status$/i.test(f.label || '')) { %>
-          <div class="fact-value mono" style="color:var(--ok)"><%= f.value %></div>
+          <div class="fact-value mono" style="color:var(--ok)"><%= f.value || 'Live' %></div>
           <% } else { %>
-          <div class="fact-value"><%= f.value %></div>
+          <div class="fact-value"><%= f.value || 'Lorem ipsum' %></div>
           <% } %>
         </div>
         <% }); %>
@@ -587,7 +595,7 @@
     </div>
   </div>
 </section>
-<% } %>
+
 
 <!-- ==========================================================
      OVERVIEW — the brief and the reasoning behind it
@@ -596,10 +604,15 @@
   <div class="wrap overview-grid">
     <div class="overview-sticky">
       <div class="overview-eyebrow"><%= project.overviewEyebrow || 'Overview' %></div>
-      <h2 class="line-reveal"><%- rich(project.overviewHeading || '') %></h2>
+      <h2 class="line-reveal"><%- rich(project.overviewHeading || 'The brief, <em>and the reasoning.</em>') %></h2>
     </div>
     <div class="overview-body" data-observe>
-      <% (project.description || '').split(/\n\s*\n/).filter(Boolean).forEach(function(para) { %>
+      <% var descParas = (project.description || '').split(/\n\s*\n/).filter(Boolean); %>
+      <% if (!descParas.length) { descParas = [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.'
+      ]; } %>
+      <% descParas.forEach(function(para) { %>
       <p><%- rich(para) %></p>
       <% }); %>
       <% if (project.tags && project.tags.length) { %>
@@ -611,10 +624,18 @@
   </div>
 </section>
 
-<% if (project.gallery && project.gallery.length) { %>
 <!-- ==========================================================
-     GALLERY — rendered server-side from project.gallery.
+     GALLERY — rendered server-side from project.gallery. Falls back to
+     a lorem-ipsum skeleton (same shape/count as a real gallery) when the
+     CMS entry hasn't been filled in yet, so the layout is always visible
+     to preview rather than silently disappearing.
      ========================================================== -->
+<% var galleryItems = (project.gallery && project.gallery.length) ? project.gallery : [
+  { brand: 'Studio Name', category: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur' },
+  { brand: 'Studio Name', category: 'Lorem Ipsum', title: 'Adipiscing elit sed do eiusmod tempor' },
+  { brand: 'Studio Name', category: 'Lorem Ipsum', title: 'Incididunt ut labore et dolore magna' },
+  { brand: 'Studio Name', category: 'Lorem Ipsum', title: 'Aliqua ut enim ad minim veniam' }
+]; %>
 <section class="gallery">
   <div class="wrap">
     <div class="gallery-head">
@@ -623,7 +644,7 @@
     </div>
 
     <div class="gallery-grid" data-observe>
-      <% project.gallery.forEach(function(g, i) { %>
+      <% galleryItems.forEach(function(g, i) { %>
       <% var gc1 = g.color1 || project.color1, gc2 = g.color2 || project.color2; %>
       <div class="gallery-cell">
         <div class="gallery-plate" <% if (!g.src) { %>style="background:<%- plateBackground(gc1, gc2) %>"<% } %>>
@@ -631,47 +652,47 @@
         </div>
         <div class="gallery-caption">
           <span class="gallery-index"><%= String(i+1).padStart(2,'0') %></span>
-          <% if (g.brand) { %><span class="gallery-brand"><span class="swatch" style="background:<%= gc1 %>"></span><%= g.brand %></span><% } %>
-          <% if (g.category) { %><span class="gallery-cat"><%= g.category %></span><% } %>
-          <% if (g.title) { %><div class="gallery-title"><%= g.title %></div><% } %>
+          <span class="gallery-brand"><span class="swatch" style="background:<%= gc1 %>"></span><%= g.brand || project.title || 'Lorem Ipsum' %></span>
+          <span class="gallery-cat"><%= g.category || 'Lorem Ipsum' %></span>
+          <div class="gallery-title"><%= g.title || 'Lorem ipsum dolor sit amet consectetur adipiscing elit.' %></div>
         </div>
       </div>
       <% }); %>
     </div>
-          <span class="gallery-brand"><span class="swatch"></span>IKI Ramen+Sushi</span>
-          <span class="gallery-cat">Omakase menu</span>
-          <div class="gallery-title">Seven-course tasting, laid out course by course</div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
-<% } %>
 
-<% if (project.decisions && project.decisions.length) { %>
 <!-- ==========================================================
-     DECISIONS — rendered server-side from project.decisions.
+     DECISIONS — rendered server-side from project.decisions. Falls back
+     to a lorem-ipsum skeleton (this grid is built for an even number of
+     cards) when the CMS entry is still empty.
      ========================================================== -->
+<% var decisionItems = (project.decisions && project.decisions.length) ? project.decisions : [
+  { title: 'Lorem ipsum dolor', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.' },
+  { title: 'Sed do eiusmod', body: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.' },
+  { title: 'Ut labore magna', body: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.' },
+  { title: 'Aliqua ut enim', body: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.' }
+]; %>
 <section class="decisions">
   <div class="wrap">
     <div class="decisions-head">
       <div class="decisions-eyebrow"><%= project.decisionsEyebrow || 'Key decisions' %></div>
-      <h2 class="line-reveal"><%- rich(project.decisionsHeading || '') %></h2>
-      <% if (project.decisionsSub) { %><p class="decisions-sub"><%= project.decisionsSub %></p><% } %>
+      <h2 class="line-reveal"><%- rich(project.decisionsHeading || 'The choices <em>behind the build.</em>') %></h2>
+      <p class="decisions-sub"><%= project.decisionsSub || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' %></p>
     </div>
 
     <div class="decisions-grid" data-observe>
-      <% project.decisions.forEach(function(d, i) { %>
+      <% decisionItems.forEach(function(d, i) { %>
       <div class="decision-card">
         <span class="decision-idx"><%= String(i+1).padStart(2,'0') %></span>
-        <h3 class="decision-title"><%= d.title %></h3>
-        <p class="decision-body"><%= d.body %></p>
+        <h3 class="decision-title"><%= d.title || 'Lorem ipsum dolor' %></h3>
+        <p class="decision-body"><%= d.body || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' %></p>
       </div>
       <% }); %>
     </div>
   </div>
 </section>
-<% } %>
+
 
 <!-- ==========================================================
      NEXT PROJECT — swap href + title for the next case study
@@ -726,12 +747,15 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <script>
 (function(){
   /* ---- smooth scroll ---- */
   if (window.Lenis && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     window.__lenis = new window.Lenis({
-      lerp: 0.09, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4),
+      lerp: 0.11, duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.2, autoRaf: true, anchors: true
     });
   }
@@ -863,11 +887,14 @@
     var lines = lineGroups.map(function(group){
       var first = group[0], last = group[group.length - 1];
       var firstRect = first.getBoundingClientRect(); var lastRect = last.getBoundingClientRect();
+      // pad generously so descenders/ascenders never poke past the bar
+      var padY = Math.max(4, firstRect.height * 0.12);
+      var padX = 3;
       var bar = document.createElement('span'); bar.className = 'line-sweep';
-      bar.style.top = (firstRect.top - elRect.top) + 'px';
-      bar.style.left = (firstRect.left - elRect.left) + 'px';
-      bar.style.width = (lastRect.right - firstRect.left) + 'px';
-      bar.style.height = firstRect.height + 'px';
+      bar.style.top = (firstRect.top - elRect.top - padY) + 'px';
+      bar.style.left = (firstRect.left - elRect.left - padX) + 'px';
+      bar.style.width = (lastRect.right - firstRect.left + padX * 2) + 'px';
+      bar.style.height = (firstRect.height + padY * 2) + 'px';
       el.appendChild(bar);
       return { bar: bar, words: group };
     });
@@ -887,16 +914,58 @@
       return master;
     };
   }
+  /* ---- subhead reveal: staggered word fade/rise/unblur, same as the
+     homepage — used for the case-study intro copy. ---- */
+  function prepSubheadReveal(el){
+    function wrapWords(node){
+      if (node.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        var parts = node.textContent.split(/(\s+)/);
+        parts.forEach(function(p){
+          if (p === '') return;
+          if (/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(p)); }
+          else { var span = document.createElement('span'); span.className = 'word'; span.textContent = p; frag.appendChild(span); }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1){
+        Array.prototype.slice.call(node.childNodes).forEach(wrapWords);
+      }
+    }
+    Array.prototype.slice.call(el.childNodes).forEach(wrapWords);
+    var words = Array.prototype.slice.call(el.querySelectorAll('.word'));
+    if (!words.length) return null;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) gsap.set(words, { opacity: 0, y: 18, filter: 'blur(9px)' });
+    var played = false;
+    return function play(){
+      if (played) return;
+      played = true;
+      return gsap.to(words, {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: .9, stagger: 0.032, ease: 'power2.out'
+      });
+    };
+  }
   function setupLineReveals(){
     document.querySelectorAll('.line-reveal').forEach(function(el){ el.__playLineReveal = prepLineReveal(el); });
+    document.querySelectorAll('.line-reveal-text').forEach(function(el){ el.__playLineReveal = prepSubheadReveal(el); });
     var h1 = document.querySelector('h1.line-reveal');
     if (h1 && h1.__playLineReveal) h1.__playLineReveal();
   }
   if (document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ requestAnimationFrame(setupLineReveals); }); }
   else { setTimeout(setupLineReveals, 200); }
 
-  var revealTargets = document.querySelectorAll('.line-reveal, [data-observe]');
-  function reveal(el){ if (el.__playLineReveal){ el.__playLineReveal(); } else { el.classList.add('in-view'); } }
+  var revealTargets = document.querySelectorAll('.line-reveal, .line-reveal-text, [data-observe]');
+  function reveal(el){
+    if (el.classList.contains('line-reveal-text')){
+      (function tryPlay(){
+        if (el.__playLineReveal){ el.__playLineReveal(); }
+        else { requestAnimationFrame(tryPlay); }
+      })();
+      return;
+    }
+    if (el.__playLineReveal){ el.__playLineReveal(); } else { el.classList.add('in-view'); }
+  }
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries, obs){
       entries.forEach(function(entry){ if (entry.isIntersecting){ reveal(entry.target); obs.unobserve(entry.target); } });
@@ -912,7 +981,6 @@
   }
 
   gsap.from('.case-eyebrow', { y:12, opacity:0, duration:.6, ease:'power3.out', delay:.1 });
-  gsap.from('.case-sub', { y:16, opacity:0, duration:.65, ease:'power3.out', delay:.3 });
   gsap.from('.case-links', { y:14, opacity:0, duration:.6, ease:'power3.out', delay:.4 });
 
   /* ---- grid background: identical engine to the homepage — cursor-reactive
