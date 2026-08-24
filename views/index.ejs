@@ -436,8 +436,7 @@
   @media (max-width: 900px){
     .hero-grid{ grid-template-columns:1fr; }
     .panel{ order:1; }
-    h1{ max-width:none; }
-    h1.line-reveal{ max-width:none; }
+    h1.line-reveal{ max-width: 16ch; }
     .subhead{ max-width:none; }
     .scroll-cue{ display:none; }
   }
@@ -454,14 +453,19 @@
       border:1px solid var(--line);
       border-radius:var(--radius);
       font-weight:500;
+      height: 52px;
     }
-    /* force the hero heading onto 2 lines instead of 3: a deliberate
-       break at the natural phrase boundary, paired with a slightly
-       smaller floor size so each half comfortably fits one line on a
-       phone-width screen regardless of exact font metrics */
+    .hero-grid {
+      gap:clamp(72px,7vw,104px);
+      padding-bottom: 0px;
+    }
+    .log-line {
+      margin-bottom: 32px;
+    }
     .hero-break{ display:block; }
+    h1.line-reveal{ max-width: 0ch; }
     h1.line-reveal{ font-size:clamp(32px,10vw,40px); }
-  }
+   }
 
   /* ==========================================================
      WORK SECTION — full functionality ported from the provided
