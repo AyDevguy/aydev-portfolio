@@ -91,7 +91,11 @@
 
   .wrap{ max-width:1440px; margin:0 auto; padding-inline:clamp(24px,6vw,80px); }
 
-  #bgCanvas{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+  #bgCanvas{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    mask-image:linear-gradient(to right, transparent 0px, rgba(0,0,0,.28) 220px, rgba(0,0,0,.8) 520px, black 760px);
+    -webkit-mask-image:linear-gradient(to right, transparent 0px, rgba(0,0,0,.28) 220px, rgba(0,0,0,.8) 520px, black 760px);
+  }
 
   body::before{
     content:"";
@@ -278,7 +282,7 @@
   .project-grid{
     margin-top:clamp(40px,5vw,56px);
     display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
-    gap:clamp(28px,3vw,40px);
+    gap:clamp(40px,4.5vw,56px);
   }
   .project-card{
     display:flex; flex-direction:column;
@@ -341,7 +345,7 @@
   .card-link:hover svg{ transform:rotate(0deg); }
 
   .back-link{
-    display:inline-flex; align-items:center; gap:10px;
+    display:flex; width:fit-content; align-items:center; gap:10px;
     font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
     margin-bottom:clamp(24px,3.4vw,36px);
     transition:color .25s var(--ease-out-cubic), gap .25s var(--ease-out-cubic);
@@ -1053,7 +1057,11 @@
       ctx.closePath();
     }
 
-    if (!reduceMotion){
+    // tablets/phones: keep the grid a static backdrop rather than reacting
+    // to touch drags -- the cursor-bend effect is a mouse-hover flourish
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+    if (!reduceMotion && !isTouchDevice){
       window.addEventListener('mousemove', (e) => {
         rawX = e.clientX; rawY = e.clientY;
         hasPointer = true;

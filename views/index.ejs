@@ -410,7 +410,7 @@
   .log-note{ color:var(--ink-faint); }
   @media (max-width:560px){
     .panel-body{ font-size:11.5px; line-height:1.6; }
-    .log-line{ flex-wrap:wrap; row-gap:3px; margin-bottom:10px; }
+    .log-line{ flex-wrap:wrap; row-gap:3px; margin-bottom:16px; }
     .log-line:last-child{ margin-bottom:0; }
     .log-status{ width:auto; }
     .log-proj{ min-width:0; }
@@ -447,13 +447,20 @@
     .menu-label{ display:none; }
     .menu-btn{ padding:0 12px; }
     .cta-row{ flex-direction:column; align-items:stretch; gap:14px; }
-    .btn-primary{ width:100%; justify-content:center; }
+    .btn-primary{ width:100%; justify-content:center; font-weight:500; }
     .btn-secondary{
       justify-content:center; align-items:center; text-align:center;
       width:100%; padding:14px 16px;
       border:1px solid var(--line);
       border-radius:var(--radius);
+      font-weight:500;
     }
+    /* force the hero heading onto 2 lines instead of 3: a deliberate
+       break at the natural phrase boundary, paired with a slightly
+       smaller floor size so each half comfortably fits one line on a
+       phone-width screen regardless of exact font metrics */
+    .hero-break{ display:block; }
+    h1.line-reveal{ font-size:clamp(32px,10vw,40px); }
   }
 
   /* ==========================================================
@@ -885,7 +892,7 @@
         "tabs"
         "footer"
         "cta";
-      row-gap:16px;
+      row-gap:26px;
     }
     .work .work-controls{ justify-self:center; }
     /* the container itself is centered, but when the prev/next arrows
@@ -897,6 +904,11 @@
     .work .work-grid{ justify-self:center; }
     .work .stage{ --slide-w: clamp(240px, 78vw, 460px); height:clamp(380px, 62vh, 560px); }
     .work .kbd-hint{ display:none; }
+    /* only two layouts make sense at this width: the carousel and a
+       single, full-width column — the 2-up grid is dropped entirely
+       rather than squeezed */
+    .work .ctrl.view-btn[data-view="grid2"]{ display:none; }
+    .work .work-grid.rows-3 .cell-plate{ aspect-ratio:auto; height:clamp(380px, 62vh, 560px); }
   }
 
   @media (max-width:400px){
@@ -980,6 +992,7 @@
   .line-reveal{ position:relative; display:block; max-width:100%; font-family:var(--display); font-weight:400; font-size:clamp(38px,5vw,62px); line-height:1.08; letter-spacing:-.01em; color:var(--ink); }
   .line-reveal em{ font-style:italic; color:var(--accent); }
   h1.line-reveal{ font-size:clamp(40px,5.8vw,76px); line-height:1.05; letter-spacing:-.01em; max-width:16ch; }
+  .hero-break{ display:none; }
   .line-reveal .word{ display:inline-block; opacity:0; }
   .line-sweep{
     position:absolute;
@@ -1272,7 +1285,7 @@
       <div class="hero-copy">
         <span class="eyebrow"><span class="dot"></span>Available for work</span>
 
-        <h1 class="line-reveal">Websites built like <em>software</em>, not templates.</h1>
+        <h1 class="line-reveal">Websites built like <em>software</em>,<br class="hero-break"> not templates.</h1>
 
         <p class="subhead line-reveal-text" data-observe>
           Most agencies hand off a Webflow site and disappear. <strong>I write
@@ -2467,7 +2480,11 @@
       ctx.closePath();
     }
 
-    if (!reduceMotion){
+    // tablets/phones: keep the grid a static backdrop rather than reacting
+    // to touch drags -- the cursor-bend effect is a mouse-hover flourish
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+    if (!reduceMotion && !isTouchDevice){
       window.addEventListener('mousemove', (e) => {
         rawX = e.clientX; rawY = e.clientY;
         hasPointer = true;
