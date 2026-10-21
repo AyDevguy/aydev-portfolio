@@ -1448,6 +1448,13 @@ html:not(.preloading) #site-loader{opacity:0}
  .acc>div:hover h3{padding-left:0!important}
  .cm-chip:hover span,.cm-x:hover{transform:none!important}
 }
+/* Avoid paint-only decoration; retain only functional carousel, page, menu and accordion motion. */
+.sk-shim,.sk-shim::after{display:none!important;animation:none!important;transition:none!important}
+.sk-img,.plate-img,.ico,.fgrid .bi,.cm-chip span,.cm-x{transition:none!important}
+.fgrid a,.foot a{background:none!important;transition:none!important}
+.fgrid a.hb:hover .bi{transform:none!important;background:transparent!important;color:inherit!important}
+.ml a{transition-property:opacity,transform!important}
+.totop{transition:opacity .2s ease,transform .2s ease!important}
 /* The concise transition uses compositor-only opacity/transform. Functional menu, carousel and accordion motion stays intact. */
 @media(hover:hover){.totop:hover{transform:none!important}}
 @media(prefers-reduced-motion:reduce){.pt,#site-loader{display:none!important}.pt,.totop,.acc .sv-b{transition:none!important}#site-loader i:after{animation:none!important}html.preloading #site-loader{display:none!important}}
