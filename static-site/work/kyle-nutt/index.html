@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mpre');setTimeout(function(){document.documentElement.classList.remove('mpre')},4000)}try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&Date.now()-(+sessionStorage.getItem('pt')||0)<6000){document.documentElement.classList.add('ptin');setTimeout(function(){document.documentElement.classList.remove('ptin')},4000)}}catch(e){}try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var r=matchMedia('(prefers-reduced-motion: reduce)').matches,pt=false;try{pt=!r&&Date.now()-(+sessionStorage.getItem('pt')||0)<6000}catch(e){}if(pt){document.documentElement.classList.add('ptin')}else if(!r){document.documentElement.classList.add('preloading')}try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 <script>document.documentElement.classList.add("js-sk");setTimeout(function(){document.documentElement.classList.add("sk-off")},12000)</script>
 <meta name="description" content="A cinematic creator portfolio for Kyle Nutt, combining client work, short films, social content, and digital products in one immersive platform. A case study by Ayomide, design engineer.">
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank],[download]"}}]},"eagerness":"moderate"}]}</script>
@@ -534,6 +534,8 @@ main .btn .ic{transition:transform .3s var(--ease)}
 </style>
 </head>
 <body>
+<div id="site-loader" aria-hidden="true"><div><span>Ay / Dev</span><i></i></div></div>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
 <symbol id="i-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
@@ -616,7 +618,7 @@ main .btn .ic{transition:transform .3s var(--ease)}
 
     <div class="cover">
       <div class="cover-plate" >
-        <img class="plate-img sk-img" width="1600" height="820" src="/uploads/4f6343d0d77a1036.avif" decoding="async" fetchpriority="high" alt="Kyle Nutt">
+        <img class="plate-img sk-img" width="1600" height="820" src="/uploads/4f6343d0d77a1036-640.webp" srcset="/uploads/4f6343d0d77a1036-640.webp 640w, /uploads/4f6343d0d77a1036-1600.webp 1600w" sizes="(max-width: 700px) 100vw, 80vw" decoding="async" fetchpriority="high" alt="Kyle Nutt">
         <span class="cover-label">Kyle Nutt</span>
       </div>
     </div>
@@ -843,7 +845,7 @@ The experience is designed to feel cinematic and personal, using strong visual c
     </div>
   </div>
 </dialog>
-<button class="totop" id="totop" type="button" aria-label="Back to top"><svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="trk" cx="26" cy="26" r="23"/><circle class="prg" id="totopRing" cx="26" cy="26" r="23" transform="rotate(-90 26 26)"/></svg><span class="rk" aria-hidden="true"><svg class="ic"><use href="#i-rocket"/></svg><i class="fl"></i></span><span class="tip" aria-hidden="true">Launch to top</span></button>
+<button class="totop" id="totop" type="button" aria-label="Back to top"><svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="trk" cx="26" cy="26" r="23"/><circle class="prg" id="totopRing" cx="26" cy="26" r="23" transform="rotate(-90 26 26)"/></svg><span class="rk" aria-hidden="true"><svg class="ic"><use href="#i-rocket"/></svg><i class="fl"></i></span><span class="tip">Launch to top</span></button>
 <style>.sv-d{display:none}
 .mctx-wrap{display:none}
 .mctx{display:inline-flex;align-items:center;gap:8px;font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--bg)}
@@ -1018,7 +1020,7 @@ html.js-sk [data-view="list"] .sk-img.sk-in.px,
 html.m h1 .ln>span,
 html.sk-off .sk-img{animation:none!important}
 html{scroll-behavior:auto!important}
-html.ptin body::before,.pt,.sk-shim,.cv,.cz{display:none!important}
+html.ptin body::before,.sk-shim,.cv,.cz{display:none!important}
 .mpre .hero-copy>*,.mpre .win,[data-motion]{opacity:1!important;visibility:visible!important;transform:none!important}
 html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 #contact>.pbg{position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--fg);border-radius:28px 28px 0 0;transform-origin:50% 100%;will-change:transform}
@@ -1378,26 +1380,51 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
       park();pt.classList.add('run');
       run(sheet,[{transform:T('100%')},{transform:T(0)}],{d:600,e:EASE}).finished.then(go,go);
       run(ui,[{opacity:0,transform:T('16px')},{opacity:1,transform:T(0)}],{d:320,delay:200,e:SOFT});
-      var n=0,st=Math.max(18,Math.min(40,Math.round(300/Math.max(1,lb.length))));
-      setTimeout(function(){typer=setInterval(function(){n++;txt.textContent=lb.slice(0,n);if(n>=lb.length)clearInterval(typer)},st)},240);
+      txt.textContent=lb;
       setTimeout(go,1800);
     });
   }
 
-  initPageTransitions();initSmoothScroll();initHero();initTextReveals();initImages();initCards();initCase();initNavigation();
-  gsap.matchMedia().add({desk:'(min-width: 900px) and (hover: hover)',mob:'(max-width: 899px), (hover: none)'},function(ctx){
-    var desk=ctx.conditions.desk;initFooter(desk);return initImageDepth(desk);
-  });
+  initPageTransitions();initHero();initTextReveals();initImages();initCards();initCase();initNavigation();
+  /* Native scrolling is immediate; decorative scroll-scrub and parallax scenes are disabled. */
   var refresh=function(){ScrollTrigger.refresh()};
   addEventListener('load',function(){window.__quiet?window.__quiet(refresh,performance.now()+2800):setTimeout(refresh,3000)});
 })();
 (function(){var b=document.querySelector('.band');if(b&&'IntersectionObserver' in window)new IntersectionObserver(function(e){b.classList.toggle('off',!e[0].isIntersecting)}).observe(b)})();
-(function(){var f=document.getElementById('contact');if(!f)return;var b=document.createElement('span');b.className='pbg';b.setAttribute('aria-hidden','true');f.insertBefore(b,f.firstChild);document.documentElement.classList.add('pbg-ok');
-var s0=1-2*(matchMedia('(min-width:900px) and (hover:hover)').matches?.06:.03),tk=false;
-function upd(){tk=false;var r=f.getBoundingClientRect(),p=(innerHeight-r.top)/Math.max(1,r.height);p=p<0?0:p>1?1:p;p=1-Math.pow(1-p,3);b.style.transform='scaleX('+(s0+(1-s0)*p).toFixed(4)+')'}
-addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
-})();
 </script>
 
+
+<style id="site-performance-refinements">
+/* Fast, readable controls and restrained motion. */
+.totop{width:auto!important;min-width:52px;height:52px;padding:0 16px 0 13px!important;display:flex!important;align-items:center;justify-content:center;gap:9px;border-radius:999px!important;transform:none!important}
+.totop .tip{position:static!important;opacity:1!important;transform:none!important;pointer-events:auto!important;padding:0!important;background:transparent!important;box-shadow:none!important;font:600 12px/1 var(--sans)!important;white-space:nowrap}
+.totop .ring{inset:0;width:52px;height:52px;pointer-events:none}.totop .rk{flex:none}.totop:hover .rk,.totop:focus-visible .rk{animation:none!important}.totop .fl{display:none!important}
+.acc .sv-t{font-size:clamp(18px,4.7vw,22px)}
+.sv-b{margin-top:10px!important}.sv-b ul{padding-top:20px!important}
+.archive-hero h1,.case-hero h1{font-size:clamp(2.55rem,5.8vw,4.7rem)}
+.pt{display:block!important}
+.pt.run .pt-cur{animation:none!important}
+#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--bg);color:var(--fg);opacity:0;visibility:hidden;transition:opacity .24s ease,visibility 0s .24s;pointer-events:none}
+#site-loader span{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+#site-loader i{display:block;width:30px;height:2px;margin:14px auto 0;background:var(--line);overflow:hidden}
+#site-loader i:after{content:"";display:block;width:40%;height:100%;background:var(--fg);transform:translateX(-110%);animation:loadline .55s cubic-bezier(.22,1,.36,1) forwards}
+html.preloading #site-loader{opacity:1;visibility:visible}
+html:not(.preloading) #site-loader{opacity:0;visibility:hidden}
+@keyframes loadline{to{transform:translateX(250%)}}
+/* Lean interaction system: keep functional controls and transitions, remove decorative hover movement. */
+.band div,.band.off div,.live::after{animation:none!important}
+@media(hover:hover){
+ .btn:hover,.pill:hover,.fgrid a:hover,.soc a:hover,.mm:hover .circ,.totop:hover{transform:none!important;box-shadow:none!important}
+ .card:hover .plate-img,.project-card:hover .plate-img,.win .art:hover .hero-project-img{transform:none!important}
+ .acc>div:not(.open):hover .ico,.abt .rows>div:hover .ico{transform:none!important;background:var(--tint)!important;color:var(--fg)!important;border-color:var(--line)!important}
+ .acc>div:not(.open):hover h3,.acc>div:not(.open):hover .chev{color:var(--h3)!important}
+ .acc>div:hover h3{padding-left:0!important}
+ .cm-chip:hover span,.cm-x:hover{transform:none!important}
+}
+/* The concise transition uses compositor-only opacity/transform. Functional menu, carousel and accordion motion stays intact. */
+@media(hover:hover){.totop:hover{transform:none!important}}
+@media(prefers-reduced-motion:reduce){.pt,#site-loader{display:none!important}.pt,.totop,.acc .sv-b{transition:none!important}#site-loader i:after{animation:none!important}html.preloading #site-loader{display:none!important}}
+</style>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,520)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){root.classList.remove('preloading')},Math.max(0,180-(performance.now()-start)))})})();</script>
 </body>
 </html>
