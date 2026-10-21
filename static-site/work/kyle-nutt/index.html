@@ -534,7 +534,7 @@ main .btn .ic{transition:transform .3s var(--ease)}
 </style>
 </head>
 <body>
-<div id="site-loader" aria-hidden="true"><div><span>Ay / Dev</span><i></i></div></div>
+<div id="site-loader" aria-hidden="true"><div><span class="loader-command"><b aria-hidden="true">&gt;</b><span id="loader-line">cd /hello</span></span><span id="loader-greeting" aria-live="off">hello</span><i></i></div></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
@@ -845,7 +845,7 @@ The experience is designed to feel cinematic and personal, using strong visual c
     </div>
   </div>
 </dialog>
-<button class="totop" id="totop" type="button" aria-label="Back to top"><svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="trk" cx="26" cy="26" r="23"/><circle class="prg" id="totopRing" cx="26" cy="26" r="23" transform="rotate(-90 26 26)"/></svg><span class="rk" aria-hidden="true"><svg class="ic"><use href="#i-rocket"/></svg><i class="fl"></i></span><span class="tip">Launch to top</span></button>
+<button class="totop" id="totop" type="button" aria-label="Launch to top"><svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="trk" cx="26" cy="26" r="23"/><circle class="prg" id="totopRing" cx="26" cy="26" r="23" transform="rotate(-90 26 26)"/></svg><span class="rk" aria-hidden="true"><svg class="ic"><use href="#i-rocket"/></svg><i class="fl"></i></span><span class="tip">Launch to top</span></button>
 <style>.sv-d{display:none}
 .mctx-wrap{display:none}
 .mctx{display:inline-flex;align-items:center;gap:8px;font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--bg)}
@@ -1042,7 +1042,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
   var D=document,root=D.documentElement;
   /* ---- scroll parallax: each picture drifts up and zooms in as you scroll down, and reverses going back up.
          Only pictures near the viewport are touched; they use the separate translate/scale properties, so there is no layout and no paint ---- */
-  var pxOn=false,pxItems=[],pxQueued=false,pxIo=null,PXS=5,PZ0=1.12,PZ1=1.2,pxCss=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline','view()'));
+  var pxCapable=matchMedia('(hover:hover) and (pointer:fine)').matches,pxReduce=matchMedia('(prefers-reduced-motion:reduce)').matches,pxLow=false;try{var pxConn=navigator.connection;pxLow=!!(pxConn&&(pxConn.saveData||/(^|-)2g$|^3g$/.test(pxConn.effectiveType||'')))}catch(pxErr){}var pxOn=pxCapable&&!pxReduce&&!pxLow,pxItems=[],pxQueued=false,pxIo=null,PXS=4,PZ0=1.08,PZ1=1.13,pxCss=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline','view()'));
   function pxFrame(){
     pxQueued=false;var vh=innerHeight,i,it,b,r=[],keep=[];
     pxItems.forEach(function(t){if(t.box.isConnected)keep.push(t);else if(pxIo)pxIo.unobserve(t.box)});if(keep.length!==pxItems.length)pxItems=keep;
@@ -1069,7 +1069,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
     if(img.decode){img.decode().then(go,go)}else go();
   }
   function track(img){
-    if(img._skt)return;img._skt=1;if(!img.closest('#track'))pxReg(img);if(warmed)warmImg(img);
+    if(img._skt)return;img._skt=1;if(!img.closest('#track')&&(img.closest('.cover-plate')||img.closest('.gallery-plate')))pxReg(img);if(warmed)warmImg(img);
     var box=img.parentNode;if(!box)return;
     if(img.complete&&img.naturalWidth){img._skd=1;img.classList.add('sk-in');return}
     var shim=D.createElement('span');shim.className='sk-shim';shim.setAttribute('aria-hidden','true');box.insertBefore(shim,img);if(window.IntersectionObserver){(window.__shIo||(window.__shIo=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('vis',e.isIntersecting)})},{rootMargin:'120px'}))).observe(shim)}else shim.classList.add('vis');
@@ -1206,12 +1206,13 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 (function(){
   'use strict';
   var D=document,root=D.documentElement,$=function(s,r){return(r||D).querySelector(s)},$$=function(s,r){return[].slice.call((r||D).querySelectorAll(s))};
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce||!window.gsap||!window.ScrollTrigger){root.classList.remove('mpre');root.classList.remove('ptin');return}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,arrived=false;
+  if(reduce){root.classList.remove('mpre');root.classList.remove('ptin');return}
+  if(!window.gsap||!window.ScrollTrigger){initPageTransitions();root.classList.remove('mpre');return}
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ignoreMobileResize:true,autoRefreshEvents:'visibilitychange,DOMContentLoaded'});
   root.classList.add('m');
-  var M={enter:'power4.out',big:'expo.inOut'},lenis=null,arrived=false;
+  var M={enter:'power4.out',big:'expo.inOut'},lenis=null;
 
   /* compositor-only reveal: a solid curtain scales away (transform) instead of animating clip-path, which repainted whole photos every frame */
   function bgOf(el){var e=el.parentElement,c;while(e){c=getComputedStyle(e).backgroundColor;if(c&&c!=='transparent'&&!/(,|\/)\s*0(\.0+)?\)$/.test(c))return c;e=e.parentElement}return getComputedStyle(document.body).backgroundColor||'#fff'}
@@ -1274,8 +1275,8 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
       once(h,'top 88%',function(){gsap.to(w,{yPercent:0,duration:.95,ease:M.enter,stagger:.05})});
     });
     $$('.overview-eyebrow,.gallery-eyebrow,.decisions-eyebrow').forEach(function(e){
-      gsap.set(e,{clipPath:'inset(0 100% 0 0)'});
-      once(e,'top 92%',function(){gsap.to(e,{clipPath:'inset(0 0% 0 0)',duration:.8,ease:M.big,clearProps:'clipPath'})});
+      gsap.set(e,{opacity:0,x:-10});
+      once(e,'top 92%',function(){gsap.to(e,{opacity:1,x:0,duration:.6,ease:M.enter,clearProps:'transform,opacity'})});
     });
     $$('.overview-body p,.overview-tags,.decisions-sub').forEach(function(p){
       gsap.set(p,{opacity:0,y:14});
@@ -1344,7 +1345,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
   function initPageTransitions(){
     /* compositor-only curtain: one solid sheet moved with transform (Web Animations), so no per-frame painting on the main thread */
     var pt=D.createElement('div');pt.className='pt';pt.setAttribute('aria-hidden','true');
-    pt.innerHTML='<div class="pt-sheet"></div><div class="pt-ui"><div class="pt-line"><i>&gt;</i><span class="pt-t"></span><span class="pt-cur"></span></div><div class="pt-meta">Ay / DEV</div></div>';
+    pt.innerHTML='<div class="pt-sheet"></div><div class="pt-ui"><div class="pt-line"><i>&gt;</i><span class="pt-t"></span><span class="pt-cur"></span></div><div class="pt-meta" aria-hidden="true"></div></div>';
     D.body.appendChild(pt);
     var sheet=pt.firstChild,ui=pt.lastChild,txt=pt.querySelector('.pt-t'),lbl='',anim=[],typer=0,leaving=false;
     var EASE='cubic-bezier(.76,0,.24,1)',SOFT='cubic-bezier(.16,1,.3,1)',T=function(y){return 'translate3d(0,'+y+',0)'};
@@ -1379,14 +1380,14 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
       try{sessionStorage.setItem('pt',String(Date.now()));sessionStorage.setItem('ptl',lb)}catch(x){}
       park();pt.classList.add('run');
       run(sheet,[{transform:T('100%')},{transform:T(0)}],{d:600,e:EASE}).finished.then(go,go);
-      run(ui,[{opacity:0,transform:T('16px')},{opacity:1,transform:T(0)}],{d:320,delay:200,e:SOFT});
+      ui.style.opacity='1';ui.style.transform=T(0);
       txt.textContent=lb;
       setTimeout(go,1800);
     });
   }
 
   initPageTransitions();initHero();initTextReveals();initImages();initCards();initCase();initNavigation();
-  /* Native scrolling is immediate; decorative scroll-scrub and parallax scenes are disabled. */
+  /* Native scrolling is immediate; image depth is desktop-only, with no pinned scroll-scrub scenes. */
   var refresh=function(){ScrollTrigger.refresh()};
   addEventListener('load',function(){window.__quiet?window.__quiet(refresh,performance.now()+2800):setTimeout(refresh,3000)});
 })();
@@ -1412,7 +1413,7 @@ html.preloading #site-loader{opacity:1}
 html:not(.preloading) #site-loader{opacity:0}
 @keyframes loadline{to{transform:translateX(250%)}}
 /* Lean interaction system: keep functional controls and transitions, remove decorative hover movement. */
-.band div,.band.off div,.live::after{animation:none!important}
+.live::after{animation:none!important}
 @media(hover:hover){
  .btn:hover,.pill:hover,.fgrid a:hover,.soc a:hover,.mm:hover .circ,.totop:hover{transform:none!important;box-shadow:none!important}
  .card:hover .plate-img,.project-card:hover .plate-img,.win .art:hover .hero-project-img{transform:none!important}
@@ -1431,7 +1432,50 @@ html:not(.preloading) #site-loader{opacity:0}
 /* The concise transition uses compositor-only opacity/transform. Functional menu, carousel and accordion motion stays intact. */
 @media(hover:hover){.totop:hover{transform:none!important}}
 @media(prefers-reduced-motion:reduce){.pt,#site-loader{display:none!important}.pt,.totop,.acc .sv-b{transition:none!important}#site-loader i:after{animation:none!important}html.preloading #site-loader{display:none!important}}
+
+#site-loader>div{text-align:center;min-width:min(280px,calc(100vw - 40px))}
+#site-loader .loader-command{display:flex;align-items:baseline;justify-content:center;gap:.65em;font:500 15px/1.2 var(--mono);letter-spacing:.03em;text-transform:none}
+#site-loader .loader-command b{font:inherit;opacity:.55}
+#site-loader #loader-line{font:inherit;letter-spacing:inherit;text-transform:none}
+#site-loader #loader-greeting{display:block;min-height:1.2em;margin-top:13px;color:var(--muted);font:500 11px/1.2 var(--mono);letter-spacing:.04em;text-transform:none}
+#site-loader i{width:58px;margin:17px auto 0}
+.pt-meta{display:none!important}
+.pt-line{font-size:clamp(1.25rem,6.4vw,5rem)!important}
+.pt-line{padding:.2em .4em;background:var(--fg);color:var(--bg);border-radius:999px;box-shadow:0 8px 24px color-mix(in srgb,var(--bg) 16%,transparent)}
+/* Good Fella-inspired motion: keep movement on transform/opacity and off touch devices. */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .btn:not(.totop),.pill:not(.tgl),.project-card .plate-img,.card .plate-img,.gallery-cell .plate-img,.cover-plate .plate-img,.win .art .hero-project-img,.fgrid a.hb,.soc a,.foot a,.back-link,.card-link{transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .3s ease,color .25s ease;}
+  .btn:not(.totop):hover,.pill:not(.tgl):hover,.fgrid a.hb:hover,.soc a:hover,.foot a:hover,.back-link:hover,.card-link:hover{transform:translateY(-3px)!important;}
+  .project-card:hover .plate-img,.card:hover .plate-img,.gallery-cell:hover .plate-img,.cover-plate:hover .plate-img{transform:scale(1.035)!important;}
+  .win .art:hover .hero-project-img{transform:scale(1.025)!important;}
+  .fgrid a.hb:hover .bi,.soc a:hover .circ{transform:translateY(-2px);}
+  .totop:hover{transform:translateY(-4px)!important;box-shadow:0 14px 30px -10px rgba(0,0,0,.48)!important;}
+  .totop:hover .rk,.totop:focus-visible .rk{animation:rumble .14s linear infinite!important;}
+  .totop:hover .fl,.totop:focus-visible .fl{transform:scaleY(1)!important;animation:flick .18s ease-in-out infinite alternate!important;}
+}
+.project-card .plate-img,.card .plate-img,.gallery-cell .plate-img,.cover-plate .plate-img{transform:scale(1.005);transition:transform .7s cubic-bezier(.22,1,.36,1)!important;}
+.fgrid a.hb,.soc a,.foot a,.back-link,.card-link{transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .25s ease!important;}
+/* The circular rocket stays recognizable; its label is always legible below the icon. */
+.totop{width:66px!important;min-width:66px;height:78px!important;padding:3px 4px 6px!important;display:block!important;border-radius:36px!important;transform:translateY(18px) scale(.86)!important;transition:opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1),visibility 0s .45s!important;}
+.totop.show{transform:translateY(0) scale(1)!important;transition:opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1),visibility 0s!important;}
+.totop .ring{position:absolute!important;left:7px!important;top:2px!important;width:52px!important;height:52px!important;}
+.totop .rk{position:absolute!important;left:0;right:0;top:17px!important;display:grid;place-items:center;}
+.totop .rk .ic{width:19px;height:19px;}
+.totop .tip{position:absolute!important;left:2px!important;right:2px!important;top:auto!important;bottom:8px!important;transform:none!important;display:block!important;padding:0!important;background:transparent!important;box-shadow:none!important;color:var(--fg)!important;font:600 9px/1 var(--sans)!important;letter-spacing:.005em;text-align:center;white-space:nowrap;opacity:1!important;pointer-events:none!important;}
+.totop .fl{display:block!important;}
+.totop.show:hover{transform:translateY(-4px) scale(1)!important;}
+/* View-timeline parallax is limited to the large project cover/gallery images and the portrait. */
+@keyframes px-move{from{translate:0 4%;scale:1.08}to{translate:0 -4%;scale:1.13}}
+@supports (animation-timeline:view()){
+  .art,.card-plate{view-timeline:none!important;}
+  .cover-plate,.gallery-plate{view-timeline:--px block!important;}
+  .me{view-timeline:--me block!important;}
+  html.js-sk .sk-img.sk-in.px{animation:sk-in .55s ease,px-move linear both!important;animation-timeline:auto,--px!important;animation-range:normal,cover 0% cover 100%!important;}
+  html.js-sk .me.ld.ready::before{animation:settle 1.4s var(--ease),px-move linear both!important;animation-timeline:auto,--me!important;animation-range:normal,cover 0% cover 100%!important;}
+}
+@media(max-width:700px){.totop{width:62px!important;min-width:62px;height:75px!important;}.totop .ring{left:5px!important;}}
+@media(prefers-reduced-motion:reduce){.totop,.totop.show{transition:none!important;transform:none!important}.totop .rk,.totop .fl{animation:none!important}.project-card .plate-img,.card .plate-img,.gallery-cell .plate-img,.cover-plate .plate-img{transition:none!important;transform:none!important}}
 </style>
-<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,520)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){root.classList.remove('preloading')},Math.max(0,180-(performance.now()-start)))})})();</script>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),line=document.getElementById('loader-line'),greeting=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0;function tick(){if(!greeting||!root.classList.contains('preloading'))return;greeting.textContent=words[n++%words.length]}tick();var cycle=setInterval(tick,50),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,600)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){clearInterval(cycle);var p=location.pathname.replace(/\/+$/,'');if(line)line.textContent=p?'cd '+p:'cd ~';if(greeting)greeting.textContent='ready';setTimeout(function(){root.classList.remove('preloading')},90)},Math.max(0,600-(performance.now()-start)))})})();</script>
 </body>
 </html>
