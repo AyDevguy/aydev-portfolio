@@ -1,5 +1,420 @@
 [
   {
+    "slug": "iki-ramen-sushi",
+    "title": "IKI Hospitality",
+    "category": "Website Build",
+    "filterCat": "Website Build",
+    "monogram": "IK",
+    "status": "Live",
+    "color1": "#c4451b",
+    "color2": "#8f2f10",
+    "coverImage": "/uploads/2500ceca2b5a70bf.avif",
+    "showcaseImage": "/uploads/546431221881b7a2.avif",
+    "year": "2026",
+    "client": "IKI Hospitality",
+    "tags": [
+      "Webflow",
+      "Multi-brand system",
+      "CMS",
+      "OpenTable integration",
+      "Toast ordering"
+    ],
+    "summary": "A shared Webflow system for two modern Japanese restaurant brands: IKI Ramen + Sushi and AKAMI. Each site has its own identity while sharing the same underlying structure for menus, reservations, locations, galleries, and storytelling.",
+    "description": "IKI Ramen + Sushi and AKAMI are two modern Japanese dining concepts operated by IKI Hospitality.\nIKI Ramen + Sushi focuses on ramen, sushi, omakase, online ordering, and reservations across Hollywood and Koreatown. AKAMI focuses on sushi, omakase, a la carte dining, and reservations across Monrovia, Toluca Lake, and Arcadia.\nBoth websites were built from one shared system. The hero modules, menu structures, reservation blocks, location sections, galleries, and chef content could be adapted for each brand without duplicating the entire build.",
+    "liveUrl": "https://ikiramen.com/",
+    "featured": true,
+    "coverLabel": "IKI Hospitality",
+    "eyebrowTag": "Two brands · One system",
+    "caseTitle": "Same bones, two different appetites.",
+    "caseSub": "IKI Hospitality needed two restaurant websites that felt connected without feeling identical. The same component system was adapted for a ramen-and-sushi restaurant and a premium omakase concept across Los Angeles.",
+    "links": [
+      {
+        "label": "Visit IKI Ramen + Sushi",
+        "value": ""
+      },
+      {
+        "label": "Visit AKAMI",
+        "value": ""
+      }
+    ],
+    "facts": [
+      {
+        "label": "Client",
+        "value": "IKI Hospitality"
+      },
+      {
+        "label": "Role",
+        "value": "Design & Development"
+      },
+      {
+        "label": "Brands",
+        "value": "IKI + AKAMI"
+      },
+      {
+        "label": "Locations",
+        "value": "5 across Los Angeles"
+      },
+      {
+        "label": "Status",
+        "value": "deployed"
+      }
+    ],
+    "overviewEyebrow": "Overview",
+    "overviewHeading": "Two concepts, one shared foundation.",
+    "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "Two brands, the same architecture.",
+    "gallery": [
+      {
+        "src": "/uploads/c3c891944abaee2f.avif",
+        "brand": "IKI Ramen + Sushi",
+        "category": "Homepage",
+        "title": "A ramen and sushi experience in Los Angeles."
+      },
+      {
+        "src": "/uploads/329bcd866c79b099.avif",
+        "brand": "IKI Ramen+Sushi",
+        "category": "Omakase",
+        "title": "Seasonal dishes and a structured tasting journey."
+      },
+      {
+        "src": "/uploads/a24d569845a6f492.avif",
+        "brand": "AKAMI",
+        "category": "Homepage",
+        "title": "A dedicated sushi and omakase experience.",
+        "color1": "#2B3A4A",
+        "color2": "#16202A"
+      },
+      {
+        "src": "/uploads/fc92c1ef7f60bd60.avif",
+        "brand": "AKAMI",
+        "category": "Omakase",
+        "title": "Lunch Omakase and the full Omakase Experience.",
+        "color1": "#2B3A4A",
+        "color2": "#16202A"
+      },
+      {
+        "src": "/uploads/fc0f2107a3da8f8c.avif",
+        "brand": "IKI Hospitality",
+        "category": "Locations",
+        "title": "Five Los Angeles locations managed through one system."
+      }
+    ],
+    "decisionsEyebrow": "Key decisions",
+    "decisionsHeading": "The choices that held it together.",
+    "decisionsSub": "The build needed to support two brands with different menus, locations, and customer journeys while remaining simple to manage and consistent to expand.",
+    "decisions": [
+      {
+        "title": "One system, not two separate builds.",
+        "body": "The core components were shared across both websites, while each brand received its own content, visual treatment, menus, and messaging."
+      },
+      {
+        "title": "Flexible content structures.",
+        "body": "The CMS was designed to support IKI’s ramen, sushi, and omakase content alongside AKAMI’s separate lunch and full omakase experiences."
+      },
+      {
+        "title": "Reservations as a reusable component.",
+        "body": "The reservation structure was built to support multiple locations and booking providers without creating a new layout for every restaurant."
+      },
+      {
+        "title": "Distinct brands, related experiences.",
+        "body": "IKI Ramen + Sushi and AKAMI feel like part of the same hospitality group while maintaining different personalities and dining propositions."
+      }
+    ]
+  },
+  {
+    "slug": "quick-greens",
+    "title": "Quick Greens",
+    "category": "Webflow",
+    "filterCat": "webflow",
+    "monogram": "QG",
+    "status": "Live",
+    "color1": "#2c6a68",
+    "color2": "#173e3c",
+    "coverImage": "/uploads/d401a35ef533fed7.avif",
+    "showcaseImage": "/uploads/615769b563b36a8f.avif",
+    "year": "2025",
+    "client": "Quick Greens",
+    "tags": [
+      "Webflow",
+      "Forms",
+      "Integrations"
+    ],
+    "summary": "Fast-casual salad chain site with custom order and catering forms wired into their own systems, not a generic third-party embed.",
+    "description": "Quick Greens is a fast-casual drive-thru food concept serving bowls, wraps, salads, snacks, and drinks through drive-thru, delivery, and pickup.\nThe website gives visitors a quick way to understand the menu, browse house picks, compare calories and macros, find a nearby location, order online, and explore catering options. The content is organized around the ways customers interact with the brand: choosing what to eat, understanding what is in it, deciding how to order, and finding the nearest location.\nThe site also supports dietary discovery with vegetarian, vegan, and gluten-free options, explains the ingredients and preparation approach, and connects customers to ordering, catering, feedback, franchise, careers, and community updates. The project data also identifies custom forms and integrations as part of the build.",
+    "liveUrl": "https://www.quickgreens.com/",
+    "featured": true,
+    "coverLabel": "Quickgreens",
+    "eyebrowTag": "Fast food, made better",
+    "caseTitle": "Real Food Made Quick.",
+    "caseSub": "A fast-casual food experience that helps customers choose, understand, order, and find their quickgreens meal without slowing them down.",
+    "links": [
+      {
+        "label": "Visit quickgreens",
+        "value": ""
+      }
+    ],
+    "facts": [
+      {
+        "label": "Quick Greens",
+        "value": "Developer"
+      }
+    ],
+    "overviewEyebrow": "Overview",
+    "overviewHeading": "Fast food, made better.",
+    "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "A quick path from craving to order.",
+    "gallery": [
+      {
+        "src": "/uploads/89db97d4825eb64a.webp",
+        "brand": "quickgreens",
+        "category": "Homepage",
+        "title": "Real Food Made Quick."
+      },
+      {
+        "src": "/uploads/f6501932a6fe3802.avif",
+        "brand": "quickgreens",
+        "category": "Menu",
+        "title": "House picks, bowls, wraps, salads, snacks, and drinks."
+      },
+      {
+        "src": "/uploads/4232038dbf0b1701.avif",
+        "brand": "quickgreens",
+        "category": "Nutrition",
+        "title": "Clean greens. Clear macros."
+      },
+      {
+        "src": "/uploads/7042663898a72258.avif",
+        "brand": "quickgreens",
+        "category": "Locations",
+        "title": "Find a quickgreens location near you."
+      }
+    ],
+    "decisionsEyebrow": "Key decisions",
+    "decisionsHeading": "Keep the choice moving.",
+    "decisionsSub": "The site is built around the speed and clarity customers expect from a quick-service food experience.",
+    "decisions": [
+      {
+        "title": "Make the menu easy to scan",
+        "body": "Menu categories, house picks, ingredients, dietary indicators, and nutrition information are presented in a way that helps visitors decide quickly."
+      },
+      {
+        "title": "Put nutrition in the experience",
+        "body": "Macro information is treated as part of the menu experience, giving customers a clearer view of calories, protein, carbohydrates, fat, and sodium."
+      },
+      {
+        "title": "Support multiple ways to eat",
+        "body": "The site connects customers to drive-thru, delivery, pickup, online ordering, and catering without forcing those journeys into one generic call to action."
+      },
+      {
+        "title": "Connect the forms to the business",
+        "body": "Custom order and catering forms are part of the project’s integration work, keeping important customer actions connected to the systems Quick Greens uses to operate."
+      }
+    ]
+  },
+  {
+    "slug": "kilok9",
+    "title": "Kilo K-9™",
+    "category": "Webflow",
+    "filterCat": "Webflow",
+    "monogram": "K9",
+    "status": "Live",
+    "color1": "#47508b",
+    "color2": "#262b54",
+    "coverImage": "/uploads/fbdf1b83d095c0d4.avif",
+    "showcaseImage": "/uploads/e2d74dcda768a987.avif",
+    "year": "2025",
+    "client": "Kilo k9",
+    "tags": [
+      "Webflow",
+      "GSAP"
+    ],
+    "summary": "A dog-training website for pet owners, working-dog handlers, and families looking for structured, reliable training programs.",
+    "description": "Kilo K-9™ is a family-run dog-training company based in Flagstaff, Arizona. The website introduces visitors to obedience training, behavior modification, board and train, personal protection, service-animal training, and Kilo Select™.\nThe site serves two main audiences: owners looking for help with pet dogs and handlers looking for specialized working-dog training. Each service has a clear path so visitors can understand the difference between everyday obedience, behavior work, protection training, service-animal training, and longer-term development.\nThe website also introduces the Kilo K-9™ team, explains the company’s training philosophy, presents client testimonials, and guides prospective clients toward an inquiry.",
+    "liveUrl": "https://www.kilok9.com/",
+    "featured": true,
+    "coverLabel": "Kilo K-9™",
+    "eyebrowTag": "Dog training · Flagstaff, Arizona",
+    "caseTitle": "Building Better Dogs. Guiding Better Handlers.",
+    "caseSub": "A clear, structured website for pet owners, working-dog handlers, and families looking for the right training path.",
+    "links": [
+      {
+        "label": "Visit Kilo K-9™",
+        "value": ""
+      }
+    ],
+    "facts": [
+      {
+        "label": "developer",
+        "value": "Developer"
+      }
+    ],
+    "overviewEyebrow": "Overview",
+    "overviewHeading": "From chaos to control.",
+    "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "A clearer path through dog training.",
+    "gallery": [
+      {
+        "src": "/uploads/7c1cbb2341f1378c.avif",
+        "brand": "Kilo K-9™",
+        "category": "Homepage",
+        "title": "Building Better Dogs. Guiding Better Handlers."
+      },
+      {
+        "src": "/uploads/1fab590e51abc9c8.jpg",
+        "brand": "Kilo K-9™",
+        "category": "Training programs",
+        "title": "Clear paths for pet-dog and working-dog training."
+      },
+      {
+        "src": "/uploads/6a31c383e181d354.avif",
+        "brand": "Kilo K-9™",
+        "category": "Service detail",
+        "title": "Obedience, behavior modification, board and train, protection, and service-animal programs."
+      },
+      {
+        "src": "/uploads/fc8c575201b65785.avif",
+        "brand": "Kilo K-9™",
+        "category": "Inquiry flow",
+        "title": "A guided starting point for prospective clients."
+      }
+    ],
+    "decisionsEyebrow": "Key decisions",
+    "decisionsHeading": "Clarity before complexity.",
+    "decisionsSub": "The site brings multiple training programs and audiences into one clear experience.",
+    "decisions": [
+      {
+        "title": "Separate the main audiences",
+        "body": "The site gives pet owners and working-dog handlers clear routes into the services most relevant to them."
+      },
+      {
+        "title": "Make the services easy to understand",
+        "body": "The training offer is divided into recognizable programs, including obedience, behavior modification, board and train, personal protection, service-animal training, and Kilo Select™."
+      },
+      {
+        "title": "Lead with trust and experience",
+        "body": "The website places the trainers, client testimonials, company history, and training philosophy close to the service information."
+      },
+      {
+        "title": "Turn interest into an inquiry",
+        "body": "Visitors are directed toward a consultation flow where they can identify their training needs and begin a conversation with the team."
+      }
+    ]
+  },
+  {
+    "slug": "palm-ocean",
+    "title": "Palm & Ocean",
+    "category": "Website Build",
+    "filterCat": "Website Build",
+    "monogram": "P&O",
+    "status": "Live",
+    "color1": "#b9536e",
+    "color2": "#8f2f10",
+    "coverImage": "/uploads/febe390fb0225046.avif",
+    "showcaseImage": "/uploads/7bd58b1f9e3fb828.avif",
+    "year": "2024",
+    "client": "Palm & Ocean",
+    "tags": [
+      "Webflow",
+      "Hospitality",
+      "Marketing Agency",
+      "CMS",
+      "Motion Design"
+    ],
+    "summary": "A bold hospitality marketing website for Palm & Ocean, combining services, production work, client projects, team information, and lead generation into one editorial experience.",
+    "description": "Palm & Ocean is a hospitality marketing agency and production studio focused on helping restaurants, hotels, and hospitality brands grow through strategy, content, and creative direction.\nThe website brings together the agency’s services, production work, featured clients, team, and contact experience in one immersive platform.\nIts content spans video production, photography, social media management, public relations, branding, influencer marketing, paid advertising, email marketing, reputation management, and website development.",
+    "liveUrl": "https://www.palmandocean.com/",
+    "featured": true,
+    "coverLabel": "Palm & Ocean",
+    "eyebrowTag": "Hospitality Marketing Agency",
+    "caseTitle": "Hospitality marketing, redefined.",
+    "caseSub": "A visual digital experience for Palm & Ocean, a hospitality marketing and production agency helping brands create bigger waves.",
+    "links": [
+      {
+        "label": "Visit Palm & Ocean",
+        "value": ""
+      }
+    ],
+    "facts": [
+      {
+        "label": "Role",
+        "value": "Design & Development"
+      },
+      {
+        "label": "Type",
+        "value": "Hospitality Marketing Website"
+      },
+      {
+        "label": "Services",
+        "value": "Strategy, Production & Marketing"
+      },
+      {
+        "label": "Founded",
+        "value": "2015"
+      },
+      {
+        "label": "Status",
+        "value": "Live"
+      }
+    ],
+    "overviewEyebrow": "Overview",
+    "overviewHeading": "A digital home for bigger hospitality stories.",
+    "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "A larger stage for hospitality brands.",
+    "gallery": [
+      {
+        "src": "/uploads/28f3da4dbed98058.avif",
+        "brand": "Palm & Ocean",
+        "category": "Homepage",
+        "title": "Hospitality marketing redefined."
+      },
+      {
+        "src": "/uploads/e40dc4762459b0cf.avif",
+        "brand": "Palm & Ocean",
+        "category": "Services",
+        "title": "A complete catalog of hospitality marketing services."
+      },
+      {
+        "src": "",
+        "brand": "Palm & Ocean",
+        "category": "Production",
+        "title": "Bold visions. Bolder creations."
+      },
+      {
+        "src": "",
+        "brand": "Palm & Ocean",
+        "category": "Our Work",
+        "title": "Featured work for hospitality and lifestyle brands."
+      },
+      {
+        "src": "",
+        "brand": "Palm & Ocean",
+        "category": "About",
+        "title": "The faces behind Palm & Ocean."
+      }
+    ],
+    "decisionsEyebrow": "Key decisions",
+    "decisionsHeading": "Build the agency around its range.",
+    "decisionsSub": "Palm & Ocean offers more than one service, so the website needed to make the full breadth of its capabilities easy to explore without overwhelming visitors.",
+    "decisions": [
+      {
+        "title": "Lead with a clear point of view.",
+        "body": "The opening message immediately establishes Palm & Ocean as a hospitality marketing agency with a strong creative perspective."
+      },
+      {
+        "title": "Turn services into a catalog.",
+        "body": "The service section organizes the agency’s capabilities into clear categories, from production and photography to public relations, branding, advertising, and web development."
+      },
+      {
+        "title": "Put production at the center.",
+        "body": "The production section gives the agency’s visual work a prominent role, showing the quality and range of its creative output."
+      },
+      {
+        "title": "Connect work to conversion.",
+        "body": "Featured projects, team information, and repeated contact prompts make it easy for potential clients to move from exploring the work to starting a conversation."
+      }
+    ]
+  },
+  {
     "slug": "kaidoverse",
     "title": "Kaidoverse",
     "category": "Webflow",
@@ -21,202 +436,339 @@
     "featured": true
   },
   {
-    "slug": "kilok9",
-    "title": "Kilo K9",
-    "category": "Webflow",
-    "filterCat": "Webflow",
-    "monogram": "K9",
+    "slug": "stache-haus",
+    "title": "Stachehaus",
+    "category": "Website Build",
+    "filterCat": "Website Build",
+    "monogram": "SH",
     "status": "Live",
-    "color1": "#47508b",
-    "color2": "#262b54",
-    "coverImage": "/uploads/978ef47162d28685.png",
-    "year": "2025",
-    "client": "Kilo k9",
-    "tags": [
-      "JavaScript",
-      "MapLibre GL JS",
-      "Geolocation"
-    ],
-    "summary": "Store locator built on MapLibre GL JS, matching real hours and routing customers to the nearest location that's actually open.",
-    "description": "",
-    "liveUrl": "",
-    "featured": true,
-    "overviewEyebrow": "Overview",
-    "galleryEyebrow": "Gallery — screens",
-    "decisionsEyebrow": "Key decisions"
-  },
-  {
-    "slug": "iki-ramen-sushi",
-    "title": "IKI Ramen+Sushi",
-    "category": "Webflow — Motion",
-    "filterCat": "webflow",
-    "monogram": "IK",
-    "status": "Live",
-    "color1": "#c4451b",
+    "color1": "#b9536e",
     "color2": "#8f2f10",
-    "coverImage": "/uploads/764e681e2ed4e953.png",
-    "year": "2026",
-    "client": "IKI Hospitality",
+    "coverImage": "",
+    "showcaseImage": "",
+    "year": "2024",
+    "client": "Stachehaus",
     "tags": [
-      "Webflow",
-      "Multi-brand system",
-      "CMS",
-      "OpenTable integration",
-      "Toast ordering"
+      "Website Build",
+      "JavaScript",
+      "GSAP",
+      "Scroll Motion"
     ],
-    "summary": "Restaurant site built in Webflow, with scroll-triggered motion used to pace the menu sections instead of dumping the whole card on load.",
-    "description": "Jeffry Undiarto is a Master Sommelier who spent over a decade in fine dining, including a run at the two-Michelin-starred n/naka, before building IKI Hospitality around a few distinct Japanese concepts. **IKI Ramen+Sushi — ramen, sushi, and omakase across Hollywood and Koreatown — and AKAMI, a sushi-and-omakase-only concept in Toluca Lake and Arcadia, needed sites that felt like family without feeling identical.**\n\nThe answer was one shared component system — hero video module, omakase menu cards, per-location reservation blocks, gallery grid, chef bio section — built once and tuned per brand. The copy, imagery, and omakase structure change from site to site; the underlying system doesn't, which is what makes adding a third or fourth location mostly a content job, not a rebuild.",
-    "liveUrl": "https://ikiramen.com/",
+    "summary": "A premium website for Stachehaus, a Brooklyn-based creative agency focused on brand strategy, campaign development, photography, and film production.",
+    "description": "Stachehaus is a bespoke creative agency based in Brooklyn, New York. The studio works across brand strategy, campaign development, commercial photography, campaign production, and film.\nThe website presents the agency through a structured visual story, guiding visitors through its mission, capabilities, selected work, team, and contact experience.",
+    "liveUrl": "https://www.stache.haus/",
     "featured": true,
-    "eyebrowTag": "Two sites · One system",
-    "caseTitle": "Same bones, *two* different appetites.",
-    "caseSub": "IKI Hospitality runs a handful of modern Japanese concepts across LA under chef Jeffry Undiarto. **IKI Ramen+Sushi and AKAMI needed sites that read as siblings, not clones — the same underlying component system, tuned differently for a ramen-and-sushi flagship versus an omakase-only sushi bar.** Four locations, two brands, one build.",
+    "coverLabel": "Stachehaus",
+    "eyebrowTag": "Brand Strategy + Production",
+    "caseTitle": "Live to tell stories.",
+    "caseSub": "A scroll-led website for a creative agency helping brands shape stronger stories through strategy, photography, and film.",
     "links": [
       {
-        "label": "Visit IKI Ramen+Sushi",
-        "url": "https://ikiramen.com/"
-      },
-      {
-        "label": "Visit AKAMI",
-        "url": "https://akami-sushi.com/"
+        "label": "Visit Stachehaus",
+        "value": "https://www.stache.haus/"
       }
     ],
     "facts": [
       {
-        "label": "Client",
-        "value": "IKI Hospitality"
+        "label": "Design Engineer",
+        "value": "JavaScript, GSAP, HTML, CSS"
+      }
+    ],
+    "overviewEyebrow": "Overview",
+    "overviewHeading": "Strategy and production in one expressive digital experience.",
+    "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "A creative system built to tell better stories.",
+    "gallery": [
+      {
+        "src": "",
+        "brand": "Stachehaus",
+        "category": "Homepage",
+        "title": "Live to tell stories."
       },
+      {
+        "src": "",
+        "brand": "Stachehaus",
+        "category": "Mission",
+        "title": "A premium approach to strategy and storytelling."
+      },
+      {
+        "src": "",
+        "brand": "Stachehaus",
+        "category": "Brand Strategy",
+        "title": "Campaign development, workshops, and channel strategy."
+      },
+      {
+        "src": "",
+        "brand": "Stachehaus",
+        "category": "Production",
+        "title": "Photography, campaign production, and commercial film."
+      },
+      {
+        "src": "",
+        "brand": "Stachehaus",
+        "category": "Work",
+        "title": "Selected work from the Haus."
+      }
+    ],
+    "decisionsEyebrow": "Key decisions",
+    "decisionsHeading": "A site built around the rhythm of a good story.",
+    "decisionsSub": "The experience combines clear information with expressive motion, allowing the agency’s work and point of view to unfold naturally as visitors scroll.",
+    "decisions": [
+      {
+        "title": "Make the story the navigation.",
+        "body": "The site is organized as a sequence of chapters covering the mission, services, work, team, and contact experience."
+      },
+      {
+        "title": "Separate strategy from production.",
+        "body": "The website presents brand strategy and production as distinct capabilities, making the agency’s offer easy to understand."
+      },
+      {
+        "title": "Let the work carry authority.",
+        "body": "The work section gives client projects a prominent position so visitors can quickly understand the quality and range of the studio’s output."
+      },
+      {
+        "title": "Use motion to support meaning.",
+        "body": "Scroll-based transitions guide visitors through the story while keeping the content readable and focused."
+      }
+    ]
+  },
+  {
+    "slug": "kyle-nutt",
+    "title": "Kyle Nutt",
+    "category": "Website Build",
+    "filterCat": "Website Build",
+    "monogram": "KN",
+    "status": "Live",
+    "color1": "#111111",
+    "color2": "#d8b46a",
+    "coverImage": "/uploads/4f6343d0d77a1036.avif",
+    "showcaseImage": "",
+    "year": "2024",
+    "client": "Kyle Nutt",
+    "tags": [
+      "Webflow",
+      "Creator Portfolio",
+      "Digital Products",
+      "Video",
+      "E-commerce"
+    ],
+    "summary": "A cinematic creator portfolio for Kyle Nutt, combining client work, short films, social content, and digital products in one immersive platform.",
+    "description": "Kyle Nutt’s website brings together his work as a content creator, filmmaker, and digital product creator.\nThe site gives visitors access to his client portfolio, short films, social media work, creator story, and digital products such as the Vintage LUT Pack.\nThe experience is designed to feel cinematic and personal, using strong visual content to connect Kyle’s creative identity with the products and work he offers.",
+    "liveUrl": "https://www.kylenutt.co/",
+    "featured": true,
+    "coverLabel": "Kyle Nutt",
+    "eyebrowTag": "Creator Portfolio + Digital Products",
+    "caseTitle": "Films that make you feel.",
+    "caseSub": "A cinematic digital home for Kyle Nutt’s films, client work, creative assets, and growing library of digital products.",
+    "links": [
+      {
+        "label": "Visit Kyle Nutt",
+        "value": ""
+      }
+    ],
+    "facts": [
       {
         "label": "Role",
         "value": "Design & Development"
       },
       {
-        "label": "Sites",
-        "value": "IKI + AKAMI"
+        "label": "Type",
+        "value": "Creator Portfolio"
       },
       {
-        "label": "Locations",
-        "value": "4 across LA"
+        "label": "Content",
+        "value": "Films, client work, and digital products"
+      },
+      {
+        "label": "Product",
+        "value": "Vintage LUT Pack"
       },
       {
         "label": "Status",
-        "value": "deployed"
+        "value": "Live"
       }
     ],
     "overviewEyebrow": "Overview",
-    "overviewHeading": "Two concepts, *one* brief.",
+    "overviewHeading": "One home for the full creative practice.",
     "galleryEyebrow": "Gallery — screens",
-    "galleryHeading": "Two rooms, *same* architecture.",
+    "galleryHeading": "A cinematic home for a multi-platform creator.",
     "gallery": [
       {
         "src": "",
-        "brand": "IKI Ramen+Sushi",
+        "brand": "Kyle Nutt",
         "category": "Homepage",
-        "title": "Hero video + omakase highlights"
+        "title": "Films that make you feel."
       },
       {
         "src": "",
-        "brand": "IKI Ramen+Sushi",
-        "category": "Omakase menu",
-        "title": "Seven-course tasting, laid out course by course"
+        "brand": "Kyle Nutt",
+        "category": "Shop",
+        "title": "The Vintage LUT Pack."
       },
       {
         "src": "",
-        "brand": "AKAMI",
-        "category": "Homepage",
-        "title": "Two omakase tiers — Lunch & the full Experience",
-        "color1": "#2B3A4A",
-        "color2": "#16202A"
+        "brand": "Kyle Nutt",
+        "category": "Work",
+        "title": "An archive of client work from across his career."
       },
       {
         "src": "",
-        "brand": "AKAMI",
-        "category": "Locations",
-        "title": "Toluca Lake & Arcadia, one reservation component",
-        "color1": "#2B3A4A",
-        "color2": "#16202A"
+        "brand": "Kyle Nutt",
+        "category": "Film",
+        "title": "Short films and stories built for emotional impact."
+      },
+      {
+        "src": "",
+        "brand": "Kyle Nutt",
+        "category": "About",
+        "title": "The creator behind the work."
       }
     ],
     "decisionsEyebrow": "Key decisions",
-    "decisionsHeading": "The choices that *held* it together.",
-    "decisionsSub": "Four calls that shaped the build more than any single line of code.",
+    "decisionsHeading": "Turn the portfolio into a creative ecosystem.",
+    "decisionsSub": "The website needed to support Kyle’s identity as a filmmaker, creator, portfolio owner, and digital product seller without making the experience feel fragmented.",
     "decisions": [
       {
-        "title": "One system, not two designs",
-        "body": "IKI and AKAMI could have been two unrelated builds. Instead the hero, omakase cards, reservation blocks, and gallery grid all come from one shared component set — so the two sites feel related without feeling identical."
+        "title": "Lead with the work.",
+        "body": "The site immediately establishes Kyle’s cinematic identity through visual media, films, and client work."
       },
       {
-        "title": "Content model over hard-coding",
-        "body": "IKI runs one connected omakase tasting; AKAMI runs two separate tiers. Rather than fork the template, the CMS structure was built loose enough to hold both shapes from day one."
+        "title": "Connect audience and commerce.",
+        "body": "The digital product shop is integrated into the same experience as the portfolio, making the transition from discovering the work to purchasing an asset feel natural."
       },
       {
-        "title": "Reservations as a plug-in",
-        "body": "Four locations, four OpenTable experiences. One reservation component takes a location ID and does the rest — adding a fifth location is a data entry, not a design decision."
+        "title": "Create one central archive.",
+        "body": "Client work, short films, and creative projects are organized in one accessible archive instead of being scattered across separate platforms."
       },
       {
-        "title": "Consistency where it's invisible",
-        "body": "Online ordering, hours, and location details live in the exact same place across both sites. Guests never notice this — which is the point."
+        "title": "Make the creator visible.",
+        "body": "The About section gives the work a clear personal context by explaining Kyle’s creative background, approach, and storytelling style."
       }
     ]
   },
   {
-    "slug": "quick-greens",
-    "title": "Quick Greens",
-    "category": "Webflow",
-    "filterCat": "webflow",
-    "monogram": "QG",
+    "slug": "jana",
+    "title": "JANA",
+    "category": "Website Build",
+    "filterCat": "Website Build",
+    "monogram": "JANA",
     "status": "Live",
-    "color1": "#2c6a68",
-    "color2": "#173e3c",
-    "coverImage": "/uploads/b2a8be885e00aa32.png",
+    "color1": "#b9536e",
+    "color2": "#8f2f10",
+    "coverImage": "",
+    "showcaseImage": "",
     "year": "2025",
-    "client": "Quick Greens",
+    "client": "JANA",
     "tags": [
       "Webflow",
-      "Forms",
-      "Integrations"
+      "Hospitality",
+      "Restaurant",
+      "Mediterranean",
+      "Food & Beverage",
+      "Motion Design"
     ],
-    "summary": "Fast-casual salad chain site with custom order and catering forms wired into their own systems, not a generic third-party embed.",
-    "description": "",
-    "liveUrl": "https://www.quickgreens.com/",
+    "summary": "A refined restaurant website for JANA, bringing together its Mediterranean coastal identity, menus, chef story, events, gallery, guest experience, and reservations into one immersive digital experience.",
+    "description": "JANA is a Mediterranean coastal restaurant in Torrance, California, inspired by the timeless character of the Amalfi Coast and shaped by the seasons of California.\n\nThe website brings together JANA's menus, chef, story, events, gallery, guest reviews, location, and reservation experience in one cohesive platform.\n\nAt the heart of the brand are five guiding principles — Grace, Soul, Harvest, Ocean, and Community — which inform the restaurant's approach to food, hospitality, and the overall guest experience.",
+    "liveUrl": "https://www.janacoastal.com/",
     "featured": true,
-    "overviewEyebrow": "Overview",
-    "galleryEyebrow": "Gallery — screens",
-    "decisionsEyebrow": "Key decisions"
-  },
-  {
-    "slug": "stache-haus",
-    "title": "Stache.haus",
-    "category": "Custom JS — Scroll",
-    "filterCat": "custom-js",
-    "monogram": "SH",
-    "status": "Live",
-    "color1": "#C79A3B",
-    "color2": "#8A631C",
-    "coverImage": "",
-    "summary": "Hand-coded scroll experience built without a page builder, so the motion timing could be tuned exactly rather than fighting a template's defaults.",
-    "tags": [
-      "JavaScript",
-      "GSAP",
-      "Scroll motion"
+    "coverLabel": "JANA",
+    "eyebrowTag": "Mediterranean Coastal Restaurant",
+    "caseTitle": "Fresh. Vibrant. Coastal.",
+    "caseSub": "A digital experience for JANA, bringing Mediterranean coastal dining, California influences, and a global culinary perspective together in one visual platform.",
+    "links": [
+      {
+        "label": "Visit JANA",
+        "value": ""
+      }
     ],
-    "year": "",
-    "client": "Stache.haus",
-    "liveUrl": "",
-    "gallery": [],
-    "description": "",
-    "featured": true,
-    "eyebrowTag": "",
-    "caseTitle": "",
-    "caseSub": "",
-    "links": [],
-    "facts": [],
+    "facts": [
+      {
+        "label": "Role",
+        "value": "Developer"
+      },
+      {
+        "label": "Type",
+        "value": "Mediterranean Restaurant Website"
+      },
+      {
+        "label": "Location",
+        "value": "Torrance, California"
+      },
+      {
+        "label": "Status",
+        "value": "Live"
+      }
+    ],
     "overviewEyebrow": "Overview",
-    "overviewHeading": "",
+    "overviewHeading": "A digital home for the JANA experience.",
     "galleryEyebrow": "Gallery — screens",
+    "galleryHeading": "A visual taste of JANA.",
+    "gallery": [
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Homepage",
+        "title": "Fresh. Vibrant. Coastal."
+      },
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Menu",
+        "title": "Mediterranean flavors with a global perspective."
+      },
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Our Story",
+        "title": "Grace, Soul, Harvest, Ocean, Community."
+      },
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Gallery",
+        "title": "A visual expression of coastal dining."
+      },
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Guest Experience",
+        "title": "Don't just take our word for it."
+      },
+      {
+        "src": "",
+        "brand": "JANA",
+        "category": "Locations",
+        "title": "The JANA experience awaits."
+      }
+    ],
     "decisionsEyebrow": "Key decisions",
-    "decisionsHeading": "",
-    "decisionsSub": "",
-    "decisions": []
+    "decisionsHeading": "Build around the complete dining experience.",
+    "decisionsSub": "JANA is more than a restaurant menu. The website needed to communicate the brand's culinary point of view, atmosphere, people, and hospitality experience while keeping practical actions such as viewing menus and making reservations easy to access.",
+    "decisions": [
+      {
+        "title": "Lead with the coastal identity.",
+        "body": "The opening experience immediately establishes JANA through its “Fresh. Vibrant. Coastal.” positioning, creating a strong introduction to the restaurant before visitors move into its food and story."
+      },
+      {
+        "title": "Put the food first.",
+        "body": "Signature dishes and chef favorites appear early in the experience, giving visitors an immediate taste of JANA's Mediterranean coastal approach and creating a visual connection between the brand and its food."
+      },
+      {
+        "title": "Give the story room to breathe.",
+        "body": "The Our Story section expands beyond the food to explore JANA's connection to the Amalfi Coast, California's seasonal ingredients, global influences, and its five guiding principles: Grace, Soul, Harvest, Ocean, and Community."
+      },
+      {
+        "title": "Put the chef behind the experience.",
+        "body": "Chef Christopher Lin receives a dedicated section that introduces his background, culinary philosophy, and the influences behind JANA's menu, adding a human layer to the restaurant's identity."
+      },
+      {
+        "title": "Let the visuals sell the experience.",
+        "body": "The gallery gives JANA's food, interiors, and atmosphere a prominent role, allowing visitors to understand the character of the restaurant before they ever arrive."
+      },
+      {
+        "title": "Connect discovery to action.",
+        "body": "Menus, reservations, events, location information, and contact details are integrated into the experience, giving visitors a clear path from discovering JANA to planning their visit."
+      }
+    ]
   }
 ]
