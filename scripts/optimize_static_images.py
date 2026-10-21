@@ -13,6 +13,7 @@ SOURCE = ROOT / "source-assets" / "uploads"
 OUTPUT = ROOT / "static-site" / "uploads"
 FORMATS = {".avif", ".webp", ".jpg", ".jpeg", ".png"}
 BUDGET = 30_000
+HERO_STEMS = {"546431221881b7a2", "615769b563b36a8f", "e2d74dcda768a987", "7bd58b1f9e3fb828"}
 
 
 def encode(source: Path, width: int, quality: int, output: Path) -> None:
@@ -31,9 +32,14 @@ def main() -> None:
             encode(source, 640, quality, small)
             if small.stat().st_size <= BUDGET:
                 break
+        medium = None
+        if source.stem in HERO_STEMS:
+            medium = OUTPUT / f"{source.stem}-960.webp"
+            encode(source, 960, 80, medium)
         large = OUTPUT / f"{source.stem}-1600.webp"
         encode(source, 1600, 80, large)
-        print(f"{source.name}: {small.stat().st_size:,} B (q≤76), {large.stat().st_size:,} B")
+        middle = f", {medium.stat().st_size:,} B" if medium else ""
+        print(f"{source.name}: {small.stat().st_size:,} B (q≤76){middle}, {large.stat().st_size:,} B")
     profile = SOURCE / "profile.jpg"
     if profile.exists():
         small_profile = OUTPUT / "profile-400.webp"

@@ -10,7 +10,7 @@
 <title>Ayomide — Design Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/uploads/546431221881b7a2-1600.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/uploads/546431221881b7a2-640.webp" imagesrcset="/uploads/546431221881b7a2-640.webp 640w, /uploads/546431221881b7a2-960.webp 960w, /uploads/546431221881b7a2-1600.webp 1600w" imagesizes="(max-width: 700px) 100vw, 65vw" fetchpriority="high">
 
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -800,7 +800,7 @@ dialog.cm::backdrop{-webkit-backdrop-filter:blur(6px)}
    'repeating-linear-gradient(0deg,var(--line) 0 1px,transparent 1px 28px),repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 28px)'];
   /* Rendered server-side from data/projects.json (see routes/site.js and
      utils/projectsStore.js). Capped to the 4 most recent; the full archive lives at /projects. */
-  var P=[{"n":"IKI Hospitality","k":"Website Build","d":"A shared Webflow system for two modern Japanese restaurant brands: IKI Ramen + Sushi and AKAMI. Each site has its own identity while sharing the same underlying structure for menus, reservations, locations, galleries, and storytelling.","u":"/work/iki-ramen-sushi","img":"/uploads/2500ceca2b5a70bf-640.webp","heroImg":"/uploads/546431221881b7a2-1600.webp"},{"n":"Quick Greens","k":"Webflow","d":"Fast-casual salad chain site with custom order and catering forms wired into their own systems, not a generic third-party embed.","u":"/work/quick-greens","img":"/uploads/d401a35ef533fed7-640.webp","heroImg":"/uploads/615769b563b36a8f-1600.webp"},{"n":"Kilo K-9™","k":"Webflow","d":"A dog-training website for pet owners, working-dog handlers, and families looking for structured, reliable training programs.","u":"/work/kilok9","img":"/uploads/fbdf1b83d095c0d4-640.webp","heroImg":"/uploads/e2d74dcda768a987-1600.webp"},{"n":"Palm & Ocean","k":"Website Build","d":"A bold hospitality marketing website for Palm & Ocean, combining services, production work, client projects, team information, and lead generation into one editorial experience.","u":"/work/palm-ocean","img":"/uploads/febe390fb0225046-640.webp","heroImg":"/uploads/7bd58b1f9e3fb828-1600.webp"}];
+  var P=[{"n":"IKI Hospitality","k":"Website Build","d":"A shared Webflow system for two modern Japanese restaurant brands: IKI Ramen + Sushi and AKAMI. Each site has its own identity while sharing the same underlying structure for menus, reservations, locations, galleries, and storytelling.","u":"/work/iki-ramen-sushi","img":"/uploads/2500ceca2b5a70bf-640.webp","heroImg":"/uploads/546431221881b7a2-640.webp","heroImgSrcset":"/uploads/546431221881b7a2-640.webp 640w, /uploads/546431221881b7a2-960.webp 960w, /uploads/546431221881b7a2-1600.webp 1600w"},{"n":"Quick Greens","k":"Webflow","d":"Fast-casual salad chain site with custom order and catering forms wired into their own systems, not a generic third-party embed.","u":"/work/quick-greens","img":"/uploads/d401a35ef533fed7-640.webp","heroImg":"/uploads/615769b563b36a8f-640.webp","heroImgSrcset":"/uploads/615769b563b36a8f-640.webp 640w, /uploads/615769b563b36a8f-960.webp 960w, /uploads/615769b563b36a8f-1600.webp 1600w"},{"n":"Kilo K-9™","k":"Webflow","d":"A dog-training website for pet owners, working-dog handlers, and families looking for structured, reliable training programs.","u":"/work/kilok9","img":"/uploads/fbdf1b83d095c0d4-640.webp","heroImg":"/uploads/e2d74dcda768a987-640.webp","heroImgSrcset":"/uploads/e2d74dcda768a987-640.webp 640w, /uploads/e2d74dcda768a987-960.webp 960w, /uploads/e2d74dcda768a987-1600.webp 1600w"},{"n":"Palm & Ocean","k":"Website Build","d":"A bold hospitality marketing website for Palm & Ocean, combining services, production work, client projects, team information, and lead generation into one editorial experience.","u":"/work/palm-ocean","img":"/uploads/febe390fb0225046-640.webp","heroImg":"/uploads/7bd58b1f9e3fb828-640.webp","heroImgSrcset":"/uploads/7bd58b1f9e3fb828-640.webp 640w, /uploads/7bd58b1f9e3fb828-960.webp 960w, /uploads/7bd58b1f9e3fb828-1600.webp 1600w"}];
   P.forEach(function(x,i){x.p=PAT[i%PAT.length]});
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   var track=$('track'),ww=$('workwrap'),cur=P.length ? P.length + 1 : 0;
@@ -914,7 +914,7 @@ dialog.cm::backdrop{-webkit-backdrop-filter:blur(6px)}
     return x._p=new Promise(function(res){
       if(!x.heroImg){res(null);return}
       var wrap=document.createElement('div');wrap.className='hp';
-      var img=new Image();img.alt=x.n+' preview';img.decoding='async';wrap.appendChild(img);
+      var img=new Image();img.alt=x.n+' preview';img.decoding='async';img.width=1600;img.height=996;img.sizes='(max-width: 700px) 100vw, 65vw';if(x.heroImgSrcset)img.srcset=x.heroImgSrcset;wrap.appendChild(img);
       img.onload=function(){(img.decode?img.decode():Promise.resolve()).then(function(){res(wrap)},function(){res(wrap)})};
       img.onerror=function(){res(null)};
       img.src=x.heroImg;
