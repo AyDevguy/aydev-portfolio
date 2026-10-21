@@ -198,7 +198,7 @@ section{padding:clamp(72px,9vw,128px) 0}
 .rows p{margin:0;max-width:52ch}
 .about{font:400 clamp(1.75rem,3.4vw,3rem)/1.15 var(--serif);letter-spacing:-.02em;color:var(--fg);max-width:24ch;margin:0 0 24px}
 .about+p{max-width:54ch;margin:0}
-footer{--fm:color-mix(in srgb,var(--bg) 55%,var(--fg));--fl:color-mix(in srgb,var(--bg) 18%,var(--fg));background:var(--fg);color:var(--bg);padding:clamp(72px,10vw,128px) 0 28px}
+footer{--fm:color-mix(in srgb,var(--bg) 75%,var(--fg));--fl:color-mix(in srgb,var(--bg) 18%,var(--fg));background:var(--fg);color:var(--bg);padding:clamp(72px,10vw,128px) 0 28px}
 footer h2{color:var(--bg);max-width:14ch;text-wrap:balance}
 footer .dim{color:var(--fm)}
 footer :focus-visible{outline-color:var(--bg)}
@@ -573,7 +573,7 @@ main .btn .ic{transition:transform .3s var(--ease)}
 <div class="bar" id="bar"><div class="wrap">
   <a class="brand" href="/" aria-label="Ayomide, home"><span class="mark"><svg class="ic" style="stroke-width:2.6" aria-hidden="true"><use href="#i-chev"/></svg></span><span class="wm"><i>Ay</i><b>/</b><span class="wm-dev">DEV</span></span></a>
   <div class="nav-context" id="navContext" aria-live="polite"></div>
-  <div class="acts"><button class="pill tgl" id="theme" type="button" aria-label="Switch color mode" role="switch" aria-checked="false"><span class="tg-dot" aria-hidden="true"></span><svg class="ic tg-i tg-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic tg-i tg-moon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="pill on" id="menubtn" type="button" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button></div>
+  <div class="acts"><button class="pill tgl" id="theme" type="button" aria-label="Switch color mode" role="switch" aria-checked="false"><span class="tg-dot" aria-hidden="true"></span><svg class="ic tg-i tg-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic tg-i tg-moon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="pill on" id="menubtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button></div>
 </div></div>
 
 <div class="menu" id="menu" inert aria-hidden="true">
@@ -1431,12 +1431,12 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 .archive-hero h1,.case-hero h1{font-size:clamp(2.55rem,5.8vw,4.7rem)}
 .pt{display:block!important}
 .pt.run .pt-cur{animation:none!important}
-#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--bg);color:var(--fg);opacity:0;visibility:hidden;transition:opacity .24s ease,visibility 0s .24s;pointer-events:none}
+#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--bg);color:var(--fg);opacity:0;visibility:visible;transition:opacity .24s ease;pointer-events:none}
 #site-loader span{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
 #site-loader i{display:block;width:30px;height:2px;margin:14px auto 0;background:var(--line);overflow:hidden}
 #site-loader i:after{content:"";display:block;width:40%;height:100%;background:var(--fg);transform:translateX(-110%);animation:loadline .55s cubic-bezier(.22,1,.36,1) forwards}
-html.preloading #site-loader{opacity:1;visibility:visible}
-html:not(.preloading) #site-loader{opacity:0;visibility:hidden}
+html.preloading #site-loader{opacity:1}
+html:not(.preloading) #site-loader{opacity:0}
 @keyframes loadline{to{transform:translateX(250%)}}
 /* Lean interaction system: keep functional controls and transitions, remove decorative hover movement. */
 .band div,.band.off div,.live::after{animation:none!important}
