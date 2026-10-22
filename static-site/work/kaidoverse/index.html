@@ -586,8 +586,8 @@ main .btn .ic{transition:transform .3s var(--ease)}
     </nav>
     <div class="mr">
       <div class="mctx-wrap"><p class="meta lab">Local time</p><div class="mctx" id="menuContext"></div></div>
-      <div><p class="meta lab">Start a project</p><a class="mm" href="mailto:hello@aydev.io"><span>hello@aydev.io</span><span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></span></a></div>
-      <div><p class="meta lab">Elsewhere</p><div class="soc"><a href="#" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></a><a href="#" aria-label="LinkedIn"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></a><a href="#" aria-label="Instagram"><svg class="ic" aria-hidden="true"><use href="#i-insta"/></svg></a><a href="mailto:hello@aydev.io" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a></div></div>
+      <div><p class="meta lab">Start a project</p><a class="mm" href="mailto:drmlayomide@gmail.com"><span>drmlayomide@gmail.com</span><span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></span></a></div>
+      <div><p class="meta lab">Elsewhere</p><div class="soc"><a href="https://github.com/AyDevguy" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></a><a href="https://linkedin.com/in/ayomide-daramola-363a54434" aria-label="LinkedIn"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></a><a href="mailto:drmlayomide@gmail.com" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a></div></div>
     </div>
   </div>
 </div>
@@ -686,13 +686,13 @@ main .btn .ic{transition:transform .3s var(--ease)}
 <footer id="contact"><div class="wrap">
   <div class="fcta">
     <h2>Got a project in mind? <span class="dim">Let's build it properly.</span></h2>
-    <a class="btn" href="mailto:hello@aydev.io" data-contact aria-haspopup="dialog">Start a project <svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></a>
+    <a class="btn" href="mailto:drmlayomide@gmail.com" data-contact aria-haspopup="dialog">Start a project <svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></a>
   </div>
   <div class="fgrid">
     <p>Ayomide is a freelance design engineer building fast, accessible and animated websites, designed and shipped end to end.</p>
     <nav aria-label="Footer"><h3>Explore</h3><ul><li><a href="/#work">Work</a></li><li><a href="/projects">All projects</a></li><li><a href="/#process">Process</a></li><li><a href="/#services">Services</a></li><li><a href="/#about">About</a></li></ul></nav>
-    <div><h3>Connect</h3><ul><li><a class="hb" href="#"><span class="bi bi-ig"><svg class="ic" aria-hidden="true"><use href="#i-insta"/></svg></span>Instagram</a></li><li><a class="hb" href="#"><span class="bi bi-li"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></span>LinkedIn</a></li><li><a class="hb" href="#"><span class="bi bi-gh"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a></li></ul></div>
-    <div><h3>Contact</h3><ul><li><a class="hb" href="mailto:hello@aydev.io"><span class="bi bi-ml"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span>hello@aydev.io</a></li></ul></div>
+    <div><h3>Connect</h3><ul><li><a class="hb" href="https://linkedin.com/in/ayomide-daramola-363a54434"><span class="bi bi-li"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></span>LinkedIn</a></li><li><a class="hb" href="https://github.com/AyDevguy"><span class="bi bi-gh"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a></li></ul></div>
+    <div><h3>Contact</h3><ul><li><a class="hb" href="mailto:drmlayomide@gmail.com"><span class="bi bi-ml"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span>drmlayomide@gmail.com</a></li></ul></div>
   </div>
   <div class="foot"><span>&copy; <span id="yr">2026</span> Ayomide. All rights reserved.</span><span><span id="clock"></span> &middot; <a href="#top">Back to top</a></span></div>
 </div></footer>
@@ -1029,7 +1029,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
      Set data-endpoint="/your-route" on #cm-f to POST JSON instead of opening the mail app. */
   (function(){
     var dlg=$('cm');if(!dlg||!dlg.showModal)return;
-    var form=$('cm-f'),ok=$('cm-ok'),last=null,EMAIL='hello@aydev.io';
+    var form=$('cm-f'),ok=$('cm-ok'),last=null,EMAIL='drmlayomide@gmail.com';
     function open(src){
       last=src||D.activeElement;form.hidden=false;ok.hidden=true;
       dlg.showModal();root.classList.add('cm-open');if(window.__lenis)window.__lenis.stop();
@@ -1355,7 +1355,39 @@ html:not(.preloading) #site-loader{opacity:0}
 }
 @media(max-width:700px){.totop{width:62px!important;min-width:62px;height:75px!important;}.totop .ring{left:5px!important;}}
 @media(prefers-reduced-motion:reduce){.totop,.totop.show{transition:none!important;transform:none!important}.totop .rk,.totop .fl{animation:none!important}.project-card .plate-img,.card .plate-img,.gallery-cell .plate-img,.cover-plate .plate-img{transition:none!important;transform:none!important}}
+
+
+/* Restore the original circular rocket, terminal transition, and icon feedback. */
+.totop{width:52px!important;min-width:52px!important;height:52px!important;padding:0!important;display:grid!important;place-items:center!important;border-radius:50%!important;transform:translateY(18px) scale(.8)!important;transition:opacity .35s,transform .5s var(--ease),visibility 0s .5s!important;overflow:visible!important}
+.totop.show{transform:none!important;transition:opacity .35s,transform .5s var(--ease),visibility 0s!important}
+.totop.show:hover{transform:translateY(-4px)!important}
+.totop .ring{position:absolute!important;inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important}
+.totop .rk{position:relative!important;left:auto!important;right:auto!important;top:auto!important}
+.totop .tip{position:absolute!important;top:calc(100% + 7px)!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;display:block!important;padding:0!important;background:transparent!important;box-shadow:none!important;color:var(--fg)!important;font:600 10px/1 var(--sans)!important;white-space:nowrap!important;opacity:1!important;pointer-events:none!important}
+.totop:hover .tip,.totop:focus-visible .tip{transform:translateX(-50%)!important}
+.totop .fl{display:block!important}
+.pt-line{display:flex!important;align-items:baseline!important;gap:.3em!important;font:500 15px/1.2 var(--mono)!important;letter-spacing:.03em!important;padding:0 20px!important;max-width:100%!important;background:transparent!important;color:var(--bg)!important;border-radius:0!important;box-shadow:none!important}
+.pt-line i{font-style:normal!important;opacity:.55!important}
+.pt-meta{display:none!important}
+.acc .ico,.abt .ico{transition:transform .45s cubic-bezier(.3,1.6,.5,1),background-color .25s,color .25s,border-color .25s!important}
+.acc>div:hover .ico,.acc>div.open .ico{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:rotate(-8deg) scale(1.08)!important}
+.acc>div:hover h3,.acc>div.open h3{color:var(--fg)!important}
+.acc>div:hover .chev,.acc>div.open .chev{color:var(--fg)!important}
+.acc>div.open .chev{transform:rotate(180deg)!important}
+.abt .rows>div:hover .ico{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:rotate(-14deg) scale(1.18)!important}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  a.btn:not(.totop),button.btn:not(.totop),button:not(.sv-t):not(.totop){transition:background-color .22s ease,color .22s ease,border-color .22s ease!important;transform:none!important;box-shadow:none!important}
+  a.btn:not(.totop):hover,button.btn:not(.totop):hover{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:none!important;box-shadow:none!important}
+  button:not(.sv-t):not(.totop):not(.tgl):hover{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:none!important;box-shadow:none!important}
+  a:not(.btn):not(.totop){text-decoration-thickness:1px;text-underline-offset:.22em;transition:text-decoration-color .22s ease,color .22s ease!important}
+  a:not(.btn):not(.totop):hover{text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:.28em!important;transform:none!important;box-shadow:none!important}
+  .btn:not(.totop):hover{transform:none!important;box-shadow:none!important}
+  .fgrid a.hb:hover .bi,.soc a:hover .circ{transform:none!important}
+  .project-card:hover .plate-img,.card:hover .plate-img,.gallery-cell:hover .plate-img,.cover-plate:hover .plate-img{transform:scale(1.035)!important}
+  .win .art:hover .hero-project-img{transform:scale(1.025)!important}
+}
+@media(max-width:700px){.totop{width:52px!important;min-width:52px!important;height:52px!important}}
 </style>
-<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),line=document.getElementById('loader-line'),greeting=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0;function tick(){if(!greeting||!root.classList.contains('preloading'))return;greeting.textContent=words[n++%words.length]}tick();var cycle=setInterval(tick,50),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,600)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){clearInterval(cycle);var p=location.pathname.replace(/\/+$/,'');if(line)line.textContent=p?'cd '+p:'cd ~';if(greeting)greeting.textContent='ready';setTimeout(function(){root.classList.remove('preloading')},90)},Math.max(0,600-(performance.now()-start)))})})();</script>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),line=document.getElementById('loader-line'),greeting=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0;function tick(){if(!greeting||!root.classList.contains('preloading'))return;greeting.textContent=words[n++%words.length]}tick();var cycle=setInterval(tick,230),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,1800)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){clearInterval(cycle);var p=location.pathname.replace(/\/+$/,'');if(line)line.textContent=p?'cd '+p:'cd ~';if(greeting)greeting.textContent='ready';setTimeout(function(){root.classList.remove('preloading')},90)},Math.max(0,2300-(performance.now()-start)))})})();</script>
 </body>
 </html>
