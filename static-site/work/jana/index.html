@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){var r=matchMedia('(prefers-reduced-motion: reduce)').matches,pt=false;try{pt=!r&&Date.now()-(+sessionStorage.getItem('pt')||0)<6000}catch(e){}if(pt){document.documentElement.classList.add('ptin')}else if(!r){document.documentElement.classList.add('preloading')}try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var root=document.documentElement,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,route=false;try{route=sessionStorage.getItem('site-transition')==='1';sessionStorage.removeItem('site-transition');if(!route&&!reduced)root.classList.add('preloading')}catch(e){}if(route&&!reduced)root.classList.add('route-enter');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')root.setAttribute('data-theme',t)}catch(e){}})();</script>
 <script>document.documentElement.classList.add("js-sk");setTimeout(function(){document.documentElement.classList.add("sk-off")},12000)</script>
 <meta name="description" content="A refined restaurant website for JANA, bringing together its Mediterranean coastal identity, menus, chef story, events, gallery, guest experience, and reservations into one immersive digital experience. A case study by Ayomide, design engineer.">
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank],[download]"}}]},"eagerness":"moderate"}]}</script>
@@ -210,7 +210,7 @@ footer .btn{background:var(--bg);color:var(--fg)}
 .fgrid p{margin:0;max-width:34ch;font-size:14px;line-height:1.6;color:color-mix(in srgb,var(--bg) 72%,var(--fg))}
 footer h3{font:500 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--fm);margin:0 0 20px}
 .fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:14px}
-.fgrid a{color:color-mix(in srgb,var(--bg) 80%,var(--fg));transition:color .2s}
+.fgrid a{color:var(--bg);transition:color .2s}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;margin-top:clamp(48px,6vw,72px);padding-top:24px;border-top:1px solid var(--fl);font-size:13px;color:var(--fm)}
 .foot a{transition:color .2s}
 .menu{position:fixed;inset:0;z-index:40;visibility:hidden;transition:visibility 0s .75s}
@@ -356,20 +356,6 @@ html.m.pbg-ok #contact{background:transparent;position:relative;isolation:isolat
 html.m .bar{will-change:transform}
 html.m .bar{transition:border-color .2s,transform .55s cubic-bezier(.65,0,.35,1)}
 html.m .bar.away{transform:translateY(-100%)}
-.pt{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden;contain:strict}
-.pt-sheet{position:absolute;left:-3%;width:106%;top:-14vh;height:calc(100% + 14vh);background:var(--fg);border-radius:50% 50% 0 0 / 14vh 14vh 0 0;transform:translate3d(0,100%,0);will-change:transform}
-.pt.lift .pt-sheet{top:0;border-radius:0 0 50% 50% / 0 0 14vh 14vh}
-.pt-ui{position:absolute;inset:0;display:grid;place-items:center;color:var(--bg);opacity:0;will-change:opacity,transform}
-.pt-line{display:flex;align-items:baseline;gap:.3em;font:400 clamp(2rem,6.4vw,5rem)/1 var(--serif);letter-spacing:-.02em;padding-inline:24px;max-width:100%}
-.pt-line i{font-style:italic;opacity:.55}
-.pt-t{white-space:pre;overflow:hidden;text-overflow:clip}
-.pt-cur{display:inline-block;width:.42em;height:.72em;background:var(--bg);transform:translateY(.06em)}
-.pt.run .pt-cur{animation:ptc .7s steps(1) infinite}
-@keyframes ptc{50%{opacity:0}}
-.pt-meta{position:absolute;left:0;right:0;bottom:calc(32px + env(safe-area-inset-bottom,0px));text-align:center;font:500 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.5}
-html.ptin body::before{content:"";position:fixed;inset:0;z-index:99;background:var(--fg)}
-@media(prefers-reduced-motion:reduce){.pt{display:none}
-}
 html.cm-open{overflow:hidden}
 dialog.cm{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:transparent;color:var(--fg)}
 dialog.cm[open]{display:grid;place-items:center;padding:16px}
@@ -532,9 +518,29 @@ main .btn .ic{transition:transform .3s var(--ease)}
 
 
 </style>
+<style id="navigation-transitions">
+#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--fg);color:var(--bg);transform:translate3d(0,101%,0);transition:transform .68s cubic-bezier(.76,0,.24,1);pointer-events:none;will-change:transform}
+#site-loader .loader-content{display:grid;justify-items:center;gap:14px;text-align:center;padding:24px}
+#site-loader .loader-command{display:flex;align-items:baseline;gap:8px;font:500 12px/1.2 var(--mono);letter-spacing:.08em;opacity:.65}
+#site-loader .loader-command b{font:inherit;opacity:.6}
+#site-loader #loader-line{font:inherit;letter-spacing:inherit}
+#site-loader #loader-greeting{font:400 clamp(3rem,10vw,6.5rem)/.95 var(--serif);letter-spacing:-.04em;min-height:1em}
+#site-loader .loader-track{display:block;width:72px;height:2px;margin-top:8px;background:color-mix(in srgb,var(--bg) 22%,transparent);overflow:hidden}
+#site-loader .loader-track i{display:block;width:38%;height:100%;background:var(--bg);transform:translateX(-120%);animation:loader-progress .7s cubic-bezier(.22,1,.36,1) infinite alternate}
+@keyframes loader-progress{to{transform:translateX(300%)}}
+html.preloading #site-loader,html.route-exit #site-loader,html.route-enter #site-loader{transform:translate3d(0,0,0)}
+html.loader-leave #site-loader,html.route-reveal #site-loader{transform:translate3d(0,-101%,0)}
+html.route-enter #loader-greeting,html.route-exit #loader-greeting{display:none}
+html.route-enter #site-loader .loader-command,html.route-exit #site-loader .loader-command{font-size:clamp(1.5rem,3.8vw,2.75rem);letter-spacing:-.025em;opacity:1}
+footer .fgrid a:not(.btn):not(.pill):not(.totop),footer .foot a:not(.btn):not(.pill):not(.totop){color:var(--bg)!important;text-decoration:none!important;background-image:none!important}
+footer .fgrid a:not(.btn):not(.pill):not(.totop):hover,footer .foot a:not(.btn):not(.pill):not(.totop):hover{color:var(--bg)!important;opacity:.76!important}
+#services .acc>div:hover .ico,#services .acc>div.open .ico,#services .acc>div:focus-within .ico{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:rotate(-8deg) scale(1.08)!important}
+html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-track i{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){#site-loader{display:none!important;transition:none!important}#site-loader .loader-track i{animation:none!important}}
+</style>
 </head>
 <body>
-<div id="site-loader" aria-hidden="true"><div><span class="loader-command"><b aria-hidden="true">&gt;</b><span id="loader-line">cd /hello</span></span><span id="loader-greeting" aria-live="off">hello</span><i></i></div></div>
+<div id="site-loader" aria-hidden="true"><div class="loader-content"><span class="loader-command"><b aria-hidden="true">&gt;</b><span id="loader-line">cd /hello</span></span><span id="loader-greeting">hello</span><span class="loader-track" aria-hidden="true"><i></i></span></div></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
@@ -1032,7 +1038,6 @@ main .pill--lg{transition:none!important}
 .band:hover div,
 .me.ld.ready::before,
 .me.ld:not(.ready)::after,
-.pt.run .pt-cur,
 .shim,
 .sk-shim::after,
 .win .art .hero-project-img.in,
@@ -1047,7 +1052,7 @@ html.js-sk [data-view="list"] .sk-img.sk-in.px,
 html.m h1 .ln>span,
 html.sk-off .sk-img{animation:none!important}
 html{scroll-behavior:auto!important}
-html.ptin body::before,.sk-shim,.cv,.cz{display:none!important}
+.sk-shim,.cv,.cz{display:none!important}
 .mpre .hero-copy>*,.mpre .win,[data-motion]{opacity:1!important;visibility:visible!important;transform:none!important}
 html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 #contact>.pbg{position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--fg);border-radius:28px 28px 0 0;transform-origin:50% 100%;will-change:transform}
@@ -1234,7 +1239,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
   'use strict';
   var D=document,root=D.documentElement,$=function(s,r){return(r||D).querySelector(s)},$$=function(s,r){return[].slice.call((r||D).querySelectorAll(s))};
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,arrived=false;
-  if(reduce){root.classList.remove('mpre');root.classList.remove('ptin');return}
+  if(reduce){root.classList.remove('mpre');return}
   if(!window.gsap||!window.ScrollTrigger){initPageTransitions();root.classList.remove('mpre');return}
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ignoreMobileResize:true,autoRefreshEvents:'visibilitychange,DOMContentLoaded'});
@@ -1281,7 +1286,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
   /* ---------- hero: h1 words rise through masks, the rest follows; the cover plate wipes open ---------- */
   function initHero(){
     var wrap=$('.archive-hero .wrap')||$('.case-hero .wrap');
-    if(!wrap){root.classList.remove('mpre');root.classList.remove('ptin');return}
+    if(!wrap){root.classList.remove('mpre');return}
     var h1=$('h1',wrap),words=splitWords(h1),cover=$('.cover',wrap),plate=cover&&$('.cover-plate',cover);
     var rest=[].slice.call(wrap.children).filter(function(e){return e!==h1&&e!==cover&&e.nodeType===1});
     gsap.set(words,{yPercent:112});gsap.set(h1,{opacity:1});gsap.set(rest,{opacity:0,y:22});
@@ -1370,47 +1375,14 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
     }});
   }
   function initPageTransitions(){
-    /* compositor-only curtain: one solid sheet moved with transform (Web Animations), so no per-frame painting on the main thread */
-    var pt=D.createElement('div');pt.className='pt';pt.setAttribute('aria-hidden','true');
-    pt.innerHTML='<div class="pt-sheet"></div><div class="pt-ui"><div class="pt-line"><i>&gt;</i><span class="pt-t"></span><span class="pt-cur"></span></div><div class="pt-meta" aria-hidden="true"></div></div>';
-    D.body.appendChild(pt);
-    var sheet=pt.firstChild,ui=pt.lastChild,txt=pt.querySelector('.pt-t'),lbl='',anim=[],typer=0,leaving=false;
-    var EASE='cubic-bezier(.76,0,.24,1)',SOFT='cubic-bezier(.16,1,.3,1)',T=function(y){return 'translate3d(0,'+y+',0)'};
-    var run=function(el,kf,o){var a=el.animate(kf,{duration:o.d,delay:o.delay||0,easing:o.e,fill:'both'});anim.push(a);return a};
-    var park=function(){anim.forEach(function(a){try{a.cancel()}catch(x){}});anim=[];clearInterval(typer);pt.classList.remove('run','lift');sheet.style.transform=ui.style.opacity='';txt.textContent=''};
-    var label=function(u){var p=u.pathname.replace(/\/+$/,'');if(p.indexOf('/work/')===0)p='/work';return p?'cd '+p:'cd ~'+(u.hash?'/'+u.hash.slice(1):'')};
-    try{arrived=Date.now()-(+sessionStorage.getItem('pt')||0)<6000;lbl=sessionStorage.getItem('ptl')||'';sessionStorage.removeItem('pt');sessionStorage.removeItem('ptl')}catch(e){}
-    if(!sheet.animate){root.classList.remove('ptin');return}
-    if(arrived){
-      /* the sheet already covers the page, so nothing flashes between the old curtain and this one */
-      pt.classList.add('lift','run');txt.textContent=lbl;sheet.style.transform=T(0);ui.style.opacity=1;
-      requestAnimationFrame(function(){requestAnimationFrame(function(){
-        root.classList.remove('ptin');sheet.style.transform=ui.style.opacity='';
-        run(ui,[{opacity:1,transform:T(0)},{opacity:0,transform:T('-18px')}],{d:380,delay:120,e:SOFT});
-        run(sheet,[{transform:T(0)},{transform:T('-100%')}],{d:820,delay:180,e:EASE}).finished.then(park,park);
-      })});
-    }else root.classList.remove('ptin');
-    /* warm the layer once while idle (1% opacity for a moment) so the first real transition has nothing left to set up */
-    /* warm every layer once while idle (sheet + typed text at 1% opacity for a few frames) so the first real transition has nothing left to set up */
-    (window.requestIdleCallback||function(f){setTimeout(f,1200)})(function(){if(leaving||arrived&&anim.length)return;txt.textContent='cd /projects';var h=[{opacity:.01},{opacity:.01}];sheet.animate([{transform:T(0),opacity:.01},{transform:T(0),opacity:.01}],{duration:90});ui.animate(h,{duration:90});setTimeout(function(){if(!leaving&&!anim.length)txt.textContent=''},140)},{timeout:3000});
-    addEventListener('pageshow',function(e){if(e.persisted){leaving=false;park();root.classList.remove('ptin');if(window.__lenis&&window.__lenis.start)try{window.__lenis.start()}catch(x){}}});
-    D.addEventListener('click',function(e){
-      var a=e.target.closest('a[href]');
-      if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download'))return;
-      var u;try{u=new URL(a.href,location.href)}catch(x){return}
-      if(u.origin!==location.origin||(u.pathname===location.pathname&&u.search===location.search))return;
-      e.preventDefault();
-      if(leaving)return;
-      leaving=true;
-      if(window.__lenis&&window.__lenis.stop)try{window.__lenis.stop()}catch(x){}
-      var lb=label(u),gone=false,go=function(){if(gone)return;gone=true;location.href=u.href};
-      try{sessionStorage.setItem('pt',String(Date.now()));sessionStorage.setItem('ptl',lb)}catch(x){}
-      park();pt.classList.add('run');
-      run(sheet,[{transform:T('100%')},{transform:T(0)}],{d:600,e:EASE}).finished.then(go,go);
-      ui.style.opacity='1';ui.style.transform=T(0);
-      txt.textContent=lb;
-      setTimeout(go,1800);
-    });
+    var loader=$('#site-loader'),line=$('#loader-line'),greeting=$('#loader-greeting'),root=D.documentElement;if(!loader)return;
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,leaving=false;
+    function routeLabel(u){var p=u.pathname.replace(/\/+$/,'');if(p.indexOf('/work/')===0)p='/work';return 'cd '+(p||'/home')}
+    if(root.classList.contains('route-enter')){if(line)line.textContent=routeLabel(new URL(location.href));if(greeting)greeting.hidden=true;requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('route-reveal');setTimeout(function(){root.classList.remove('route-enter','route-reveal')},760)})})}
+    function navigate(href){var u;try{u=new URL(href,location.href)}catch(x){return false}if(u.origin!==location.origin||(u.pathname===location.pathname&&u.search===location.search))return false;if(leaving)return true;leaving=true;if(line)line.textContent=routeLabel(u);if(greeting)greeting.hidden=true;try{sessionStorage.setItem('site-transition','1')}catch(x){}root.classList.add('route-exit');setTimeout(function(){location.href=u.href},520);return true}
+    window.__siteNavigate=navigate;
+    D.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download')||reduce)return;if(navigate(a.href))e.preventDefault()});
+    addEventListener('pageshow',function(e){if(e.persisted){leaving=false;root.classList.remove('route-exit','route-enter','route-reveal')}});
   }
 
   initPageTransitions();initHero();initTextReveals();initImages();initCards();initCase();initNavigation();
@@ -1430,15 +1402,6 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 .acc .sv-t{font-size:clamp(18px,4.7vw,22px)}
 .sv-b{margin-top:10px!important}.sv-b ul{padding-top:20px!important}
 .archive-hero h1,.case-hero h1{font-size:clamp(2.55rem,5.8vw,4.7rem)}
-.pt{display:block!important}
-.pt.run .pt-cur{animation:none!important}
-#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--bg);color:var(--fg);opacity:0;visibility:visible;transition:opacity .24s ease;pointer-events:none}
-#site-loader span{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
-#site-loader i{display:block;width:30px;height:2px;margin:14px auto 0;background:var(--line);overflow:hidden}
-#site-loader i:after{content:"";display:block;width:40%;height:100%;background:var(--fg);transform:translateX(-110%);animation:loadline .55s cubic-bezier(.22,1,.36,1) forwards}
-html.preloading #site-loader{opacity:1}
-html:not(.preloading) #site-loader{opacity:0}
-@keyframes loadline{to{transform:translateX(250%)}}
 /* Lean interaction system: keep functional controls and transitions, remove decorative hover movement. */
 .live::after{animation:none!important}
 @media(hover:hover){
@@ -1458,17 +1421,8 @@ html:not(.preloading) #site-loader{opacity:0}
 .totop{transition:opacity .2s ease,transform .2s ease!important}
 /* The concise transition uses compositor-only opacity/transform. Functional menu, carousel and accordion motion stays intact. */
 @media(hover:hover){.totop:hover{transform:none!important}}
-@media(prefers-reduced-motion:reduce){.pt,#site-loader{display:none!important}.pt,.totop,.acc .sv-b{transition:none!important}#site-loader i:after{animation:none!important}html.preloading #site-loader{display:none!important}}
+@media(prefers-reduced-motion:reduce){.totop,.acc .sv-b,#site-loader{transition:none!important;animation:none!important}}
 
-#site-loader>div{text-align:center;min-width:min(280px,calc(100vw - 40px))}
-#site-loader .loader-command{display:flex;align-items:baseline;justify-content:center;gap:.65em;font:500 15px/1.2 var(--mono);letter-spacing:.03em;text-transform:none}
-#site-loader .loader-command b{font:inherit;opacity:.55}
-#site-loader #loader-line{font:inherit;letter-spacing:inherit;text-transform:none}
-#site-loader #loader-greeting{display:block;min-height:1.2em;margin-top:13px;color:var(--muted);font:500 11px/1.2 var(--mono);letter-spacing:.04em;text-transform:none}
-#site-loader i{width:58px;margin:17px auto 0}
-.pt-meta{display:none!important}
-.pt-line{font-size:clamp(1.25rem,6.4vw,5rem)!important}
-.pt-line{padding:.2em .4em;background:var(--fg);color:var(--bg);border-radius:999px;box-shadow:0 8px 24px color-mix(in srgb,var(--bg) 16%,transparent)}
 /* Good Fella-inspired motion: keep movement on transform/opacity and off touch devices. */
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
   .btn:not(.totop),.pill:not(.tgl),.project-card .plate-img,.card .plate-img,.gallery-cell .plate-img,.cover-plate .plate-img,.win .art .hero-project-img,.fgrid a.hb,.soc a,.foot a,.back-link,.card-link{transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .3s ease,color .25s ease;}
@@ -1514,9 +1468,6 @@ html:not(.preloading) #site-loader{opacity:0}
 .totop:hover .tip,.totop:focus-visible .tip{opacity:1!important;transform:translate(0,-50%)!important}
 .totop .fl{display:block!important}
 /* Page routes use a large terminal prompt; only the preloader cycles through greetings. */
-.pt-line{display:flex!important;align-items:baseline!important;gap:.3em!important;font:500 clamp(1.5rem,3.8vw,2.75rem)/1.1 var(--mono)!important;letter-spacing:-.025em!important;padding:0 20px!important;max-width:100%!important;background:transparent!important;color:var(--bg)!important;border-radius:0!important;box-shadow:none!important}
-.pt-line i{font-style:normal!important;opacity:.55!important}
-.pt-meta{display:none!important}
 /* The service icon adopts the same filled state as its open accordion row. */
 .acc .ico,.abt .ico{transition:transform .45s cubic-bezier(.3,1.6,.5,1),background-color .25s,color .25s,border-color .25s!important}
 @media(hover:hover) and (pointer:fine){
@@ -1543,6 +1494,6 @@ html:not(.preloading) #site-loader{opacity:0}
 @media(max-width:700px){.totop{width:52px!important;min-width:52px!important;height:52px!important}}
 
 </style>
-<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var start=performance.now(),line=document.getElementById('loader-line'),greeting=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0;function tick(){if(!greeting||!root.classList.contains('preloading'))return;greeting.textContent=words[n++%words.length]}tick();var cycle=setInterval(tick,230),imgs=[].slice.call(document.querySelectorAll('img')).filter(function(i){var r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var ready=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(imgs.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var timeout=new Promise(function(ok){setTimeout(ok,1800)});Promise.race([ready,timeout]).then(function(){setTimeout(function(){clearInterval(cycle);if(greeting)greeting.textContent='ready';setTimeout(function(){root.classList.remove('preloading')},90)},Math.max(0,2300-(performance.now()-start)))})})();</script>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,cycle=setInterval(function(){if(g)g.textContent=words[n++%words.length]},260);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(function(){clearInterval(cycle);root.classList.add('loader-leave');setTimeout(function(){root.classList.remove('preloading','loader-leave')},720)},Math.max(0,2200-(performance.now()-begin)))})})();</script>
 </body>
 </html>
