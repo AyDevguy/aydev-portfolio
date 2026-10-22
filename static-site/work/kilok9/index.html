@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#14120f">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>(function(){var root=document.documentElement,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,route=false;try{route=sessionStorage.getItem('site-transition')==='1';sessionStorage.removeItem('site-transition');if(!route&&!reduced)root.classList.add('preloading')}catch(e){}if(route&&!reduced)root.classList.add('route-enter');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')root.setAttribute('data-theme',t)}catch(e){}})();</script>
 <script>document.documentElement.classList.add("js-sk");setTimeout(function(){document.documentElement.classList.add("sk-off")},12000)</script>
@@ -13,7 +17,7 @@
 <meta property="og:title" content="Kilo K-9™ — Case Study — AyDev">
 <meta property="og:description" content="A dog-training website for Kilo K-9, helping pet owners, working-dog handlers and families explore structured training programs.">
 <meta property="og:url" content="https://aydev-portfolio.vercel.app/work/kilok9/">
-<meta property="og:image" content="https://aydev-portfolio.vercel.app/uploads/fbdf1b83d095c0d4-1600.webp">
+<meta property="og:image:alt" content="AyDev design engineer portfolio"><meta property="og:image" content="https://aydev-portfolio.vercel.app/uploads/fbdf1b83d095c0d4-1600.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kilo K-9™ — Case Study — AyDev">
 <meta name="twitter:description" content="A dog-training website for Kilo K-9, helping pet owners, working-dog handlers and families explore structured training programs.">
@@ -530,7 +534,7 @@ main .btn .ic{transition:transform .3s var(--ease)}
 
 </style>
 <style id="navigation-transitions">
-#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--fg);color:var(--bg);opacity:0;transition:opacity .72s cubic-bezier(.22,1,.36,1);pointer-events:none;will-change:opacity}
+#site-loader{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:var(--fg);color:var(--bg);transform:translate3d(0,101%,0);transition:none;pointer-events:none;will-change:transform}
 #site-loader .loader-content{display:grid;justify-items:center;gap:14px;text-align:center;padding:24px}
 #site-loader .loader-command{display:flex;align-items:baseline;gap:8px;font:500 12px/1.2 var(--mono);letter-spacing:.08em;opacity:.65}
 #site-loader .loader-command b{font:inherit;opacity:.6}
@@ -539,8 +543,7 @@ main .btn .ic{transition:transform .3s var(--ease)}
 #site-loader .loader-track{display:block;width:72px;height:2px;margin-top:8px;background:color-mix(in srgb,var(--bg) 22%,transparent);overflow:hidden}
 #site-loader .loader-track i{display:block;width:38%;height:100%;background:var(--bg);transform:translateX(-120%);animation:loader-progress .7s cubic-bezier(.22,1,.36,1) infinite alternate}
 @keyframes loader-progress{to{transform:translateX(300%)}}
-html.preloading #site-loader,html.route-exit #site-loader,html.route-enter #site-loader{opacity:1}
-html.loader-leave #site-loader,html.route-reveal #site-loader{opacity:0}
+html.preloading #site-loader,html.route-enter #site-loader,html.route-exit #site-loader{transform:translate3d(0,0,0)}
 html.route-enter #loader-greeting,html.route-exit #loader-greeting{display:none}
 html.route-enter #site-loader .loader-command,html.route-exit #site-loader .loader-command{font-size:clamp(1.5rem,3.8vw,2.75rem);letter-spacing:-.025em;opacity:1}
 footer .fgrid a:not(.btn):not(.pill):not(.totop),footer .foot a:not(.btn):not(.pill):not(.totop){color:var(--bg)!important;text-decoration:none!important;background-image:none!important}
@@ -552,6 +555,7 @@ html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-tr
 </head>
 <body>
 <div id="site-loader" aria-hidden="true"><div class="loader-content"><span class="loader-command"><b aria-hidden="true">&gt;</b><span id="loader-line">cd /hello</span></span><span id="loader-greeting">hello</span><span class="loader-track" aria-hidden="true"><i></i></span></div></div>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('route-enter'))return;var p=location.pathname.replace(/\/+$/,'');if(p.indexOf('/work/')===0)p='/work';var line=document.getElementById('loader-line'),greeting=document.getElementById('loader-greeting');if(line)line.textContent='cd '+(p||'/home');if(greeting)greeting.hidden=true})();</script>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
@@ -1346,14 +1350,45 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
     }});
   }
   function initPageTransitions(){
-    var loader=$('#site-loader'),line=$('#loader-line'),greeting=$('#loader-greeting'),root=D.documentElement;if(!loader)return;
+    var loader=$('#site-loader'),line=$('#loader-line'),greeting=$('#loader-greeting'),root=D.documentElement;
+    if(!loader)return;
     var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,leaving=false;
     function routeLabel(u){var p=u.pathname.replace(/\/+$/,'');if(p.indexOf('/work/')===0)p='/work';return 'cd '+(p||'/home')}
-    if(root.classList.contains('route-enter')){if(line)line.textContent=routeLabel(new URL(location.href));if(greeting)greeting.hidden=true;requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('route-reveal');setTimeout(function(){root.classList.remove('route-enter','route-reveal')},820)})})}
-    function navigate(href){var u;try{u=new URL(href,location.href)}catch(x){return false}if(u.origin!==location.origin||(u.pathname===location.pathname&&u.search===location.search))return false;if(leaving)return true;leaving=true;if(line)line.textContent=routeLabel(u);if(greeting)greeting.hidden=true;try{sessionStorage.setItem('site-transition','1')}catch(x){}root.classList.add('route-exit');setTimeout(function(){location.href=u.href},620);return true}
+    function curtain(from,to,onComplete){
+      var duration=.96;
+      if(window.gsap&&typeof gsap.timeline==='function'){
+        gsap.killTweensOf(loader);
+        gsap.set(loader,{yPercent:from,force3D:true,willChange:'transform'});
+        return gsap.timeline({onComplete:function(){gsap.set(loader,{clearProps:'transform,willChange'});if(onComplete)onComplete()}})
+          .to(loader,{yPercent:to,duration:duration,ease:'power3.inOut',overwrite:'auto'});
+      }
+      if(loader.animate){
+        var animation=loader.animate([{transform:'translate3d(0,'+from+'%,0)'},{transform:'translate3d(0,'+to+'%,0)'}],{duration:duration*1000,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
+        animation.onfinish=function(){animation.cancel();if(onComplete)onComplete()};return animation;
+      }
+      loader.style.transform='translate3d(0,'+to+'%,0)';setTimeout(function(){if(onComplete)onComplete()},duration*1000);
+    }
+    window.__siteCurtain=curtain;
+    if(root.classList.contains('route-enter')){
+      if(line)line.textContent=routeLabel(new URL(location.href));
+      if(greeting)greeting.hidden=true;
+      requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('route-reveal');curtain(0,-110,function(){root.classList.remove('route-enter','route-reveal')})})});
+    }
+    function navigate(href){
+      var u;try{u=new URL(href,location.href)}catch(x){return false}
+      if(u.origin!==location.origin||u.pathname===location.pathname&&u.search===location.search)return false;
+      if(leaving)return true;leaving=true;
+      if(line)line.textContent=routeLabel(u);if(greeting)greeting.hidden=true;
+      try{sessionStorage.setItem('site-transition','1')}catch(x){}
+      root.classList.add('route-exit');curtain(101,0,function(){location.href=u.href});return true;
+    }
     window.__siteNavigate=navigate;
-    D.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download')||reduce)return;if(navigate(a.href))e.preventDefault()});
-    addEventListener('pageshow',function(e){if(e.persisted){leaving=false;root.classList.remove('route-exit','route-enter','route-reveal')}});
+    D.addEventListener('click',function(e){
+      var a=e.target.closest('a[href]');
+      if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download')||reduce)return;
+      if(navigate(a.href))e.preventDefault();
+    });
+    addEventListener('pageshow',function(e){if(e.persisted){leaving=false;root.classList.remove('route-exit','route-enter','route-reveal');if(window.gsap)gsap.set(loader,{clearProps:'transform,willChange'})}});
   }
 
   initPageTransitions();initHero();initTextReveals();initImages();initCards();initCase();initNavigation();
@@ -1465,8 +1500,8 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 @media(max-width:700px){.totop{width:52px!important;min-width:52px!important;height:52px!important}}
 
 /* Keep menu links readable against the dark navigation sheet on hover and keyboard focus. */
-#menu .sheet .ml a:hover,#menu .sheet .ml a:focus-visible{color:var(--bg)!important;opacity:1!important;text-decoration:none!important;transform:translateX(8px)!important;text-shadow:0 0 0 currentColor}
+#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):focus-visible,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):focus-visible{color:var(--bg)!important;opacity:1!important;text-decoration:none!important;transform:translateX(8px)!important;text-shadow:none!important}
 </style>
-<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,cycle=setInterval(function(){if(g)g.textContent=words[n++%words.length]},260);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(function(){clearInterval(cycle);root.classList.add('loader-leave');setTimeout(function(){root.classList.remove('preloading','loader-leave')},720)},Math.max(0,2200-(performance.now()-begin)))})})();</script>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,cycle=setInterval(function(){if(g)g.textContent=words[n++%words.length]},320);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(function(){clearInterval(cycle);root.classList.add('loader-leave');var done=function(){root.classList.remove('preloading','loader-leave')};if(window.__siteCurtain)window.__siteCurtain(0,-110,done);else{var l=document.getElementById('site-loader');if(l&&l.animate){var a=l.animate([{transform:'translate3d(0,0%,0)'},{transform:'translate3d(0,-110%,0)'}],{duration:960,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});a.onfinish=function(){a.cancel();done()}}else done()}},Math.max(0,2200-(performance.now()-begin)))})})();</script>
 </body>
 </html>
