@@ -1474,7 +1474,7 @@ html:not(.preloading) #site-loader{opacity:0}
 .totop:hover .tip,.totop:focus-visible .tip{opacity:1!important;transform:translate(0,-50%)!important}
 .totop .fl{display:block!important}
 /* Page routes use a large terminal prompt; only the preloader cycles through greetings. */
-.pt-line{display:flex!important;align-items:baseline!important;gap:.3em!important;font:500 clamp(2rem,6.5vw,5.5rem)/1 var(--mono)!important;letter-spacing:-.035em!important;padding:0 20px!important;max-width:100%!important;background:transparent!important;color:var(--bg)!important;border-radius:0!important;box-shadow:none!important}
+.pt-line{display:flex!important;align-items:baseline!important;gap:.3em!important;font:500 clamp(1.5rem,3.8vw,2.75rem)/1.1 var(--mono)!important;letter-spacing:-.025em!important;padding:0 20px!important;max-width:100%!important;background:transparent!important;color:var(--bg)!important;border-radius:0!important;box-shadow:none!important}
 .pt-line i{font-style:normal!important;opacity:.55!important}
 .pt-meta{display:none!important}
 /* The service icon adopts the same filled state as its open accordion row. */
@@ -1488,11 +1488,12 @@ html:not(.preloading) #site-loader{opacity:0}
  /* Solid hover states inspired by the reference; remove the previous see-through wipe. */
  .btn::before,.pill:not(.tgl)::before{display:none!important}
  .btn:not(.totop),.pill:not(.tgl){transition:background-color .22s ease,color .22s ease,border-color .22s ease,filter .22s ease,transform .22s ease!important}
- .btn:not(.totop):hover{filter:brightness(.84)!important;transform:translateY(-2px)!important;box-shadow:none!important}
+ .btn:not(.totop):hover{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;filter:brightness(.9)!important;transform:translateY(-2px)!important;box-shadow:none!important}
+ .foot .btn:not(.totop):hover,.footer .btn:not(.totop):hover{background:var(--bg)!important;color:var(--fg)!important;border-color:var(--bg)!important}
  .pill:not(.tgl):hover{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:translateY(-2px)!important;box-shadow:none!important}
  button:not(.sv-t):not(.totop):not(.tgl):hover{background:var(--fg)!important;color:var(--bg)!important;border-color:var(--fg)!important;transform:translateY(-2px)!important;box-shadow:none!important}
- a:not(.btn):not(.pill):not(.totop){transition:color .2s ease,text-decoration-color .2s ease!important}
- a:not(.btn):not(.pill):not(.totop):hover{color:var(--fg)!important;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:.28em!important;transform:none!important;box-shadow:none!important;opacity:1!important}
+ a:not(.btn):not(.pill):not(.totop){text-decoration:none!important;background-image:none!important;transition:color .2s ease!important}
+ a:not(.btn):not(.pill):not(.totop):hover{color:var(--fg)!important;text-decoration:none!important;background-image:none!important;transform:none!important;box-shadow:none!important;opacity:1!important}
  .project-card:hover .plate-img,.card:hover .plate-img,.gallery-cell:hover .plate-img,.cover-plate:hover .plate-img{transform:scale(1.035)!important}
  .win .art:hover .hero-project-img{transform:scale(1.025)!important}
 }
