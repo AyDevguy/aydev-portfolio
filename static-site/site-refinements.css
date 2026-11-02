@@ -13,40 +13,45 @@ h3{line-height:1.38;letter-spacing:-.012em}
 section{padding-block:clamp(82px,10vw,144px)}
 .archive-hero h1,.case-hero h1{font-size:clamp(2.7rem,5.5vw,4.65rem);line-height:1.06;letter-spacing:-.026em}
 .case-hero p,.archive-hero p{line-height:1.75}
-.cap h3{line-height:1.12}
 .acc h3,.service h3{line-height:1.42}
-/* A more visual, editorial featured-work rail; existing swipe and controls remain intact. */
-[data-view="stage"] .card{flex-basis:min(82vw,560px);width:min(82vw,560px)}
-@media(min-width:900px){[data-view="stage"] .card{flex-basis:clamp(440px,42vw,620px);width:clamp(440px,42vw,620px)}}
-[data-view="stage"] .art{border-radius:10px;border-color:color-mix(in srgb,var(--fg) 12%,var(--bg));}
-[data-view="stage"] .card.act .art{border-color:color-mix(in srgb,var(--fg) 35%,var(--bg));box-shadow:0 18px 48px -32px color-mix(in srgb,var(--fg) 55%,transparent)}
-[data-view="stage"] .card:not(.act){opacity:.72}
-[data-view="stage"] .card .cap{margin-top:18px;padding-top:18px;column-gap:18px}
-[data-view="stage"] .cap h3{font-size:clamp(1.7rem,2.35vw,2.35rem)}
-[data-view="stage"] .card .art .tag{opacity:1;transform:none}
-/* Delicate horizontal loading band, counter, and layered greeting treatment. */
+/* Reference-inspired intro: editorial counter, bold center band, route label and skip action. */
 #site-loader{overflow:hidden;background:var(--fg);isolation:isolate}
-#site-loader::before{content:"";position:absolute;inset:50% 0 auto;height:1px;background:color-mix(in srgb,var(--bg) 28%,transparent);transform:scaleX(.18);transform-origin:center;animation:loader-rule 1.8s cubic-bezier(.22,1,.36,1) both}
-#site-loader::after{content:"AYDEV  /  DIGITAL EXPERIENCES";position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(24px,5vh,56px);font:500 10px/1 var(--sans);letter-spacing:.18em;color:color-mix(in srgb,var(--bg) 58%,transparent)}
-#site-loader .loader-content{position:relative;width:min(100%,760px);grid-template-columns:1fr auto;justify-items:start;align-items:end;gap:12px 20px;padding:32px clamp(24px,6vw,72px);text-align:left}
-#site-loader .loader-command{grid-column:1;font-size:11px;letter-spacing:.12em;opacity:.72}
-#site-loader #loader-greeting{grid-column:1;font-size:clamp(4rem,12vw,8.6rem);line-height:.86;letter-spacing:-.045em;min-height:.9em;animation:loader-word-in .34s cubic-bezier(.22,1,.36,1) both}
-#site-loader #loader-greeting.word-in{animation:loader-word-in .34s cubic-bezier(.22,1,.36,1) both}
-#site-loader .loader-count{grid-column:2;grid-row:1/3;align-self:center;font:400 clamp(2.5rem,6vw,4.5rem)/1 var(--serif);font-variant-numeric:tabular-nums;letter-spacing:-.04em;color:color-mix(in srgb,var(--bg) 72%,transparent)}
-#site-loader .loader-track{grid-column:1/3;width:100%;height:1px;margin-top:16px;background:color-mix(in srgb,var(--bg) 20%,transparent)}
+html.preloading #site-loader{pointer-events:auto}
+#site-loader::before{content:"";position:absolute;inset:39% 0 auto;height:25vh;min-height:150px;background:var(--bg);transform:scaleX(.06);transform-origin:center;animation:loader-rule 1.55s cubic-bezier(.22,1,.36,1) both}
+#site-loader::after{content:"AYDEV  /  DIGITAL EXPERIENCES";position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(24px,5vh,56px);font:500 10px/1 var(--sans);letter-spacing:.18em;color:color-mix(in srgb,var(--bg) 65%,transparent)}
+#site-loader .loader-content{position:absolute;inset:0;width:100%;height:100%;max-width:none;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;align-items:center;justify-items:stretch;gap:0;padding:clamp(24px,5vw,72px);text-align:left}
+#site-loader .loader-command{grid-column:1;grid-row:1;align-self:start;font-size:11px;letter-spacing:.14em;opacity:.75}
+#site-loader #loader-greeting{grid-column:1/3;grid-row:2;justify-self:center;align-self:center;color:var(--fg);font-size:clamp(5rem,16vw,13rem);line-height:.82;letter-spacing:-.055em;min-height:.9em;text-align:center;animation:loader-word-in .36s cubic-bezier(.22,1,.36,1) both}
+#site-loader #loader-greeting.word-in{animation:loader-word-in .36s cubic-bezier(.22,1,.36,1) both}
+#site-loader .loader-count{grid-column:2;grid-row:1;justify-self:end;align-self:start;font:500 11px/1.2 var(--mono);letter-spacing:.08em;color:color-mix(in srgb,var(--bg) 72%,transparent)}
+#site-loader .loader-track{position:absolute;left:clamp(24px,5vw,72px);right:clamp(24px,5vw,72px);bottom:clamp(24px,5vh,56px);width:auto;height:1px;margin:0;background:color-mix(in srgb,var(--bg) 25%,transparent)}
 #site-loader .loader-track i{width:100%;transform:scaleX(.02);transform-origin:left;animation:loader-progress 2.2s cubic-bezier(.22,1,.36,1) both}
+#site-loader .loader-skip{position:absolute;right:clamp(24px,5vw,72px);bottom:calc(clamp(24px,5vh,56px) + 18px);display:inline-flex;align-items:center;gap:8px;padding:8px 0;border:0;background:none;color:color-mix(in srgb,var(--bg) 82%,transparent);font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+#site-loader .loader-skip span{font-size:14px;transition:transform .25s var(--ease)}
+#site-loader .loader-skip:hover span{transform:translate(2px,-2px)}
 @keyframes loader-progress{to{transform:scaleX(1)}}
-@keyframes loader-rule{0%{transform:scaleX(.08);opacity:0}30%{opacity:1}100%{transform:scaleX(1);opacity:.75}}
-@keyframes loader-word-in{from{opacity:.3;transform:translateY(9px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
-html.route-enter #site-loader .loader-content{width:min(100%,840px)}
-html.route-enter #site-loader .loader-count{display:none}
-html.route-enter #site-loader .loader-track{grid-column:1}
-@media(max-width:520px){#site-loader .loader-content{padding-inline:24px}#site-loader #loader-greeting{font-size:clamp(3.5rem,18vw,6rem)}#site-loader::after{font-size:9px;letter-spacing:.13em}}
-/* Social link is a single, restrained text-scramble accent in the menu. */
-#menu .soc a.soc-linkedin{width:auto;min-width:48px;padding-inline:14px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--mline);border-radius:999px;color:var(--bg);font:500 13px/1 var(--sans);letter-spacing:.01em;white-space:nowrap}
+@keyframes loader-rule{0%{transform:scaleX(.06);opacity:0}35%{opacity:1}100%{transform:scaleX(1);opacity:1}}
+@keyframes loader-word-in{from{opacity:.25;transform:translateY(12px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+html.route-enter #site-loader::before{height:1px;min-height:1px;top:50%}
+html.route-enter #site-loader .loader-content{width:100%;height:100%;inset:0;display:grid;place-items:center}
+html.route-enter #site-loader .loader-command{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(2rem,5vw,4rem);letter-spacing:-.025em;opacity:1;white-space:nowrap}
+html.route-enter #site-loader .loader-count,html.route-enter #site-loader #loader-greeting,html.route-enter #site-loader .loader-track,html.route-enter #site-loader .loader-skip{display:none}
+@media(max-width:520px){#site-loader .loader-content{padding:24px}#site-loader #loader-greeting{font-size:clamp(4rem,19vw,7rem)}#site-loader::after{font-size:9px;letter-spacing:.12em}#site-loader .loader-track{left:24px;right:24px;bottom:24px}}
+/* LinkedIn is readable at rest. Scrambling runs once when the link scrolls into view. */
+#menu .soc a.soc-linkedin{width:auto;height:48px;min-width:48px;padding-inline:14px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--mline);border-radius:999px;color:var(--bg);background:transparent;font:500 13px/1 var(--sans);letter-spacing:.01em;white-space:nowrap;flex:0 0 auto;overflow:visible}
 #menu .soc a.soc-linkedin .ic{width:16px;height:16px}
-#menu .soc a.soc-linkedin:hover{background:var(--bg);color:var(--fg);transform:translateY(-2px)}
+#menu .soc a.soc-linkedin .scramble-text{display:inline-block;visibility:visible;opacity:1;overflow:visible}
+#menu .soc a.soc-linkedin:hover{transform:none!important;background:transparent!important;color:var(--bg)!important}
 .scramble-text{min-width:4.6em;text-align:left}
-/* Hero CTAs respond gently to pointer position without changing their hit area. */
-.hero .cta .btn,.hero .cta .pill{translate:var(--mag-x,0px) var(--mag-y,0px);will-change:translate;transition:translate .24s cubic-bezier(.22,1,.36,1),color .35s var(--hz),border-color .35s var(--hz),background-color .25s,box-shadow .25s}
-@media(hover:none),(prefers-reduced-motion:reduce){.hero .cta .btn,.hero .cta .pill{translate:none!important;will-change:auto}#site-loader::before,#site-loader #loader-greeting,#site-loader .loader-track i{animation:none!important}}
+/* Timothy's hero interaction, reinterpreted as kinetic type with a following contrast lens. */
+.hero h1{position:relative;isolation:isolate}
+.hero-word{position:relative;display:inline-block;z-index:0;isolation:isolate;transition:color .25s ease,transform .35s cubic-bezier(.22,1,.36,1)}
+.hero-word::before{content:"";position:absolute;z-index:-1;inset:.04em -.11em -.02em;background:#e05b3e;opacity:0;transform:scaleX(.12) rotate(-2deg);transform-origin:left center;transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .22s ease}
+.hero-word::after{content:"";position:absolute;z-index:-2;right:-.18em;top:-.12em;width:.28em;height:.72em;background:#43bfd0;opacity:0;transform:scaleY(.15) rotate(8deg);transform-origin:bottom;transition:transform .4s cubic-bezier(.22,1,.36,1),opacity .2s ease}
+.hero-word.is-hovered{color:#fff;transform:translateY(-.025em)}
+.hero-word.is-hovered::before{opacity:1;transform:scaleX(1) rotate(-2deg)}
+.hero-word.is-hovered::after{opacity:1;transform:scaleY(1) rotate(8deg)}
+.hero-hover-lens{position:absolute;left:var(--lens-x,50%);top:var(--lens-y,50%);width:clamp(74px,9vw,118px);aspect-ratio:1;border-radius:50%;border:1px solid color-mix(in srgb,var(--fg) 45%,transparent);background:var(--fg);mix-blend-mode:difference;opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.72);transition:opacity .22s ease,transform .32s cubic-bezier(.22,1,.36,1);z-index:4}
+.hero h1.has-lens .hero-hover-lens{opacity:.92;transform:translate(-50%,-50%) scale(1)}
+@media(hover:none),(prefers-reduced-motion:reduce){.hero-word,.hero-word::before,.hero-word::after,.hero-hover-lens{transition:none!important}.hero-word::before,.hero-word::after,.hero-hover-lens{display:none!important}#site-loader::before,#site-loader #loader-greeting,#site-loader .loader-track i{animation:none!important}}
+@media(prefers-reduced-motion:reduce){#site-loader::before,#site-loader #loader-greeting,#site-loader .loader-track i{animation:none!important}}
