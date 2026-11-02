@@ -93,7 +93,7 @@ h1 em{font-style:italic}
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:500;font-size:15px;transition:transform .18s var(--ease),opacity .18s}
 .btn:hover{opacity:.86;transform:translateY(-1px)}.btn:active{transform:none}
 .cta .pill{min-height:48px;padding:0 22px;font-size:15px}
-.win{border:1px solid var(--line);border-radius:14px;background:var(--tint);overflow:hidden}
+.win{border:1px solid var(--line);border-radius:14px;background:var(--tint);overflow:hidden;touch-action:pan-y}
 .win .tb{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .win .tb i{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .win .tb span{margin-left:8px;font-size:12px;color:var(--muted)}
@@ -137,7 +137,7 @@ section{padding:clamp(72px,9vw,128px) 0}
 .seg button.on,.seg button.on:hover{color:var(--fg);background:color-mix(in srgb,var(--fg) 10%,transparent)}
 .sep{width:1px;height:16px;margin:0 10px;background:var(--line);flex:none}
 @media(hover:none){.arrow,.seg button{min-width:44px;height:44px}}
-.stage{position:relative;overflow:hidden;overflow:clip;padding:20px 0 8px;margin-inline:calc(50% - 50vw);width:100vw}
+.stage{position:relative;overflow:hidden;overflow:clip;padding:20px 0 8px;margin-inline:calc(50% - 50vw);width:100vw;touch-action:pan-y}
 .track{display:flex;align-items:flex-start;gap:24px;transition:transform .7s var(--ease)}
 .card{flex:0 0 min(80vw,980px);cursor:pointer;transition:opacity .4s,transform .7s var(--ease)}
 [data-view="stage"] .card{flex:0 0 min(76vw,440px);width:min(76vw,440px)}
@@ -900,8 +900,29 @@ dialog.cm::backdrop{-webkit-backdrop-filter:blur(6px)}
     var r=$('work').getBoundingClientRect();if(r.top>innerHeight*.7||r.bottom<innerHeight*.3)return;
     var k=e.key.toLowerCase();if(k==='s')setView('stage');else if(k==='d')setView('grid');else if(k==='t')setView('list');
   });
-  var sx=null;$('stage').addEventListener('pointerdown',function(e){sx=e.clientX});
-  $('stage').addEventListener('pointerup',function(e){if(sx===null)return;var dx=e.clientX-sx;sx=null;if(ww.dataset.view==='stage'&&Math.abs(dx)>50)go(dx<0?1:-1)});
+  function bindSwipe(el,onSwipe,ignoreTarget,onFinish){
+    var start=null,suppressClickUntil=0;
+    el.addEventListener('pointerdown',function(e){
+      if(e.pointerType==='mouse'||e.isPrimary===false||(ignoreTarget&&ignoreTarget(e.target)))return;
+      start={x:e.clientX,y:e.clientY,id:e.pointerId};
+    },{passive:true});
+    function finish(e){
+      if(!start||e.pointerId!==start.id)return;
+      var dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;
+      if(onFinish)onFinish();
+      if(Math.abs(dx)>=44&&Math.abs(dx)>Math.abs(dy)*1.12){
+        suppressClickUntil=Date.now()+450;
+        onSwipe(dx<0?1:-1);
+      }
+    }
+    D.addEventListener('pointerup',finish,{passive:true});
+    D.addEventListener('pointercancel',function(e){if(start&&e.pointerId===start.id){start=null;if(onFinish)onFinish()}},{passive:true});
+    el.addEventListener('click',function(e){
+      if(Date.now()>=suppressClickUntil)return;
+      suppressClickUntil=0;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+    },true);
+  }
+  bindSwipe($('stage'),function(d){if(ww.dataset.view==='stage'&&!morphing)go(d)},function(){return ww.dataset.view!=='stage'});
   addEventListener('resize',render);
   (D.fonts&&D.fonts.ready||Promise.resolve()).then(render);render();
 
@@ -975,6 +996,7 @@ dialog.cm::backdrop{-webkit-backdrop-filter:blur(6px)}
   }
   $('w-dots').innerHTML=H.map(function(x){return '<button type="button" aria-label="Show '+x.n+'"></button>'}).join('');
   $('w-dots').onclick=function(e){var b=e.target.closest('button');if(b)winShow([].indexOf.call(this.children,b))};
+  bindSwipe($('win'),function(d){winShow((W.i+d+H.length)%H.length)},function(t){return !!t.closest('#w-dots button')},winRun);
   function winRun(){if(rm||!H.length)return;clearInterval(W.t);W.t=setInterval(function(){winShow((W.i+1)%H.length)},4200)}
   $('win').addEventListener('pointerenter',function(){clearInterval(W.t)});$('win').addEventListener('pointerleave',winRun);
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)winRun();else clearInterval(W.t)})},{threshold:.1}).observe($('win'));
