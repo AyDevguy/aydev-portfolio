@@ -37,12 +37,36 @@ html.route-enter #site-loader .loader-content{width:100%;height:100%;inset:0;dis
 html.route-enter #site-loader .loader-command{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(2rem,5vw,4rem);letter-spacing:-.025em;opacity:1;white-space:nowrap}
 html.route-enter #site-loader .loader-count,html.route-enter #site-loader #loader-greeting,html.route-enter #site-loader .loader-track,html.route-enter #site-loader .loader-skip{display:none}
 @media(max-width:520px){#site-loader .loader-content{padding:24px}#site-loader #loader-greeting{font-size:clamp(4rem,19vw,7rem)}#site-loader::after{font-size:9px;letter-spacing:.12em}#site-loader .loader-track{left:24px;right:24px;bottom:24px}}
-/* LinkedIn is readable at rest. Scrambling runs once when the link scrolls into view. */
-#menu .soc a.soc-linkedin{width:auto;height:48px;min-width:48px;padding-inline:14px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--mline);border-radius:999px;color:var(--bg);background:transparent;font:500 13px/1 var(--sans);letter-spacing:.01em;white-space:nowrap;flex:0 0 auto;overflow:visible}
-#menu .soc a.soc-linkedin .ic{width:16px;height:16px}
-#menu .soc a.soc-linkedin .scramble-text{display:inline-block;visibility:visible;opacity:1;overflow:visible}
-#menu .soc a.soc-linkedin:hover{transform:none!important;background:transparent!important;color:var(--bg)!important}
-.scramble-text{min-width:4.6em;text-align:left}
+/* Stable menu layout: animate the text itself so link boxes never clip or jump. */
+#menu .sheet>.ml{flex:none!important;opacity:1!important;transition:none!important}
+#menu .sheet .ml a{width:max-content!important;max-width:100%;overflow:visible!important;opacity:1!important;transform:none!important;transition:none!important}
+#menu .sheet .ml a:hover,#menu .sheet .ml a:focus-visible{transform:none!important}
+#menu .sheet .nav-label-clip{display:block;overflow:hidden;padding:.08em .04em .14em;margin:-.08em -.04em -.14em;}
+#menu .sheet .nav-label{display:block;white-space:nowrap;opacity:0;transform:translate3d(0,112%,0);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);transition-delay:calc((var(--count) - var(--i) - 1)*18ms + 20ms);will-change:transform,opacity}
+#menu.open .sheet .nav-label{opacity:1;transform:translate3d(0,0,0);transition-delay:calc(var(--i)*45ms + 90ms)}
+#menu .sheet .ml a.cur .nav-label{color:var(--bg)}
+@media(max-height:680px){#menu .sheet .ml{gap:0;margin-bottom:18px}#menu .sheet .ml a{font-size:clamp(2rem,6.5vh,3rem);line-height:1.08}}
+/* Equal, icon-only social links; LinkedIn has no special color or text effect. */
+#menu .sheet .soc{gap:12px}
+#menu .sheet .soc a{width:48px;height:48px;min-width:48px;padding:0;border:1px solid var(--mline);background:var(--bg);color:var(--fg);transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,background-color .25s ease,color .25s ease;}
+#menu .sheet .soc a:hover,#menu .sheet .soc a:focus-visible{transform:translateY(-3px) scale(1.04)!important;background:var(--bg)!important;color:var(--fg)!important;box-shadow:0 10px 24px color-mix(in srgb,var(--bg) 16%,transparent)!important}
+#menu .sheet .soc a .ic{width:18px;height:18px;color:inherit}
+/* The center time pill opens a readable, schedule-aware activity card. */
+.bar .nav-context{position:relative;z-index:45;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface, var(--bg));color:var(--muted);font:500 10px/1 var(--sans);letter-spacing:.105em;white-space:nowrap;cursor:pointer;transition:color .2s ease,border-color .2s ease,box-shadow .25s ease,transform .25s ease}
+.bar .nav-context:hover,.bar .nav-context:focus-visible,.bar .nav-context.is-open{color:var(--fg);border-color:color-mix(in srgb,var(--fg) 35%,var(--line));box-shadow:0 5px 18px color-mix(in srgb,var(--fg) 8%,transparent);outline:none}
+.bar .nav-context:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.bar .nav-context .live{width:6px;height:6px;flex:none;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px color-mix(in srgb,#22c55e 13%,transparent)}
+.bar .nav-context .nc-time{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.bar .nav-context .nc-zone{font-size:9px;letter-spacing:.08em;opacity:.68}
+.bar .nav-context .nc-popup{position:absolute;z-index:80;top:calc(100% + 15px);left:50%;display:grid;gap:9px;width:min(340px,calc(100vw - 32px));padding:21px 23px 18px;border:1px solid color-mix(in srgb,var(--fg) 12%,var(--line));border-radius:14px;background:var(--bg);color:var(--fg);box-shadow:0 22px 65px color-mix(in srgb,var(--fg) 17%,transparent);text-align:left;text-transform:none;letter-spacing:normal;white-space:normal;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,10px) scale(.975);transform-origin:top center;transition:opacity .26s ease,transform .36s cubic-bezier(.22,1,.36,1),visibility .26s}
+.bar .nav-context .nc-popup::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:var(--bg);border-top:1px solid color-mix(in srgb,var(--fg) 12%,var(--line));border-left:1px solid color-mix(in srgb,var(--fg) 12%,var(--line));transform:translateX(-50%) rotate(45deg)}
+.bar .nav-context.is-open .nc-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0) scale(1)}
+.bar .nav-context .nc-popup-label{font:500 12px/1.35 var(--sans);color:var(--muted);letter-spacing:.015em}
+.bar .nav-context .nc-activity{font:500 21px/1.2 var(--sans);letter-spacing:-.035em;color:var(--fg)}
+.bar .nav-context .nc-popup-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-top:12px;margin-top:3px;border-top:1px solid var(--line);font:400 11px/1.45 var(--sans);color:var(--muted)}
+.bar .nav-context .nc-range{flex:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:700px){.bar .nav-context{gap:6px;min-height:34px;padding-inline:10px;font-size:9px}.bar .nav-context .nc-popup{left:50vw;width:min(340px,calc(100vw - 24px));padding:19px 20px 16px}.bar .nav-context .nc-activity{font-size:19px}}
+@media(prefers-reduced-motion:reduce){#menu .sheet .nav-label{transition:none!important;transform:none!important;opacity:1!important}.bar .nav-context,.bar .nav-context .nc-popup{transition:none!important}}
 /* Timothy's hero interaction, reinterpreted as kinetic type with a following contrast lens. */
 .hero h1{position:relative;isolation:isolate}
 .hero-word{position:relative;display:inline-block;z-index:0;isolation:isolate;transition:color .25s ease,transform .35s cubic-bezier(.22,1,.36,1)}

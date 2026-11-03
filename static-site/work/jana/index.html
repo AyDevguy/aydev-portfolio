@@ -594,7 +594,7 @@ html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-tr
 </defs></svg>
 <div class="bar" id="bar"><div class="wrap">
   <a class="brand" href="/" aria-label="Ayomide, home"><span class="mark"><svg class="ic" style="stroke-width:2.6" aria-hidden="true"><use href="#i-chev"/></svg></span><span class="wm"><i>Ay</i><b>/</b><span class="wm-dev">DEV</span></span></a>
-  <div class="nav-context" id="navContext" aria-live="polite"></div>
+  <div class="nav-context" id="navContext" role="button" tabindex="0" aria-label="Lagos local time and current activity" aria-expanded="false" aria-controls="navMood" aria-describedby="navMood"><span class="live" aria-hidden="true"></span><span class="nc-city">LAGOS</span><span class="nc-sep" aria-hidden="true">·</span><time class="nc-time" id="navTime" aria-live="off">--:--</time><span class="nc-zone">WAT</span><span class="nc-popup" id="navMood" role="tooltip" aria-hidden="true"><span class="nc-popup-label">Currently, AyDev is</span><strong class="nc-activity">Working on client projects</strong><span class="nc-popup-foot"><span class="nc-activity-note">Designing and building for the web.</span><time class="nc-range"></time></span></span></div>
   <div class="acts"><button class="pill tgl" id="theme" type="button" aria-label="Switch color mode" role="switch" aria-checked="false"><span class="tg-dot" aria-hidden="true"></span><svg class="ic tg-i tg-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic tg-i tg-moon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="pill on" id="menubtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button></div>
 </div></div>
 
@@ -603,13 +603,13 @@ html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-tr
   <div class="sheet" role="dialog" aria-modal="true" aria-label="Menu">
     <span class="mghost" aria-hidden="true"><svg class="ic"><use href="#i-menu"/></svg><span>Menu</span></span><div class="mh"><div class="acts"><button class="pill tgl" id="theme2" type="button" aria-label="Switch color mode" role="switch" aria-checked="false"><span class="tg-dot" aria-hidden="true"></span><svg class="ic tg-i tg-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic tg-i tg-moon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="pill" id="mclose" type="button" aria-label="Close menu"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Close</span></button></div></div>
     <p class="meta lab">Navigate</p>
-    <nav class="ml" aria-label="Menu">
-      <a href="/" style="--i:0">Home</a><a href="/#work" style="--i:1">Work</a><a href="/projects" style="--i:2">All projects</a><a href="/#process" style="--i:3">Process</a><a href="/#services" style="--i:4">Services</a><a href="/#about" style="--i:5">About</a>
+    <nav class="ml" aria-label="Menu" style="--count:6">
+      <a href="/" style="--i:0"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Home</span></span></a><a href="/#work" style="--i:1"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Work</span></span></a><a href="/projects" style="--i:2"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>All projects</span></span></a><a href="/#process" style="--i:3"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Process</span></span></a><a href="/#services" style="--i:4"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Services</span></span></a><a href="/#about" style="--i:5"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>About</span></span></a>
     </nav>
     <div class="mr">
       <div class="mctx-wrap"><p class="meta lab">Local time</p><div class="mctx" id="menuContext"></div></div>
       <div><p class="meta lab">Start a project</p><a class="mm" href="mailto:drmlayomide@gmail.com"><span>drmlayomide@gmail.com</span><span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg></span></a></div>
-      <div><p class="meta lab">Elsewhere</p><div class="soc"><a href="https://github.com/AyDevguy" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></a><a class="soc-linkedin" data-scramble href="https://linkedin.com/in/ayomide-daramola-363a54434" aria-label="LinkedIn"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg><span class="scramble-text" aria-hidden="true">LinkedIn</span></a><a href="mailto:drmlayomide@gmail.com" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a></div></div>
+      <div><p class="meta lab">Elsewhere</p><div class="soc"><a href="https://github.com/AyDevguy" aria-label="GitHub"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></a><a href="https://linkedin.com/in/ayomide-daramola-363a54434" aria-label="LinkedIn"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></a><a href="mailto:drmlayomide@gmail.com" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a></div></div>
     </div>
   </div>
 </div>
@@ -860,7 +860,7 @@ html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-tr
   <div class="fgrid">
     <p>Ayomide is a freelance design engineer building fast, accessible and animated websites, designed and shipped end to end.</p>
     <nav aria-label="Footer"><h3>Explore</h3><ul><li><a href="/#work">Work</a></li><li><a href="/projects">All projects</a></li><li><a href="/#process">Process</a></li><li><a href="/#services">Services</a></li><li><a href="/#about">About</a></li></ul></nav>
-    <div><h3>Connect</h3><ul><li><a class="hb" data-scramble href="https://linkedin.com/in/ayomide-daramola-363a54434" aria-label="LinkedIn"><span class="bi bi-li"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></span><span class="scramble-text" aria-hidden="true">LinkedIn</span></a></li><li><a class="hb" href="https://github.com/AyDevguy"><span class="bi bi-gh"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a></li></ul></div>
+    <div><h3>Connect</h3><ul><li><a class="hb" href="https://linkedin.com/in/ayomide-daramola-363a54434"><span class="bi bi-li"><svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg></span>LinkedIn</a></li><li><a class="hb" href="https://github.com/AyDevguy"><span class="bi bi-gh"><svg class="ic" aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a></li></ul></div>
     <div><h3>Contact</h3><ul><li><a class="hb" href="mailto:drmlayomide@gmail.com"><span class="bi bi-ml"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span>drmlayomide@gmail.com</a></li></ul></div>
   </div>
   <div class="foot"><span>&copy; <span id="yr">2026</span> Ayomide. All rights reserved.</span><span><span id="clock"></span> &middot; <a href="#top">Back to top</a></span></div>
@@ -1163,8 +1163,37 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 (function(){
   var D=document,root=D.documentElement,$=function(i){return D.getElementById(i)};
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function updateNavContext(){var el=$('navContext');if(!el)return;var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'Local';var city=(tz.split('/').pop()||'Local').replace(/_/g,' ');var time=new Intl.DateTimeFormat([], {hour:'2-digit',minute:'2-digit'}).format(new Date());if(!el.querySelector('.live')){el.innerHTML='<span class="live" aria-hidden="true"></span><span class="nc-t"></span>'}el.querySelector('.nc-t').textContent=city+' · '+time;var mx=$('menuContext');if(mx){if(!mx.querySelector('.live'))mx.innerHTML='<span class="live" aria-hidden="true"></span><span class="nc-t"></span>';mx.querySelector('.nc-t').textContent=city+' · '+time}}
+  var lagosClock=new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Lagos',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+  var lagosSchedule=[
+    {from:0,to:8,title:'Asleep',note:'Recharging before a new day.',range:'00:00–08:00 WAT'},
+    {from:8,to:9,title:'At the gym',note:'Getting a little movement in.',range:'08:00–09:00 WAT'},
+    {from:9,to:13,title:'Working on client projects',note:'Designing and building for the web.',range:'09:00–13:00 WAT'},
+    {from:13,to:15,title:'Playing video games',note:'Taking a well-earned play break.',range:'13:00–15:00 WAT'},
+    {from:15,to:19,title:'Back at work',note:'Finishing things up at the desk.',range:'15:00–19:00 WAT'},
+    {from:19,to:20,title:'Having dinner',note:'Taking a pause for dinner.',range:'19:00–20:00 WAT'},
+    {from:20,to:22,title:'Exploring ideas',note:'Trying ideas and refining details.',range:'20:00–22:00 WAT'},
+    {from:22,to:24,title:'Winding down',note:'Slowing down for the night.',range:'22:00–00:00 WAT'}
+  ];
+  function updateNavContext(){
+    var parts=lagosClock.formatToParts(new Date()),values={};parts.forEach(function(part){values[part.type]=part.value});
+    var hour=Number(values.hour||0),time=(values.hour||'00')+':'+(values.minute||'00'),slot=lagosSchedule[lagosSchedule.length-1];
+    for(var i=0;i<lagosSchedule.length;i++){if(hour>=lagosSchedule[i].from&&hour<lagosSchedule[i].to){slot=lagosSchedule[i];break}}
+    var el=$('navContext');
+    if(el){var timeEl=$('navTime'),title=el.querySelector('.nc-activity'),note=el.querySelector('.nc-activity-note'),range=el.querySelector('.nc-range');if(timeEl)timeEl.textContent=time;if(title)title.textContent=slot.title;if(note)note.textContent=slot.note;if(range)range.textContent=slot.range;el.setAttribute('aria-label','Lagos time '+time+' WAT. Currently, AyDev is '+slot.title+'. Activate for details.')}
+    var mx=$('menuContext');if(mx){if(!mx.querySelector('.live'))mx.innerHTML='<span class="live" aria-hidden="true"></span><span class="nc-t"></span>';mx.querySelector('.nc-t').textContent='LAGOS · '+time.slice(0,5)+' WAT'}
+  }
   updateNavContext();setInterval(updateNavContext,30000);
+  (function bindNavMood(){var el=$('navContext'),popup=$('navMood');if(!el||!popup)return;
+    function show(){el.classList.add('is-open');el.setAttribute('aria-expanded','true');popup.setAttribute('aria-hidden','false')}
+    function hide(){el.classList.remove('is-open');el.setAttribute('aria-expanded','false');popup.setAttribute('aria-hidden','true')}
+    el.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch')show()});
+    el.addEventListener('pointerleave',function(){if(!el.contains(document.activeElement))hide()});
+    el.addEventListener('focusin',show);
+    el.addEventListener('focusout',function(e){if(!el.contains(e.relatedTarget))hide()});
+    el.addEventListener('click',function(e){if(e.detail===0)return;if(matchMedia('(hover: none)').matches){if(el.classList.contains('is-open'))hide();else show()}else show()});
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();if(el.classList.contains('is-open'))hide();else show()}else if(e.key==='Escape'){hide();el.blur()}});
+    document.addEventListener('pointerdown',function(e){if(!el.contains(e.target))hide()});
+  })();
   function syncTg(){var d=root.getAttribute('data-theme')==='dark';['theme','theme2'].forEach(function(i){var e=$(i);if(e)e.setAttribute('aria-checked',d?'true':'false')})}syncTg();new MutationObserver(syncTg).observe(root,{attributes:true,attributeFilter:['data-theme']});
   $('theme').onclick=function(){var th=root.getAttribute('data-theme'),d=th==='dark'||(th!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches),n=d?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}};
   var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -1541,7 +1570,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 @media(max-width:700px){.totop{width:52px!important;min-width:52px!important;height:52px!important}}
 
 /* Keep menu links readable against the dark navigation sheet on hover and keyboard focus. */
-#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):focus-visible,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):focus-visible{color:var(--bg)!important;opacity:1!important;text-decoration:none!important;transform:translateX(8px)!important;text-shadow:none!important}
+#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):focus-visible,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):focus-visible{color:var(--bg)!important;opacity:1!important;text-decoration:none!important;transform:none!important;text-shadow:none!important}
 </style>
 <script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),count=document.getElementById('loader-count'),skip=document.getElementById('loader-skip'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,finished=false;var cycle=setInterval(function(){if(n%4===0&&g){g.classList.remove('word-in');void g.offsetWidth;g.textContent=words[(n/4)%words.length];g.classList.add('word-in')}if(count)count.textContent=String(Math.min(99,Math.round((performance.now()-begin)/22))).padStart(2,'0');n++},70);function finish(){if(finished)return;finished=true;clearInterval(cycle);if(skip)skip.disabled=true;root.classList.add('loader-leave');var done=function(){root.classList.remove('preloading','loader-leave')};if(window.__siteCurtain)window.__siteCurtain(0,-110,done);else{var l=document.getElementById('site-loader');if(l&&l.animate){var a=l.animate([{transform:'translate3d(0,0%,0)'},{transform:'translate3d(0,-110%,0)'}],{duration:960,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});a.onfinish=function(){a.cancel();done()}}else done()}}if(skip)skip.addEventListener('click',finish);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(finish,Math.max(0,2200-(performance.now()-begin)))})})();</script>
 <script src="/site-interactions.js" defer></script>
