@@ -78,9 +78,7 @@ h3{font:500 18px/1.3 var(--sans);color:var(--h3);margin:0 0 6px;letter-spacing:-
 }
 .hero h1{font-size:clamp(2.75rem,6.2vw,5rem); letter-spacing: -0.005em; line-height: 1;}
 h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
-h1 .ln>span{display:block;animation:up .9s var(--ease) both}
-h1 .ln:nth-child(2)>span{animation-delay:.07s}
-h1 .ln:nth-child(3)>span{animation-delay:.14s}
+h1 .ln>span{display:block}
 h1 em{font-style:italic}
 @keyframes up{from{transform:translateY(105%)}to{transform:none}}
 .hero-copy{margin-top:32px;max-width:46ch}
@@ -576,7 +574,7 @@ html:not(.preloading):not(.route-exit):not(.route-enter) #site-loader .loader-tr
     <span class="mghost" aria-hidden="true"><svg class="ic"><use href="#i-menu"/></svg><span>Menu</span></span><div class="mh"><div class="acts"><button class="pill tgl" id="theme2" type="button" aria-label="Switch color mode" role="switch" aria-checked="false"><span class="tg-dot" aria-hidden="true"></span><svg class="ic tg-i tg-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="ic tg-i tg-moon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="pill" id="mclose" type="button" aria-label="Close menu"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Close</span></button></div></div>
     <p class="meta lab">Navigate</p>
     <nav class="ml" aria-label="Menu" style="--count:6">
-      <a href="/" style="--i:0"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Home</span></span></a><a href="/#work" style="--i:1"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Work</span></span></a><a href="/projects" class="cur" style="--i:2"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>All projects</span></span></a><a href="/#process" style="--i:3"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Process</span></span></a><a href="/#services" style="--i:4"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>Services</span></span></a><a href="/#about" style="--i:5"><span class="nav-label-clip"><span class="nav-label" data-nav-scramble>About</span></span></a>
+      <a href="/" style="--i:0"><span class="nav-label-clip"><span class="nav-label">Home</span></span></a><a href="/#work" style="--i:1"><span class="nav-label-clip"><span class="nav-label">Work</span></span></a><a href="/projects" class="cur" style="--i:2"><span class="nav-label-clip"><span class="nav-label">All projects</span></span></a><a href="/#process" style="--i:3"><span class="nav-label-clip"><span class="nav-label">Process</span></span></a><a href="/#services" style="--i:4"><span class="nav-label-clip"><span class="nav-label">Services</span></span></a><a href="/#about" style="--i:5"><span class="nav-label-clip"><span class="nav-label">About</span></span></a>
     </nav>
     <div class="mr">
       <div class="mctx-wrap"><p class="meta lab">Local time</p><div class="mctx" id="menuContext"></div></div>
@@ -1301,6 +1299,9 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
   'use strict';
   var D=document,root=D.documentElement,$=function(s,r){return(r||D).querySelector(s)},$$=function(s,r){return[].slice.call((r||D).querySelectorAll(s))};
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,arrived=false;
+  function waitForIntro(){if(!root.classList.contains('preloading')&&!root.classList.contains('route-enter'))return Promise.resolve();return new Promise(function(resolve){var done=false;function release(){if(done)return;done=true;D.removeEventListener('aydev:intro-complete',release);resolve()}D.addEventListener('aydev:intro-complete',release,{once:true});setTimeout(release,4500)})}
+  function waitForFonts(){return Promise.race([D.fonts?D.fonts.ready:Promise.resolve(),new Promise(function(resolve){setTimeout(resolve,900)})])}
+
   if(reduce){root.classList.remove('mpre');return}
   if(!window.gsap||!window.ScrollTrigger){initPageTransitions();root.classList.remove('mpre');return}
   gsap.registerPlugin(ScrollTrigger);
@@ -1354,7 +1355,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
     gsap.set(words,{yPercent:112});gsap.set(h1,{opacity:1});gsap.set(rest,{opacity:0,y:22});
     if(cover){gsap.set(cover,{opacity:1});cvSet(plate,'b')}
     root.classList.remove('mpre');
-    Promise.race([D.fonts?D.fonts.ready:Promise.resolve(),new Promise(function(r){setTimeout(r,600)})]).then(function(){
+    Promise.all([waitForIntro(),waitForFonts()]).then(function(){
       var o=arrived?.45:0,tl=gsap.timeline({defaults:{ease:M.enter}});
       tl.to(words,{yPercent:0,duration:1.15,stagger:.06},o+.05)
         .to(rest,{opacity:1,y:0,duration:.9,stagger:.07,clearProps:'transform,opacity'},o+.4);
@@ -1459,7 +1460,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
     if(root.classList.contains('route-enter')){
       if(line)line.textContent=routeLabel(new URL(location.href));
       if(greeting)greeting.hidden=true;
-      requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('route-reveal');curtain(0,-110,function(){root.classList.remove('route-enter','route-reveal')})})});
+      requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('route-reveal');curtain(0,-110,function(){root.classList.remove('route-enter','route-reveal');D.dispatchEvent(new Event('aydev:intro-complete'))})})});
     }
     function navigate(href){
       var u;try{u=new URL(href,location.href)}catch(x){return false}
@@ -1589,7 +1590,7 @@ html.pbg-ok #contact{background:transparent;position:relative;isolation:isolate}
 /* Keep menu links readable against the dark navigation sheet on hover and keyboard focus. */
 #menu .sheet .ml a:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .ml a:not(.btn):not(.pill):not(.totop):focus-visible,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):hover,#menu .sheet .mm:not(.btn):not(.pill):not(.totop):focus-visible{color:var(--bg)!important;opacity:1!important;text-decoration:none!important;transform:none!important;text-shadow:none!important}
 </style>
-<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),count=document.getElementById('loader-count'),skip=document.getElementById('loader-skip'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,finished=false;var cycle=setInterval(function(){if(n%4===0&&g){g.classList.remove('word-in');void g.offsetWidth;g.textContent=words[(n/4)%words.length];g.classList.add('word-in')}if(count)count.textContent=String(Math.min(99,Math.round((performance.now()-begin)/22))).padStart(2,'0');n++},70);function finish(){if(finished)return;finished=true;clearInterval(cycle);if(skip)skip.disabled=true;root.classList.add('loader-leave');var done=function(){root.classList.remove('preloading','loader-leave')};if(window.__siteCurtain)window.__siteCurtain(0,-110,done);else{var l=document.getElementById('site-loader');if(l&&l.animate){var a=l.animate([{transform:'translate3d(0,0%,0)'},{transform:'translate3d(0,-110%,0)'}],{duration:960,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});a.onfinish=function(){a.cancel();done()}}else done()}}if(skip)skip.addEventListener('click',finish);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(finish,Math.max(0,2200-(performance.now()-begin)))})})();</script>
+<script>(function(){var root=document.documentElement;if(!root.classList.contains('preloading'))return;var begin=performance.now(),g=document.getElementById('loader-greeting'),count=document.getElementById('loader-count'),skip=document.getElementById('loader-skip'),words=['hello','hola','bonjour','olá','ciao','hallo','नमस्ते','こんにちは','你好','مرحبا'],n=0,finished=false;var cycle=setInterval(function(){if(n%4===0&&g){g.classList.remove('word-in');void g.offsetWidth;g.textContent=words[(n/4)%words.length];g.classList.add('word-in')}if(count)count.textContent=String(Math.min(99,Math.round((performance.now()-begin)/22))).padStart(2,'0');n++},70);function finish(){if(finished)return;finished=true;clearInterval(cycle);if(skip)skip.disabled=true;root.classList.add('loader-leave');var done=function(){root.classList.remove('preloading','loader-leave');document.dispatchEvent(new Event('aydev:intro-complete'))};if(window.__siteCurtain)window.__siteCurtain(0,-110,done);else{var l=document.getElementById('site-loader');if(l&&l.animate){var a=l.animate([{transform:'translate3d(0,0%,0)'},{transform:'translate3d(0,-110%,0)'}],{duration:960,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});a.onfinish=function(){a.cancel();done()}}else done()}}if(skip)skip.addEventListener('click',finish);var visible=[].slice.call(document.images).filter(function(i){var r=i.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight&&r.bottom>0});var assets=Promise.all([document.fonts&&document.fonts.ready||Promise.resolve()].concat(visible.map(function(i){if(i.complete&&i.naturalWidth)return i.decode?i.decode().catch(function(){}):Promise.resolve();return new Promise(function(ok){i.addEventListener('load',ok,{once:true});i.addEventListener('error',ok,{once:true})})})));var cap=new Promise(function(ok){setTimeout(ok,1500)});Promise.race([assets,cap]).then(function(){setTimeout(finish,Math.max(0,2200-(performance.now()-begin)))})})();</script>
 <script src="/site-interactions.js" defer></script>
 </body>
 </html>
