@@ -69,13 +69,6 @@ html.route-enter #site-loader .loader-count,html.route-enter #site-loader #loade
 .bar .nav-context .nc-range{flex:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:959px){#bar .nav-context{display:none!important}}
 @media(prefers-reduced-motion:reduce){#menu .sheet .nav-label{transition:none!important;transform:none!important;opacity:1!important}#bar .nav-context,#bar .nav-context .nc-popup{transition:none!important}}
-/* Crisp theme switch with restrained warm/cool icon accents. */
-#bar .pill.tgl{border:1.5px solid color-mix(in srgb,var(--fg) 82%,var(--line))!important;background:color-mix(in srgb,var(--bg) 86%,var(--fg))!important;color:var(--fg)!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 7%,transparent)}
-#bar .pill.tgl:focus-visible{outline:2px solid var(--fg)!important;outline-offset:3px}
-#bar .pill.tgl .tg-sun{color:#e3a23a}
-#bar .pill.tgl .tg-moon{color:#7f9eff}
-#menu .sheet .pill.tgl,#menu .sheet .pill.tgl:hover{border:1.5px solid var(--bg)!important;background:var(--fg)!important;color:var(--bg)!important}
-#menu .sheet .pill.tgl:focus-visible{outline:2px solid var(--bg)!important;outline-offset:3px}
 /* The image zoom uses the independent scale property so its curtain transform stays intact. */
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.win .art .hero-project-img{transition:scale .72s cubic-bezier(.22,1,.36,1)!important}.win .art:hover .hero-project-img{scale:1.065!important}}
 /* Refined title hover: restrained word lift with a warm highlight and no cursor lens. */
